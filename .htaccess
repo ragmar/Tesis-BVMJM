@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   RewriteBase /bvmjm/
+   RewriteRule    ^$ /bvmjm/app/webroot/    [L]
+   RewriteRule    (.*) /bvmjm/app/webroot/$1 [L]
+</IfModule>
