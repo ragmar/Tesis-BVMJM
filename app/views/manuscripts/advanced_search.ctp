@@ -17,6 +17,55 @@ input{
 		
 </style>
 
+<!-- Codigo de alejandro -->
+
+<?php echo $this->Html->script('incipit/incipitManager'); ?>
+<?php echo $this->Html->css('incipit/incipitManager'); ?>
+<style>
+	@font-face {
+	  font-family: Maestro;
+	  src: url(<?php echo $this->Html->url('/files/incipit/MAESTRO_.ttf'); ?>) format('truetype');
+	}
+	.test 
+	{
+	}
+
+	.test2
+	{
+		padding-top: 30%;
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-bottom: 0px;
+	}
+
+	.test3
+	{
+		padding-left: inherit;
+		padding-right: inherit;
+	}
+
+	.test4
+	{
+		padding-left: inherit;
+		padding-right: inherit;
+	}
+	.test5
+	{
+		width: 100%;
+		padding-left: inherit;
+		padding-right: inherit;
+		padding-top: 0px;
+		padding-bottom: inherit;
+	}
+
+	.Maestrotest
+	{
+		font-family: Maestro;
+		font-size: 15pt;
+	} 
+</style>
+<!-- Fin de Codigo de alejandro -->
+
 
 <?php if (($this->Session->check('Auth.User') && ($this->Session->read('Auth.User.group_id') == '2'))) { ?>
 <ul class="breadcrumb" style="margin: 0">	
@@ -82,6 +131,125 @@ input{
 		</div>
 	</div>
 	
+	<!-- CODIGO DE ALEJANDRO* !-->
+	<div class="Maestrotest">
+		<p>A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z
+		<p>a b c d e f g h i j k l m n ñ o p q r s t u v w x y z
+		<p> 1 2 3 4 5 6 7 8 9 0
+		<p> ! " # $ % & / ( ) = ? ¡
+		<p> , . ; : { } ´ * [ ]
+	</div>
+	<!--<div class="row test">
+		<div class="col-xs-2">
+			<div class="row test2">
+				<div class="col-xs-8 test2">
+				</div>
+				<div class="col-xs-2 test3">
+					<?php
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+					?>
+				</div>
+				<div class="col-xs-2 test4">
+					<?php
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+					?>
+				</div>
+			</div>
+		</div> !-->
+		<table class="col-xs-2 Maestro">
+			<tr>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+				<td>
+					<?php
+						echo $this->Form->button('Redirect1', array('type'=>'button'));
+					?>
+				</td>
+			</tr>
+		</table>
+		<!-- Por ahora width="1000" height="320" !-->
+		<canvas id="incipit" class="col-xs-10" width="1000" height="320">
+			<script> 
+				var incipitDocument = document.getElementById("incipit");
+				initializeIncipit(incipitDocument); 
+			</script>
+		</canvas>
+	</div>
+
+	<!-- FIN CODIGO DE ALEJANDRO* !-->
 	</fieldset>
 	</br>
 	<?php echo $this->Form->submit(__('Search', true), array('class'=>'btn btn-primary'));?>
