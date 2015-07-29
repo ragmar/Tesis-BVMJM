@@ -138,7 +138,9 @@ input{
 		<p> 1 2 3 4 5 6 7 8 9 0
 		<p> ! " # $ % & / ( ) = ? ¡
 		<p> , . ; : { } ´ * [ ]
+		<p> rxr
 	</div>
+	<div>
 	<!--<div class="row test">
 		<div class="col-xs-2">
 			<div class="row test2">
