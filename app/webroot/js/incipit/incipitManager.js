@@ -1,5 +1,5 @@
-var clef = "&";
-var note4 = "q";
+var clef = "1";
+var note4 = "F";
 var dibujarMallado = false;
 
 var Incipit =

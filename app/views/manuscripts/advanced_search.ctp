@@ -24,7 +24,7 @@ input{
 <style>
 	@font-face {
 	  font-family: Maestro;
-	  src: url(<?php echo $this->Html->url('/files/incipit/MAESTRO_.ttf'); ?>) format('truetype');
+	  src: url(<?php echo $this->Html->url('/files/incipit/test.ttf'); ?>) format('truetype');
 	}
 	.test 
 	{
