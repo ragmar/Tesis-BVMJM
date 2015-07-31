@@ -168,80 +168,24 @@ input{
 				</div>
 			</div>
 		</div> !-->
-		<table class="col-xs-2 Maestro">
-			<tr>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-				<td>
-					<?php
-						echo $this->Form->button('Redirect1', array('type'=>'button'));
-					?>
-				</td>
-			</tr>
-		</table>
+		<?php
+			echo "<table class='col-xs-2'>";
+			$i = 0;
+			$j = 0;
+
+			for ($i = 0; $i < 6; $i++)
+			{
+				echo "<tr>";
+				for ($j = 0; $j < 2; $j++)
+				{
+					echo "<td>";
+					echo $this->Form->button( chr(97 + ($i *2 + $j)), array('type'=>'button', 'class' => 'btn btn-m btn-default Maestrotest', 'data-halign' => 'center'));
+					echo "</td>";
+				}
+				echo "</tr>";
+			}
+			echo "</table>";
+		?>
 		<!-- Por ahora width="1000" height="320" !-->
 		<canvas id="incipit" class="col-xs-10" width="1000" height="320">
 			<script> 
