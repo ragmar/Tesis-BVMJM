@@ -20,7 +20,7 @@ input{
 <!-- Codigo de alejandro -->
 
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
-<?php echo $this->Html->css('incipit/incipitManager'); ?>
+<!--<?php echo $this->Html->css('incipit/incipitManager'); ?> -->
 <style>
 	@font-face {
 	  font-family: Maestro;

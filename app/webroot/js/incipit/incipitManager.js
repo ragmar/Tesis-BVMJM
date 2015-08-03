@@ -35,6 +35,54 @@ var Notes =
     {name: "hemidemisemiquaver", value: "j"}
 ]
 
+//Get the Note Name by the Note value
+function getNoteNameByValue(value)
+{
+    for(var i = 0; i < Notes.length; i++)
+    {
+        if(Notes[i].value === value)
+        {
+            return Notes[i].name;
+        }
+    }
+}
+
+//Get the Note Value by the Note name
+function getNoteValueByName(name)
+{
+    for(var i = 0; i < Notes.length; i++)
+    {
+        if(Notes[i].name === name)
+        {
+            return Notes[i].value;
+        }
+    }
+}
+
+//Get the note by the value
+function getNoteByValue(value)
+{
+    for(var i = 0; i < Notes.length; i++)
+    {
+        if(Notes[i].value === value)
+        {
+            return Notes[i];
+        }
+    }
+}
+
+//Get the note by the name
+function getNoteByName(name)
+{
+    for(var i = 0; i < Notes.length; i++)
+    {
+        if(Notes[i].name === name)
+        {
+            return Notes[i];
+        }
+    }
+}
+
 //British Names
 var NoteName =
 {
@@ -69,10 +117,8 @@ var NoteValue =
 
 function getCurrentNote()
 {
-    console.log('HOLA '+Notes.length);
     for(var i = 0; i < Notes.length; i++)
-    {
-        console.log(currentNote +" <--- LA  CURRENT NOTA ----> "+Notes[i])
+    {       
         if(Notes[i].value === currentNote)
         {
             return Notes[i];
@@ -205,7 +251,7 @@ function initializeIncipit(canvasElement) {
 
     //inicializar canvas
 
-    Incipit.noteType.push(NoteName.clef);
+    Incipit.noteType.push(getNoteByName("clef"));
     Incipit.insideElements.push(0);
     Incipit.logicalPlace.push(Incipit.step*15); //15 for normal clef
 
@@ -244,58 +290,6 @@ function drawPentagram()
             Incipit.gDrawingContext.font = "bold 38px Maestro"; //38 for main
             Incipit.gDrawingContext.fillText(Incipit.noteType[i].value, Incipit.insideElements[i], Incipit.logicalPlace[i]);
         }
-
-/*
-        if(Incipit.noteType[i] == NoteName.noteMaxima)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.noteMaxima, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }   
-
-        if(Incipit.noteType[i] == NoteName.noteLonga)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.noteLonga, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }  
-
-        if(Incipit.noteType[i] == NoteName.note0)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.note0, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }  
-
-        if(Incipit.noteType[i] == NoteName.note1)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.note1, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }  
-
-        if(Incipit.noteType[i] == NoteName.note2)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.note2, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }    
-
-        if(Incipit.noteType[i] == NoteName.note4)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.note4, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }  
-
-        if(Incipit.noteType[i] == NoteName.note8)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.note8, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }
-
-        if(Incipit.noteType[i] == NoteName.note16)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.note16, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }  
-
-        if(Incipit.noteType[i] == NoteName.note32)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.note32, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }  
-
-        if(Incipit.noteType[i] == NoteName.note64)
-        {
-            Incipit.gDrawingContext.fillText(NoteValue.note64, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }  
-        */
     }
 
     Incipit.gDrawingContext.stroke();
