@@ -1,5 +1,5 @@
 var clef = "1";
-var note4 = "F";
+var currentNote = "f";
 var dibujarMallado = false;
 
 var Incipit =
@@ -19,12 +19,73 @@ var Incipit =
     noteType : new Array()
 }
 
+
+var Notes = 
+[
+    {name: "clef", value: "1"},
+    {name: "maxima", value: "a"},
+    {name: "longa", value: "b"},
+    {name: "breve", value: "c"},
+    {name: "semibreve", value: "d"},
+    {name: "minim", value: "e"},
+    {name: "crotchet", value: "f"},
+    {name: "quaver", value: "g"},
+    {name: "semiquaver", value: "h"},
+    {name: "demisemiquaver", value: "i"},
+    {name: "hemidemisemiquaver", value: "j"}
+]
+
+//British Names
 var NoteName =
 {
-    clef : "clef",
-    note4: "note-4"
+    clef:       "clef",
+    noteMaxima: "maxima",
+    noteLonga:  "longa",
+    note0:      "breve",
+    note1:      "semibreve",
+    note2:      "minim",
+    note4:      "crotchet",
+    note8:      "quaver",
+    note16:     "semiquaver",
+    note32:     "demisemiquaver",
+    note64:     "hemidemisemiquaver"
 }
 
+var NoteValue =
+{
+    clef :      "1",
+    noteMaxima: "a",
+    noteLonga:  "b",
+    note0:      "c",
+    note1:      "d",
+    note2:      "e",
+    note4:      "f",
+    note8:      "g",
+    note16:     "h",
+    note32:     "i",
+    note64:     "j"
+
+}
+
+function getCurrentNote()
+{
+    console.log('HOLA '+Notes.length);
+    for(var i = 0; i < Notes.length; i++)
+    {
+        console.log(currentNote +" <--- LA  CURRENT NOTA ----> "+Notes[i])
+        if(Notes[i].value === currentNote)
+        {
+            return Notes[i];
+        }
+    }
+    return null;
+}
+
+//Recive the note to currently display
+function NoteSelected(note)
+{
+    currentNote = note;
+};
 function getCursorPosition(e) {
     /* returns Cell with .row and .column properties */
     var x;
@@ -46,12 +107,12 @@ function getCursorPosition(e) {
     x = Math.min(x, Incipit.gCanvasElement.width * 50);
     y = Math.min(y, Incipit.gCanvasElement.height * Incipit.step);
 
-    console.log("x y");
-    console.log(x,y);
+   /* console.log("x y");
+    console.log(x,y);*/
     var cursor = new Array(Math.floor(x/50), Math.floor(y/Incipit.step));
 
-    console.log("cursor");
-    console.log(cursor);
+   /* console.log("cursor");
+    console.log(cursor);*/
     
     if(cursor[1] > Incipit.maxSetpY)
     {
@@ -62,8 +123,8 @@ function getCursorPosition(e) {
     {
         cursor[1] = Incipit.minSetpY;
     }
-    console.log("cursor limited");
-    console.log(cursor);
+   /* console.log("cursor limited");
+    console.log(cursor);*/
     return cursor;
 }
 
@@ -83,14 +144,19 @@ function logicalCoordToDrawingCoord(logicalCoordX, logicalCoordY)
 function addNote(e) 
 {
     var cursor = getCursorPosition(e);
-
     
     Incipit.gDrawingContext.clearRect(0, 0, Incipit.gCanvasElement.width, Incipit.gCanvasElement.height);
     drawingCoordToLogicalCoord(cursor[0],cursor[1]);
 
-    Incipit.noteType.push(NoteName.note4);
-    Incipit.insideElements.push(Incipit.insideElements.length * 50);
-    Incipit.logicalPlace.push(cursor[1] * Incipit.step - (Incipit.step * 6) + 2);
+    var note = getCurrentNote();
+
+    if(note != null)
+    {
+
+        Incipit.noteType.push(note);
+        Incipit.insideElements.push(Incipit.insideElements.length * 50);
+        Incipit.logicalPlace.push(cursor[1] * Incipit.step - (Incipit.step * 6) + 2);
+    }
 
     drawPentagram();
 }
@@ -102,7 +168,7 @@ function showNote(e)
     Incipit.gDrawingContext.clearRect(0, 0, Incipit.gCanvasElement.width, Incipit.gCanvasElement.height);
 
     Incipit.gDrawingContext.font = "bold 38px Maestro"; //38 for notes
-    Incipit.gDrawingContext.fillText(note4, Incipit.insideElements.length*50, cursor[1] * Incipit.step - (Incipit.step * 6) + 2);
+    Incipit.gDrawingContext.fillText(currentNote, Incipit.insideElements.length*50, cursor[1] * Incipit.step - (Incipit.step * 6) + 2);
 
     drawPentagram();
 }
@@ -172,14 +238,64 @@ function drawPentagram()
         if(Incipit.noteType[i] == NoteName.clef)
         {
             Incipit.gDrawingContext.font = "bold 46px Maestro"; //46 for clef
-            Incipit.gDrawingContext.fillText(clef, Incipit.insideElements[i] + 3, Incipit.logicalPlace[i]);
+            Incipit.gDrawingContext.fillText(NoteValue.clef, Incipit.insideElements[i] + 3, Incipit.logicalPlace[i]);
+        }else
+        {
+            Incipit.gDrawingContext.font = "bold 38px Maestro"; //38 for main
+            Incipit.gDrawingContext.fillText(Incipit.noteType[i].value, Incipit.insideElements[i], Incipit.logicalPlace[i]);
         }
+
+/*
+        if(Incipit.noteType[i] == NoteName.noteMaxima)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.noteMaxima, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }   
+
+        if(Incipit.noteType[i] == NoteName.noteLonga)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.noteLonga, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }  
+
+        if(Incipit.noteType[i] == NoteName.note0)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.note0, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }  
+
+        if(Incipit.noteType[i] == NoteName.note1)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.note1, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }  
+
+        if(Incipit.noteType[i] == NoteName.note2)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.note2, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }    
 
         if(Incipit.noteType[i] == NoteName.note4)
         {
-            Incipit.gDrawingContext.font = "bold 38px Maestro"; //38 for main
-            Incipit.gDrawingContext.fillText(note4, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }   
+            Incipit.gDrawingContext.fillText(NoteValue.note4, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }  
+
+        if(Incipit.noteType[i] == NoteName.note8)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.note8, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }
+
+        if(Incipit.noteType[i] == NoteName.note16)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.note16, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }  
+
+        if(Incipit.noteType[i] == NoteName.note32)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.note32, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }  
+
+        if(Incipit.noteType[i] == NoteName.note64)
+        {
+            Incipit.gDrawingContext.fillText(NoteValue.note64, Incipit.insideElements[i], Incipit.logicalPlace[i]);
+        }  
+        */
     }
 
     Incipit.gDrawingContext.stroke();
