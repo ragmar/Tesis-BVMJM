@@ -180,7 +180,7 @@ input{
 				{
 					echo "<td>";
 					echo $this->Form->button( chr(97 + ($i *2 + $j)), array('type'=>'button', 'class' => 'btn btn-m btn-default Maestrotest', 'data-halign' => 'center',
-						'onclick' => 'NoteSelected(\''.chr(97 + ($i *2 + $j)).'\');' ));
+						'onclick' => 'NotePressed(\''.chr(97 + ($i *2 + $j)).'\');' ));
 					echo "</td>";
 				}
 				echo "</tr>";
