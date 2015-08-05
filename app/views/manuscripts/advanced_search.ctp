@@ -20,11 +20,11 @@ input{
 <!-- Codigo de alejandro -->
 
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
-<?php echo $this->Html->css('incipit/incipitManager'); ?>
+<!--<?php echo $this->Html->css('incipit/incipitManager'); ?> -->
 <style>
 	@font-face {
 	  font-family: Maestro;
-	  src: url(<?php echo $this->Html->url('/files/incipit/MAESTRO_.ttf'); ?>) format('truetype');
+	  src: url(<?php echo $this->Html->url('/files/incipit/test.ttf'); ?>) format('truetype');
 	}
 	.test 
 	{
@@ -132,7 +132,61 @@ input{
 	</div>
 	
 	<!-- CODIGO DE ALEJANDRO* !-->
+	<div class="Maestrotest">
+		<p>A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z
+		<p>a b c d e f g h i j k l m n ñ o p q r s t u v w x y z
+		<p> 1 2 3 4 5 6 7 8 9 0
+		<p> ! " # $ % & / ( ) = ? ¡
+		<p> , . ; : { } ´ * [ ]
+		<p> rxr
+	</div>
 	<div>
+	<!--<div class="row test">
+		<div class="col-xs-2">
+			<div class="row test2">
+				<div class="col-xs-8 test2">
+				</div>
+				<div class="col-xs-2 test3">
+					<?php
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+					?>
+				</div>
+				<div class="col-xs-2 test4">
+					<?php
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+						echo $form->submit('', array( 'class' => 'btn btn-sm btn-default test5', 'type'=>'image','src' => '/bvmjm/img/TEG/note-4.png'));
+					?>
+				</div>
+			</div>
+		</div> !-->
+		<?php
+			echo "<table class='col-xs-2'>";
+			$i = 0;
+			$j = 0;
+
+			for ($i = 0; $i < 6; $i++)
+			{
+				echo "<tr>";
+				for ($j = 0; $j < 2; $j++)
+				{
+					echo "<td>";
+					echo $this->Form->button( chr(97 + ($i *2 + $j)), array('type'=>'button', 'class' => 'btn btn-m btn-default Maestrotest', 'data-halign' => 'center',
+						'onclick' => 'NotePressed(\''.chr(97 + ($i *2 + $j)).'\');' ));
+					echo "</td>";
+				}
+				echo "</tr>";
+			}
+			echo "</table>";
+		?>
 		<!-- Por ahora width="1000" height="320" !-->
 		<canvas id="incipit" class="col-xs-10" width="1000" height="320">
 			<script> 

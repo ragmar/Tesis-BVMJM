@@ -1,6 +1,6 @@
-var clef = "&";
-var note4 = "q";
+var currenteNotePressed = "f";
 var dibujarMallado = false;
+var noteSelected = null;
 
 var Incipit =
 {
@@ -19,11 +19,120 @@ var Incipit =
     noteType : new Array()
 }
 
+
+var Notes = 
+[
+    {name: "clef", value: "1", font: "bold 46px Maestro"}, //46 for clef
+    {name: "maxima", value: "a", font: "bold 38px Maestro"},
+    {name: "longa", value: "b", font: "bold 38px Maestro"},
+    {name: "breve", value: "c", font: "bold 38px Maestro"},
+    {name: "semibreve", value: "d", font: "bold 38px Maestro"},
+    {name: "minim", value: "e", font: "bold 38px Maestro"},
+    {name: "crotchet", value: "f", font: "bold 38px Maestro"},
+    {name: "quaver", value: "g", font: "bold 38px Maestro"},
+    {name: "semiquaver", value: "h", font: "bold 38px Maestro"},
+    {name: "demisemiquaver", value: "i", font: "bold 38px Maestro"},
+    {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro"}
+]
+
+//Get the Note Name by the Note value
+function getNoteNameByValue(value)
+{
+    for(var i = 0; i < Notes.length; i++)
+    {
+        if(Notes[i].value === value)
+        {
+            return Notes[i].name;
+        }
+    }
+}
+
+//Get the Note Value by the Note name
+function getNoteValueByName(name)
+{
+    for(var i = 0; i < Notes.length; i++)
+    {
+        if(Notes[i].name === name)
+        {
+            return Notes[i].value;
+        }
+    }
+}
+
+//Get the note by the value
+function getNoteByValue(value)
+{
+    for(var i = 0; i < Notes.length; i++)
+    {
+        if(Notes[i].value === value)
+        {
+            return Notes[i];
+        }
+    }
+}
+
+//Get the note by the name
+function getNoteByName(name)
+{
+    for(var i = 0; i < Notes.length; i++)
+    {
+        if(Notes[i].name === name)
+        {
+            return Notes[i];
+        }
+    }
+}
+
+//British Names
 var NoteName =
 {
-    clef : "clef",
-    note4: "note-4"
+    clef:       "clef",
+    noteMaxima: "maxima",
+    noteLonga:  "longa",
+    note0:      "breve",
+    note1:      "semibreve",
+    note2:      "minim",
+    note4:      "crotchet",
+    note8:      "quaver",
+    note16:     "semiquaver",
+    note32:     "demisemiquaver",
+    note64:     "hemidemisemiquaver"
 }
+
+var NoteValue =
+{
+    clef :      "1",
+    noteMaxima: "a",
+    noteLonga:  "b",
+    note0:      "c",
+    note1:      "d",
+    note2:      "e",
+    note4:      "f",
+    note8:      "g",
+    note16:     "h",
+    note32:     "i",
+    note64:     "j"
+
+}
+
+//Returns the note selected on the table
+function getCurrentNotePressed()
+{
+    for(var i = 0; i < Notes.length; i++)
+    {       
+        if(Notes[i].value === currenteNotePressed)
+        {
+            return Notes[i];
+        }
+    }
+    return null;
+}
+
+//Recive the note to currently display
+function NotePressed(note)
+{
+    currenteNotePressed = note;
+};
 
 function getCursorPosition(e) {
     /* returns Cell with .row and .column properties */
@@ -80,29 +189,65 @@ function logicalCoordToDrawingCoord(logicalCoordX, logicalCoordY)
     var drawingCoord = new Array();
 }
 
-function addNote(e) 
+
+function clickExistingElement(cursor)
+{
+    if(cursor[0] <= Incipit.insideElements.length - 1)
+    {
+        noteSelected = cursor[0];
+        return true;
+    }
+
+    noteSelected = Incipit.insideElements.length;
+    return false;
+}
+
+function clickOnCanvas(e)
 {
     var cursor = getCursorPosition(e);
 
-    
+    if(!clickExistingElement(cursor))
+    {
+        addNote(cursor);
+    }
+}
+
+function hoverOnCanvas(e)
+{
+    var cursor = getCursorPosition(e);
+
+    showNote(cursor);
+}
+
+function addNote(cursor) 
+{   
     Incipit.gDrawingContext.clearRect(0, 0, Incipit.gCanvasElement.width, Incipit.gCanvasElement.height);
     drawingCoordToLogicalCoord(cursor[0],cursor[1]);
 
-    Incipit.noteType.push(NoteName.note4);
-    Incipit.insideElements.push(Incipit.insideElements.length * 50);
-    Incipit.logicalPlace.push(cursor[1] * Incipit.step - (Incipit.step * 6) + 2);
+    var note = getCurrentNotePressed();
+
+    if(note != null)
+    {
+        Incipit.noteType.push(note);
+        Incipit.insideElements.push(Incipit.insideElements.length * 50);
+        Incipit.logicalPlace.push(cursor[1] * Incipit.step - (Incipit.step * 6) + 2);
+    }
 
     drawPentagram();
 }
 
-function showNote(e) 
+function showNote(cursor) 
 {
-    var cursor = getCursorPosition(e);
-    
     Incipit.gDrawingContext.clearRect(0, 0, Incipit.gCanvasElement.width, Incipit.gCanvasElement.height);
 
-    Incipit.gDrawingContext.font = "bold 38px Maestro"; //38 for notes
-    Incipit.gDrawingContext.fillText(note4, Incipit.insideElements.length*50, cursor[1] * Incipit.step - (Incipit.step * 6) + 2);
+    var note = getCurrentNotePressed();
+
+    if(cursor[0] > Incipit.insideElements.length - 1 && note != null)
+    {
+        Incipit.gDrawingContext.fillStyle = "black";
+        Incipit.gDrawingContext.font = note.font;
+        Incipit.gDrawingContext.fillText(note.value, Incipit.insideElements.length*50, cursor[1] * Incipit.step - (Incipit.step * 6) + 2);
+    }
 
     drawPentagram();
 }
@@ -128,18 +273,17 @@ function initializeIncipit(canvasElement) {
     Incipit.gCanvasElement = canvasElement;
     Incipit.gCanvasElement.width = canvasElement.width;
     Incipit.gCanvasElement.height = canvasElement.height;
-    Incipit.gCanvasElement.addEventListener("click", addNote, false);
-    Incipit.gCanvasElement.addEventListener("mousemove", showNote, false);
+    Incipit.gCanvasElement.addEventListener("click", clickOnCanvas, false);
+    Incipit.gCanvasElement.addEventListener("mousemove", hoverOnCanvas, false);
     window.addEventListener("keypress", doKeyDown, false );
 
     Incipit.gDrawingContext = Incipit.gCanvasElement.getContext("2d");
 
-    Incipit.gDrawingContext.font = "bold 38px Maestro"; //38 for notes
     Incipit.gDrawingContext.textBaseline = "top";
 
     //inicializar canvas
 
-    Incipit.noteType.push(NoteName.clef);
+    Incipit.noteType.push(getNoteByName("clef"));
     Incipit.insideElements.push(0);
     Incipit.logicalPlace.push(Incipit.step*15); //15 for normal clef
 
@@ -169,17 +313,14 @@ function drawPentagram()
     //notes
     for(var i=0; i < Incipit.insideElements.length; i++)
     {
-        if(Incipit.noteType[i] == NoteName.clef)
+        Incipit.gDrawingContext.fillStyle = "black";
+        if(i == noteSelected)
         {
-            Incipit.gDrawingContext.font = "bold 46px Maestro"; //46 for clef
-            Incipit.gDrawingContext.fillText(clef, Incipit.insideElements[i] + 3, Incipit.logicalPlace[i]);
+            Incipit.gDrawingContext.fillStyle = "orange";
         }
-
-        if(Incipit.noteType[i] == NoteName.note4)
-        {
-            Incipit.gDrawingContext.font = "bold 38px Maestro"; //38 for main
-            Incipit.gDrawingContext.fillText(note4, Incipit.insideElements[i], Incipit.logicalPlace[i]);
-        }   
+        
+        Incipit.gDrawingContext.font = Incipit.noteType[i].font;
+        Incipit.gDrawingContext.fillText(Incipit.noteType[i].value, Incipit.insideElements[i], Incipit.logicalPlace[i]);
     }
 
     Incipit.gDrawingContext.stroke();
