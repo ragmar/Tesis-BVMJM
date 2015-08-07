@@ -2,22 +2,48 @@ var currenteNotePressed = "f";
 var dibujarMallado = false;
 var noteSelected = null;
 
-var Incipit =
+
+function IncipitClass ()
 {
-    gCanvasElement: "",
-    gDrawingContext: "",
+    //Variables
+    this.gCanvasElement = "";
+    this.gDrawingContext = "";
 
     //8 pixels make 1 step for scale 1:1 and there are a 40 stepOnY and 125 stepOnX
-    step : 8,
-    stepOnY: 40,
-    stepOnX: 125,
-    maxSetpY: 29,
-    minSetpY: 11,
+    this.step       = 8;
+    this.stepOnY    = 40;
+    this.stepOnX    = 125;
+    this.maxSetpY   = 29;
+    this.minSetpY   = 11;
 
-    insideElements : new Array(),
-    logicalPlace : new Array(),
-    noteType : new Array()
+    this.insideElements = new Array();
+    this.logicalPlace   = new Array();
+    this.noteType       = new Array();
+
+    //Functions
+
+    this.initializeCanvas = function(canvasElement) 
+    {
+        if (!canvasElement) {
+            canvasElement = document.createElement("incipitCanvas");
+            canvasElement.id = "incipit_canvas";
+            document.body.appendChild(canvasElement);
+        }
+
+        this.gCanvasElement = canvasElement;
+        this.gCanvasElement.width = canvasElement.width;
+        this.gCanvasElement.height = canvasElement.height;
+        this.gCanvasElement.addEventListener("click", clickOnCanvas, false);
+        this.gCanvasElement.addEventListener("mousemove", hoverOnCanvas, false);
+        window.addEventListener("keypress", doKeyDown, false );
+
+        this.gDrawingContext = this.gCanvasElement.getContext("2d");
+
+        this.gDrawingContext.textBaseline = "top";
+    };
 }
+
+var Incipit = new IncipitClass();
 
 
 var Notes = 
@@ -264,7 +290,7 @@ function doKeyDown(e)
 
 function initializeIncipit(canvasElement) {
 
-    if (!canvasElement) {
+    /*if (!canvasElement) {
         canvasElement = document.createElement("incipitCanvas");
         canvasElement.id = "incipit_canvas";
         document.body.appendChild(canvasElement);
@@ -279,7 +305,9 @@ function initializeIncipit(canvasElement) {
 
     Incipit.gDrawingContext = Incipit.gCanvasElement.getContext("2d");
 
-    Incipit.gDrawingContext.textBaseline = "top";
+    Incipit.gDrawingContext.textBaseline = "top";*/
+
+    this.initializeCanvas(canvasElement);
 
     //inicializar canvas
 
