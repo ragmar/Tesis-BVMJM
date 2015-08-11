@@ -102,9 +102,9 @@ function CanvasClass ()
 
     /*REGION EVENTS*/
     //onClick canvas
-    this.clickOnCanvas = function(context, e)
+    this.clickOnCanvas = function(context, event)
     {
-        var cursor = context.getCursorPosition(context, e);
+        var cursor = context.getCursorPosition(context, event);
 
         if(!context.clickExistingElement(context, cursor))
         {
@@ -113,16 +113,16 @@ function CanvasClass ()
     };
 
     //onhoverCanvas
-    this.hoverOnCanvas = function(context, e)
+    this.hoverOnCanvas = function(context, event)
     {
-        var cursor = context.getCursorPosition(context, e);
+        var cursor = context.getCursorPosition(context, event);
 
         context.showNote(context, cursor);
     };
 
-    this.doKeyDown = function(context, e)
+    this.doKeyDown = function(context, event)
     {
-        if(e.keyCode == 109)
+        if(event.keyCode == 109)
         {
             dibujarMallado = !dibujarMallado;
         }
@@ -148,9 +148,9 @@ function CanvasClass ()
         context.gCanvasElement.width = canvasElement.width;
         context.gCanvasElement.height = canvasElement.height;
         //set the on click function on the canvas
-        context.gCanvasElement.addEventListener("click", function(e) { context.clickOnCanvas(context, e) } , false);
+        context.gCanvasElement.addEventListener("click", function(event) { context.clickOnCanvas(context, event) } , false);
         //set the mouse hover function on the canvas
-        context.gCanvasElement.addEventListener("mousemove", function(e) { context.hoverOnCanvas(context, e) } , false);
+        context.gCanvasElement.addEventListener("mousemove", function(event) { context.hoverOnCanvas(context, event) } , false);
 
         window.addEventListener("keypress", function(e) { context.doKeyDown(context, e) }, false );
 
@@ -164,34 +164,23 @@ function CanvasClass ()
     };
 
     //Cursor position on cavnas
-    this.getCursorPosition = function(context, e) 
+    this.getCursorPosition = function(context, event) 
     {
-        /* returns Cell with .row and .column properties */
-        var x;
-        var y;
-        if (e.pageX != undefined && e.pageY != undefined) 
-        {
-            x = e.pageX;
-            y = e.pageY;
-        }
-        else 
-        {
-            x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-            y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-        }
+        var rect = context.gCanvasElement.getBoundingClientRect();
 
-        x -= context.gCanvasElement.offsetLeft;
-        y -= context.gCanvasElement.offsetTop;
+        console.log(context.gCanvasElement);
+        var x = Math.round((event.clientX-rect.left)/(rect.right-rect.left)*context.gCanvasElement.width);
+        var y = Math.round((event.clientY-rect.top)/(rect.bottom-rect.top)*context.gCanvasElement.height);
 
-        x = Math.min(x, context.gCanvasElement.width * 50);
-        y = Math.min(y, context.gCanvasElement.height * context.step);
+        var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
+
 
         //console.log("x y");
         //console.log(x,y);
         var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
 
-       // console.log("cursor");
-       // console.log(cursor);
+        //console.log("cursor");
+        //console.log(cursor);
         
         if(cursor[1] > context.maxSetpY)
         {
@@ -202,8 +191,46 @@ function CanvasClass ()
         {
             cursor[1] = context.minSetpY;
         }
-       // console.log("cursor limited");
-      //  console.log(cursor);
+
+        /* returns Cell with .row and .column properties */
+        /*
+        var x;
+        var y;
+        if (event.pageX != undefined && event.pageY != undefined) 
+        {
+            x = event.pageX;
+            y = event.pageY;
+        }
+        else 
+        {
+            x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+
+        x -= context.gCanvasElement.offsetLeft;
+        y -= context.gCanvasElement.offsetTop;
+
+        x = Math.min(x, context.gCanvasElement.width * 50);
+        y = Math.min(y, context.gCanvasElement.height * context.step);
+
+        console.log("x y");
+        console.log(x,y);
+        var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
+
+        console.log("cursor");
+        console.log(cursor);
+        
+        if(cursor[1] > context.maxSetpY)
+        {
+            cursor[1] = context.maxSetpY;
+        }
+
+        if(cursor[1] < context.minSetpY)
+        {
+            cursor[1] = context.minSetpY;
+        }
+        console.log("cursor limited");
+        console.log(cursor);*/
         return cursor;
     };
 
@@ -322,17 +349,27 @@ function CanvasClass ()
         if(dibujarMallado)
         {
             context.gDrawingContext.beginPath();
-            context.gDrawingContext.strokeStyle="#000000";
             context.gDrawingContext.lineWidth="1";
 
-            for(var i=0; i<context.gCanvasElement.width; i=i+8)
+            for(var i=0; i<context.gCanvasElement.width; i++)
             {
+                if(i%50 == 0)
+                {
+                    if( i%50 == 0)
+                    {
+                        context.gDrawingContext.strokeStyle="#0000FF";
+                    }
+                    else
+                    {
+                        context.gDrawingContext.strokeStyle="#000000";
+                    }
 
-                context.gDrawingContext.moveTo(i, 0);
-                context.gDrawingContext.lineTo(i, context.gCanvasElement.height);
+                    context.gDrawingContext.moveTo(i, 0);
+                    context.gDrawingContext.lineTo(i, context.gCanvasElement.height);
+
+                    context.gDrawingContext.stroke();
+                }
             }
-
-            context.gDrawingContext.stroke();
 
             for(var j=0; j<context.gCanvasElement.height; j=j+8)
             {

@@ -188,12 +188,14 @@ input{
 			echo "</table>";
 		?>
 		<!-- Por ahora width="1000" height="320" !-->
-		<canvas id="incipit" class="col-xs-10" width="1000" height="320">
-			<script> 
-				var incipitDocument = document.getElementById("incipit");
-				initializeIncipit(incipitDocument); 
-			</script>
-		</canvas>
+		<div class="col-xs-10">
+			<canvas id="incipit" width="1000" height="320">
+				<script> 
+					var incipitDocument = document.getElementById("incipit");
+					initializeIncipit(incipitDocument); 
+				</script>
+			</canvas>
+		</div>
 	</div>
 
 	<!-- FIN CODIGO DE ALEJANDRO* !-->
