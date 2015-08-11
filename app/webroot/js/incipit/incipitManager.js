@@ -14,7 +14,8 @@ function IncipitClass()
 
     this.initializeNotesArray = function()
     {
-        Notes = 
+        var context = this;
+        context.Notes = 
         [
             {name: "clef", value: "1", font: "bold 46px Maestro"}, //46 for clef
             {name: "maxima", value: "a", font: "bold 38px Maestro"},
@@ -33,11 +34,11 @@ function IncipitClass()
     //Get the Note Name by the Note value
     this.getNoteNameByValue = function (value)
     {
-        for(var i = 0; i < Notes.length; i++)
+        for(var i = 0; i < this.Notes.length; i++)
         {
-            if(Notes[i].value === value)
+            if(this.Notes[i].value === value)
             {
-                return Notes[i].name;
+                return this.Notes[i].name;
             }
         }
     }
@@ -45,11 +46,11 @@ function IncipitClass()
     //Get the Note Value by the Note name
     this.getNoteValueByName = function(name)
     {
-        for(var i = 0; i < Notes.length; i++)
+        for(var i = 0; i < this.Notes.length; i++)
         {
-            if(Notes[i].name === name)
+            if(this.Notes[i].name === name)
             {
-                return Notes[i].value;
+                return this.Notes[i].value;
             }
         }
     }
@@ -57,11 +58,11 @@ function IncipitClass()
     //Get the note by the value
     this.getNoteByValue = function(value)
     {
-        for(var i = 0; i < Notes.length; i++)
+        for(var i = 0; i < this.Notes.length; i++)
         {
-            if(Notes[i].value === value)
+            if(this.Notes[i].value === value)
             {
-                return Notes[i];
+                return this.Notes[i];
             }
         }
     }
@@ -69,11 +70,11 @@ function IncipitClass()
     //Get the note by the name
     this.getNoteByName = function(name)
     {
-        for(var i = 0; i < Notes.length; i++)
+        for(var i = 0; i < this.Notes.length; i++)
         {
-            if(Notes[i].name === name)
+            if(this.Notes[i].name === name)
             {
-                return Notes[i];
+                return this.Notes[i];
             }
         }
     }
@@ -114,7 +115,6 @@ function CanvasClass ()
     //onhoverCanvas
     this.hoverOnCanvas = function(context, e)
     {
-        console.log(context);
         var cursor = context.getCursorPosition(context, e);
 
         context.showNote(context, cursor);
@@ -127,7 +127,7 @@ function CanvasClass ()
             dibujarMallado = !dibujarMallado;
         }
 
-        context.drawPentagram();
+        context.drawPentagram(context);
     };
     /*ENDREGION*/
     /*REGION PRIVATE FUNCTIONS*/
@@ -186,12 +186,12 @@ function CanvasClass ()
         x = Math.min(x, context.gCanvasElement.width * 50);
         y = Math.min(y, context.gCanvasElement.height * context.step);
 
-        console.log("x y");
-        console.log(x,y);
+        //console.log("x y");
+        //console.log(x,y);
         var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
 
-        console.log("cursor");
-        console.log(cursor);
+       // console.log("cursor");
+       // console.log(cursor);
         
         if(cursor[1] > context.maxSetpY)
         {
@@ -202,8 +202,8 @@ function CanvasClass ()
         {
             cursor[1] = context.minSetpY;
         }
-        console.log("cursor limited");
-        console.log(cursor);
+       // console.log("cursor limited");
+      //  console.log(cursor);
         return cursor;
     };
 
@@ -240,7 +240,7 @@ function CanvasClass ()
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawingCoordToLogicalCoord(cursor[0],cursor[1]);
 
-        var note = context.getCurrentNotePressed();
+        var note = context.getCurrentNotePressed(context);
 
         if(note != null)
         {
@@ -249,14 +249,14 @@ function CanvasClass ()
             context.logicalPlace.push(cursor[1] * context.step - (context.step * 6) + 2);
         }
 
-        context.drawPentagram();
+        context.drawPentagram(context);
     };
 
     this.showNote = function(context, cursor) 
     {
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
 
-        var note = getCurrentNotePressed();
+        var note = context.getCurrentNotePressed(context);
 
         if(cursor[0] > context.insideElements.length - 1 && note != null)
         {
@@ -267,6 +267,19 @@ function CanvasClass ()
 
         context.drawPentagram(context);
     };
+
+    //Returns the note selected on the table
+    this.getCurrentNotePressed = function(context)
+    {
+        for(var i = 0; i < context.incipit.Notes.length; i++)
+        {       
+            if(context.incipit.Notes[i].value === currenteNotePressed)
+            {
+                return context.incipit.Notes[i];
+            }
+        }
+        return null;
+    }
 
 
     /*REGION DRAW*/
@@ -333,7 +346,7 @@ function CanvasClass ()
                 }
 
                 context.gDrawingContext.moveTo(0, j);
-                thcontextis.gDrawingContext.lineTo(context.gCanvasElement.width, j);
+                context.gDrawingContext.lineTo(context.gCanvasElement.width, j);
 
                 context.gDrawingContext.stroke();
             }
@@ -345,19 +358,6 @@ function CanvasClass ()
 }
 
 var CanvasIncipit = new CanvasClass();
-
-//Returns the note selected on the table
-function getCurrentNotePressed()
-{
-    for(var i = 0; i < Notes.length; i++)
-    {       
-        if(Notes[i].value === currenteNotePressed)
-        {
-            return Notes[i];
-        }
-    }
-    return null;
-}
 
 //Recive the note to currently display
 function NotePressed(note)
