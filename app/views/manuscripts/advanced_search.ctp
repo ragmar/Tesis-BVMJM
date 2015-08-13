@@ -168,6 +168,41 @@ input{
 				</div>
 			</div>
 		</div> !-->
+		<div id="MainMenu">
+		  <div class="list-group panel">
+		    <a href="#demo3" class="list-group-item list-group-item-success strong" data-toggle="collapse" data-parent="#MainMenu">Item 1 <i class="fa fa-caret-down"></i></a>
+		    <div class="collapse" id="demo3">
+		      <a href="#SubMenu1" class="list-group-item strong" data-toggle="collapse" data-parent="#SubMenu1">Subitem 1 <i class="fa fa-caret-down"></i></a>
+		      <div class="collapse list-group-submenu" id="SubMenu1">
+		        <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 1 a</a>
+		        <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 2 b</a>
+		        <a href="#SubSubMenu1" class="list-group-item strong" data-toggle="collapse" data-parent="#SubSubMenu1"><i class="glyphicon glyphicon-user"></i> Subitem 3 c <i class="fa fa-caret-down"></i></a>
+		        <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu1">
+		          <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 1</a>
+		          <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 2</a>
+		        </div>
+		        <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 4 d</a>
+		        <a href="#SubSubMenu3" class="list-group-item strong" data-toggle="collapse" data-parent="#SubSubMenu3"><i class="glyphicon glyphicon-dashboard"></i> Subitem 5 e <i class="fa fa-caret-down"></i></a>
+		        	<div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu3">
+		          		<a href="#" class="list-group-item" data-parent="#SubSubMenu3">Sub sub item 5.1</a>
+		          		<a href="#" class="list-group-item" data-parent="#SubSubMenu3">Sub sub item 5.2</a>
+		        	</div>
+		      </div>
+		      <a href="#" class="list-group-item">Subitem 2</a>
+		      <a href="#" class="list-group-item">Subitem 3</a>
+		    </div>
+		    <a href="#demo4" class="list-group-item list-group-item-success strong" data-toggle="collapse" data-parent="#MainMenu">Item 2 <i class="fa fa-caret-down"></i></a>
+		    <div class="collapse" id="demo4">
+		      <a href="#" class="list-group-item">Subitem 1</a>
+		      <a href="#SubSubMenu4" class="list-group-item strong" data-toggle="collapse" data-parent="#SubSubMenu4"><i class="glyphicon glyphicon-thumbs-up"></i> Subitem 2 <i class="fa fa-caret-down"></i></a>
+		      <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu4">
+		        <a href="#" class="list-group-item" data-parent="#SubSubMenu1"><i class="glyphicon glyphicon-flag"></i> Sub sub item 1</a>
+		        <a href="#" class="list-group-item" data-parent="#SubSubMenu1"><i class="glyphicon glyphicon-cog"></i> Sub sub item 2</a>
+		        </div>
+		      <a href="#" class="list-group-item">Subitem 3</a>
+		    </div>
+		  </div>
+		</div>
 		<?php
 			echo "<table class='col-xs-2'>";
 			$i = 0;
