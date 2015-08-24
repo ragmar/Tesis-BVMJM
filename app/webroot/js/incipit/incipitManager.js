@@ -27,7 +27,14 @@ function IncipitClass()
             {name: "quaver", value: "g", font: "bold 38px Maestro"},
             {name: "semiquaver", value: "h", font: "bold 38px Maestro"},
             {name: "demisemiquaver", value: "i", font: "bold 38px Maestro"},
-            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro"}
+            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro"},
+
+            {name: "sostenido", value: "k", font: "bold 38px Maestro"},
+            {name: "doblesostenido", value: "l", font: "bold 38px Maestro"},
+            {name: "bemol", value: "m", font: "bold 38px Maestro"},
+            {name: "doblebemol", value: "n", font: "bold 38px Maestro"},
+            {name: "becuadro", value: "o", font: "bold 38px Maestro"},
+            {name: "sostenido2", value: "p", font: "bold 38px Maestro"}
         ];
     }    
 
