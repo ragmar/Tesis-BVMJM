@@ -29,7 +29,14 @@ input{
 	.test 
 	{
 	}
-
+	.btn-primary {
+		width: 15px;
+		height: 35px;
+		margin: 2px 2px 0px 0px;
+		padding: 8px 0px 0px 0px;
+		text-align: center;
+		float: left;
+	}
 	.test2
 	{
 		padding-top: 30%;
@@ -141,14 +148,16 @@ input{
 		<p> rxr
 	</div>
 	<div>
-		<div class="col-md-3 column">
+		<div class="col-md-2 column">
 			<br />
 			<label style="border-bottom: solid 1px #6C3F30;"><?php __('Menu del Íncipit'); ?></label>
 			<br />
 			
 			<?php echo $this->Form->create('manuscripts'); ?>
-			<label>Accidentales:</label><br/>
-			<div class="Maestrotest">
+			<div style="clear: both;">
+				<label>Accidentales:</label><br />
+			</div>
+			<div class="Maestrotest" style="clear: both;">
 				<!-- From K to P!-->
 				<?php echo $this->Html->link('k', array('action' => 'k'), array('id' => 'Accidentales-k', 'class' => 'btn-primary', 'onclick' => 'NotePressed("k"); return false;')); ?>
 				<?php echo $this->Html->link('l', array('action' => 'l'), array('id' => 'Accidentales-l', 'class' => 'btn-primary', 'onclick' => 'NotePressed("l"); return false;')); ?>
@@ -157,8 +166,11 @@ input{
 				<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Accidentales-o', 'class' => 'btn-primary', 'onclick' => 'NotePressed("o"); return false;')); ?>
 				<?php echo $this->Html->link('p', array('action' => 'p'), array('id' => 'Accidentales-p', 'class' => 'btn-primary', 'onclick' => 'NotePressed("p"); return false;')); ?>
 			</div>
-			<label>Tiempos:</label><br/>
-			<div class="Maestrotest">		
+			
+			<div style="clear: both;">
+				<label>Tiempos:</label><br />
+			</div>
+			<div class="Maestrotest" style="clear: both;">		
 				<?php echo $this->Html->link('a', array('action' => 'a'), array('id' => 'Accidentales-a', 'class' => 'btn-primary', 'onclick' => 'NotePressed("a"); return false;')); ?>
 				<?php echo $this->Html->link('b', array('action' => 'b'), array('id' => 'Accidentales-b', 'class' => 'btn-primary', 'onclick' => 'NotePressed("b"); return false;')); ?>
 				<?php echo $this->Html->link('c', array('action' => 'c'), array('id' => 'Accidentales-c', 'class' => 'btn-primary', 'onclick' => 'NotePressed("c"); return false;')); ?>
@@ -183,7 +195,7 @@ input{
 			<?php echo $this->Form->end(); ?>
 		</div>
 		<?php
-			echo "<table class='col-xs-2'>";
+			/*echo "<table class='col-xs-2'>";
 			$i = 0;
 			$j = 0;
 
@@ -199,7 +211,7 @@ input{
 				}
 				echo "</tr>";
 			}
-			echo "</table>";
+			echo "</table>";*/
 		?>
 		<!-- Por ahora width="1000" height="320" !-->
 		<div class="col-xs-10">
