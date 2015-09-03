@@ -175,7 +175,7 @@ function CanvasClass ()
     {
         var rect = context.gCanvasElement.getBoundingClientRect();
 
-        console.log(context.gCanvasElement);
+        //console.log(context.gCanvasElement);
         var x = Math.round((event.clientX-rect.left)/(rect.right-rect.left)*context.gCanvasElement.width);
         var y = Math.round((event.clientY-rect.top)/(rect.bottom-rect.top)*context.gCanvasElement.height);
 
@@ -264,7 +264,7 @@ function CanvasClass ()
             return true;
         }
 
-        noteSelected = context.insideElements.length;
+        noteSelected = null;
         return false;
     };
 
@@ -302,7 +302,7 @@ function CanvasClass ()
         context.drawPentagram(context);
     };
 
-    //Returns the note selected on the table
+    //Returns the last note selected (crotchet by default)
     this.getCurrentNotePressed = function(context)
     {
         for(var i = 0; i < context.incipit.Notes.length; i++)
@@ -315,6 +315,28 @@ function CanvasClass ()
         return null;
     }
 
+    this.buttonPushed = function(context, note)
+    {
+        if(noteSelected != null)
+        {
+            context.changeNoteSelected(context,note);
+        }
+    }
+
+    this.changeNoteSelected = function(context, note)
+    {
+
+        for(var i=0; i < context.insideElements.length; i++)
+        {
+            if(i == noteSelected)
+            {
+                context.noteType[i] = context.incipit.getNoteByValue(note);    
+            }
+        }
+
+        context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
+        context.drawPentagram(context);
+    }
 
     /*REGION DRAW*/
     this.drawPentagram = function(context)
@@ -407,6 +429,7 @@ var CanvasIncipit = new CanvasClass();
 function NotePressed(note)
 {
     currenteNotePressed = note;
+    CanvasIncipit.buttonPushed(CanvasIncipit, note);
 };
 
 
