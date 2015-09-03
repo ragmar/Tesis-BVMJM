@@ -18,6 +18,9 @@ function IncipitClass()
         context.Notes = 
         [
             {name: "clef", value: "1", font: "bold 46px Maestro"}, //46 for clef
+            {name: "clef2", value: "2", font: "bold 46px Maestro"}, //46 for clef
+            {name: "clef3", value: "3", font: "bold 46px Maestro"}, //46 for clef
+
             {name: "maxima", value: "a", font: "bold 38px Maestro"},
             {name: "longa", value: "b", font: "bold 38px Maestro"},
             {name: "breve", value: "c", font: "bold 38px Maestro"},
@@ -34,7 +37,18 @@ function IncipitClass()
             {name: "bemol", value: "m", font: "bold 38px Maestro"},
             {name: "doblebemol", value: "n", font: "bold 38px Maestro"},
             {name: "becuadro", value: "o", font: "bold 38px Maestro"},
-            {name: "sostenido2", value: "p", font: "bold 38px Maestro"}
+            {name: "sostenido2", value: "p", font: "bold 38px Maestro"},
+
+            {name: "silencio1", value: "!", font: "bold 38px Maestro"},
+            {name: "silencio2", value: "\"", font: "bold 38px Maestro"},
+            {name: "silencio3", value: "#", font: "bold 38px Maestro"},
+            {name: "silencio4", value: "$", font: "bold 38px Maestro"},
+            {name: "silencio5", value: "%", font: "bold 38px Maestro"},
+            {name: "silencio6", value: "&", font: "bold 38px Maestro"},
+            {name: "silencio7", value: "'", font: "bold 38px Maestro"},
+            {name: "silencio8", value: "(", font: "bold 38px Maestro"},
+            {name: "silencio9", value: ")", font: "bold 38px Maestro"},
+            {name: "silencio0", value: "*", font: "bold 38px Maestro"}
         ];
     }    
 

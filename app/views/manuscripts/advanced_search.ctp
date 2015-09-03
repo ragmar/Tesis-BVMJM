@@ -29,7 +29,7 @@ input{
 	.test 
 	{
 	}
-	.btn-primary {
+	.buton-incipit {
 		width: 15px;
 		height: 35px;
 		margin: 2px 2px 0px 0px;
@@ -159,28 +159,54 @@ input{
 			</div>
 			<div class="Maestrotest" style="clear: both;">
 				<!-- From K to P!-->
-				<?php echo $this->Html->link('k', array('action' => 'k'), array('id' => 'Accidentales-k', 'class' => 'btn-primary', 'onclick' => 'NotePressed("k"); return false;')); ?>
-				<?php echo $this->Html->link('l', array('action' => 'l'), array('id' => 'Accidentales-l', 'class' => 'btn-primary', 'onclick' => 'NotePressed("l"); return false;')); ?>
-				<?php echo $this->Html->link('m', array('action' => 'm'), array('id' => 'Accidentales-m', 'class' => 'btn-primary', 'onclick' => 'NotePressed("m"); return false;')); ?>
-				<?php echo $this->Html->link('n', array('action' => 'n'), array('id' => 'Accidentales-n', 'class' => 'btn-primary', 'onclick' => 'NotePressed("n"); return false;')); ?>
-				<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Accidentales-o', 'class' => 'btn-primary', 'onclick' => 'NotePressed("o"); return false;')); ?>
-				<?php echo $this->Html->link('p', array('action' => 'p'), array('id' => 'Accidentales-p', 'class' => 'btn-primary', 'onclick' => 'NotePressed("p"); return false;')); ?>
+				<?php echo $this->Html->link('k', array('action' => 'k'), array('id' => 'Accidentales-k', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("k"); return false;')); ?>
+				<?php echo $this->Html->link('l', array('action' => 'l'), array('id' => 'Accidentales-l', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("l"); return false;')); ?>
+				<?php echo $this->Html->link('m', array('action' => 'm'), array('id' => 'Accidentales-m', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("m"); return false;')); ?>
+				<?php echo $this->Html->link('n', array('action' => 'n'), array('id' => 'Accidentales-n', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("n"); return false;')); ?>
+				<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Accidentales-o', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("o"); return false;')); ?>
+				<?php echo $this->Html->link('p', array('action' => 'p'), array('id' => 'Accidentales-p', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("p"); return false;')); ?>
 			</div>
 			
 			<div style="clear: both;">
 				<label>Tiempos:</label><br />
 			</div>
 			<div class="Maestrotest" style="clear: both;">		
-				<?php echo $this->Html->link('a', array('action' => 'a'), array('id' => 'Accidentales-a', 'class' => 'btn-primary', 'onclick' => 'NotePressed("a"); return false;')); ?>
-				<?php echo $this->Html->link('b', array('action' => 'b'), array('id' => 'Accidentales-b', 'class' => 'btn-primary', 'onclick' => 'NotePressed("b"); return false;')); ?>
-				<?php echo $this->Html->link('c', array('action' => 'c'), array('id' => 'Accidentales-c', 'class' => 'btn-primary', 'onclick' => 'NotePressed("c"); return false;')); ?>
-				<?php echo $this->Html->link('d', array('action' => 'd'), array('id' => 'Accidentales-d', 'class' => 'btn-primary', 'onclick' => 'NotePressed("d"); return false;')); ?>
-				<?php echo $this->Html->link('e', array('action' => 'e'), array('id' => 'Accidentales-e', 'class' => 'btn-primary', 'onclick' => 'NotePressed("e"); return false;')); ?>
-				<?php echo $this->Html->link('f', array('action' => 'f'), array('id' => 'Accidentales-f', 'class' => 'btn-primary', 'onclick' => 'NotePressed("f"); return false;')); ?>
-				<?php echo $this->Html->link('g', array('action' => 'g'), array('id' => 'Accidentales-g', 'class' => 'btn-primary', 'onclick' => 'NotePressed("g"); return false;')); ?>
-				<?php echo $this->Html->link('h', array('action' => 'h'), array('id' => 'Accidentales-h', 'class' => 'btn-primary', 'onclick' => 'NotePressed("h"); return false;')); ?>
-				<?php echo $this->Html->link('i', array('action' => 'i'), array('id' => 'Accidentales-i', 'class' => 'btn-primary', 'onclick' => 'NotePressed("i"); return false;')); ?>
-				<?php echo $this->Html->link('j', array('action' => 'j'), array('id' => 'Accidentales-j', 'class' => 'btn-primary', 'onclick' => 'NotePressed("j"); return false;')); ?>
+				<?php echo $this->Html->link('a', array('action' => 'a'), array('id' => 'Accidentales-a', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("a"); return false;')); ?>
+				<?php echo $this->Html->link('b', array('action' => 'b'), array('id' => 'Accidentales-b', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("b"); return false;')); ?>
+				<?php echo $this->Html->link('c', array('action' => 'c'), array('id' => 'Accidentales-c', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("c"); return false;')); ?>
+				<?php echo $this->Html->link('d', array('action' => 'd'), array('id' => 'Accidentales-d', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("d"); return false;')); ?>
+				<?php echo $this->Html->link('e', array('action' => 'e'), array('id' => 'Accidentales-e', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("e"); return false;')); ?>
+				<?php echo $this->Html->link('f', array('action' => 'f'), array('id' => 'Accidentales-f', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("f"); return false;')); ?>
+				<?php echo $this->Html->link('g', array('action' => 'g'), array('id' => 'Accidentales-g', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("g"); return false;')); ?>
+				<?php echo $this->Html->link('h', array('action' => 'h'), array('id' => 'Accidentales-h', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("h"); return false;')); ?>
+				<?php echo $this->Html->link('i', array('action' => 'i'), array('id' => 'Accidentales-i', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("i"); return false;')); ?>
+				<?php echo $this->Html->link('j', array('action' => 'j'), array('id' => 'Accidentales-j', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("j"); return false;')); ?>
+			</div>
+
+			<div style="clear: both;">
+				<label>Silencios:</label><br />
+			</div>
+			<div class="Maestrotest" style="clear: both;">		
+				<?php echo $this->Html->link('!', array('action' => '!'), array('id' => 'Accidentales-!', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("!"); return false;')); ?>
+				<?php echo $this->Html->link('"', array('action' => '"'), array('id' => 'Accidentales-"', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("\""); return false;')); ?>
+				<?php echo $this->Html->link('#', array('action' => '#'), array('id' => 'Accidentales-#', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("#"); return false;')); ?>
+				<?php echo $this->Html->link('$', array('action' => '$'), array('id' => 'Accidentales-$', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("$"); return false;')); ?>
+				<?php echo $this->Html->link('%', array('action' => '%'), array('id' => 'Accidentales-%', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("%"); return false;')); ?>
+				<?php echo $this->Html->link('&', array('action' => '&'), array('id' => 'Accidentales-&', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("&"); return false;')); ?>
+				<?php echo $this->Html->link('\'', array('action' => '\''), array('id' => 'Accidentales-\'', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("\'"); return false;')); ?>
+				<?php echo $this->Html->link('(', array('action' => '('), array('id' => 'Accidentales-(', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("("); return false;')); ?>
+				<?php echo $this->Html->link(')', array('action' => ')'), array('id' => 'Accidentales-)', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed(")"); return false;')); ?>
+				<?php echo $this->Html->link('*', array('action' => '*'), array('id' => 'Accidentales-*', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("*"); return false;')); ?>
+			</div>
+
+			<div style="clear: both;">
+				<label>Claves:</label><br />
+			</div>
+			<div class="Maestrotest" style="clear: both;">
+				<!-- From K to P!-->
+				<?php echo $this->Html->link('1', array('action' => '1'), array('id' => 'Accidentales-1', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("1"); return false;')); ?>
+				<?php echo $this->Html->link('2', array('action' => '2'), array('id' => 'Accidentales-2', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("2"); return false;')); ?>
+				<?php echo $this->Html->link('3', array('action' => '3'), array('id' => 'Accidentales-3', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("3"); return false;')); ?>
 			</div>
 			
 			<script type="text/javascript">
