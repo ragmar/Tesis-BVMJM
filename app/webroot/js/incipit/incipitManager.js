@@ -329,11 +329,30 @@ function CanvasClass ()
         return null;
     }
 
-    this.buttonPushed = function(context, note)
+    //Get the button of the table currently pressed and change the note
+    this.buttonPushed = function(context, note) 
     {
         if(noteSelected != null)
         {
             context.changeNoteSelected(context,note);
+        }
+    }
+
+    //Get the button pressed for drawing upper or downer the current note selected
+    this.toneUpDown = function(context, up)
+    {
+        if(noteSelected != null)
+        {
+            for(var i=0; i < context.insideElements.length; i++)
+            {
+                if(i == noteSelected)
+                {
+                    context.logicalPlace[i] = context.logicalPlace[i] + up * context.step;
+                }
+            }
+
+            context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
+            context.drawPentagram(context);
         }
     }
 
@@ -432,10 +451,10 @@ function CanvasClass ()
             }
         }
         /*FIN DE MALLADO*/
-    };
+    }
     /*ENDREGION*/
     /*ENDREGION*/
-}
+};
 
 var CanvasIncipit = new CanvasClass();
 
@@ -446,10 +465,16 @@ function NotePressed(note)
     CanvasIncipit.buttonPushed(CanvasIncipit, note);
 };
 
+//Move the note up or down, depending of the button pushed
+function toneUpDown(up) 
+{
+    CanvasIncipit.toneUpDown(CanvasIncipit, up);
+};
 
-function initializeIncipit(canvasElement) {
+function initializeIncipit(canvasElement) 
+{
 
     CanvasIncipit.initializeCanvas(canvasElement);
 
     CanvasIncipit.drawPentagram(CanvasIncipit);
-}
+};
