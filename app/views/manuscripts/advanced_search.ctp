@@ -17,6 +17,62 @@ input{
 		
 </style>
 
+<!-- Codigo de alejandro -->
+
+<?php echo $this->Html->script('incipit/incipitManager'); ?>
+<!--<?php echo $this->Html->css('incipit/incipitManager'); ?> -->
+<style>
+	@font-face {
+	  font-family: Maestro;
+	  src: url(<?php echo $this->Html->url('/files/incipit/test.ttf'); ?>) format('truetype');
+	}
+	.test 
+	{
+	}
+	.buton-incipit {
+		width: 15px;
+		height: 35px;
+		margin: 2px 2px 0px 0px;
+		padding: 8px 0px 0px 0px;
+		text-align: center;
+		float: left;
+	}
+	.test2
+	{
+		padding-top: 30%;
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-bottom: 0px;
+	}
+
+	.test3
+	{
+		padding-left: inherit;
+		padding-right: inherit;
+	}
+
+	.test4
+	{
+		padding-left: inherit;
+		padding-right: inherit;
+	}
+	.test5
+	{
+		width: 100%;
+		padding-left: inherit;
+		padding-right: inherit;
+		padding-top: 0px;
+		padding-bottom: inherit;
+	}
+
+	.Maestrotest
+	{
+		font-family: Maestro;
+		font-size: 15pt;
+	} 
+</style>
+<!-- Fin de Codigo de alejandro -->
+
 
 <?php if (($this->Session->check('Auth.User') && ($this->Session->read('Auth.User.group_id') == '2'))) { ?>
 <ul class="breadcrumb" style="margin: 0">	
@@ -82,6 +138,119 @@ input{
 		</div>
 	</div>
 	
+	<!-- CODIGO DE ALEJANDRO* !-->
+	<div class="Maestrotest">
+		<p>A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z
+		<p>a b c d e f g h i j k l m n ñ o p q r s t u v w x y z
+		<p> 1 2 3 4 5 6 7 8 9 0
+		<p> ! " # $ % & / ( ) = ? ¡
+		<p> , . ; : { } ´ * [ ]
+		<p> rxr
+	</div>
+	<div>
+		<div class="col-md-2 column">
+			<br />
+			<label style="border-bottom: solid 1px #6C3F30;"><?php __('Menu del Íncipit'); ?></label>
+			<br />
+			
+			<?php echo $this->Form->create('manuscripts'); ?>
+			<div style="clear: both;">
+				<label>Accidentales:</label><br />
+			</div>
+			<div class="Maestrotest" style="clear: both;">
+				<!-- From K to P!-->
+				<?php echo $this->Html->link('k', array('action' => 'k'), array('id' => 'Accidentales-k', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("k"); return false;')); ?>
+				<?php echo $this->Html->link('l', array('action' => 'l'), array('id' => 'Accidentales-l', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("l"); return false;')); ?>
+				<?php echo $this->Html->link('m', array('action' => 'm'), array('id' => 'Accidentales-m', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("m"); return false;')); ?>
+				<?php echo $this->Html->link('n', array('action' => 'n'), array('id' => 'Accidentales-n', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("n"); return false;')); ?>
+				<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Accidentales-o', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("o"); return false;')); ?>
+				<?php echo $this->Html->link('p', array('action' => 'p'), array('id' => 'Accidentales-p', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("p"); return false;')); ?>
+			</div>
+			
+			<div style="clear: both;">
+				<label>Tiempos:</label><br />
+			</div>
+			<div class="Maestrotest" style="clear: both;">		
+				<?php echo $this->Html->link('a', array('action' => 'a'), array('id' => 'Accidentales-a', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("a"); return false;')); ?>
+				<?php echo $this->Html->link('b', array('action' => 'b'), array('id' => 'Accidentales-b', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("b"); return false;')); ?>
+				<?php echo $this->Html->link('c', array('action' => 'c'), array('id' => 'Accidentales-c', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("c"); return false;')); ?>
+				<?php echo $this->Html->link('d', array('action' => 'd'), array('id' => 'Accidentales-d', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("d"); return false;')); ?>
+				<?php echo $this->Html->link('e', array('action' => 'e'), array('id' => 'Accidentales-e', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("e"); return false;')); ?>
+				<?php echo $this->Html->link('f', array('action' => 'f'), array('id' => 'Accidentales-f', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("f"); return false;')); ?>
+				<?php echo $this->Html->link('g', array('action' => 'g'), array('id' => 'Accidentales-g', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("g"); return false;')); ?>
+				<?php echo $this->Html->link('h', array('action' => 'h'), array('id' => 'Accidentales-h', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("h"); return false;')); ?>
+				<?php echo $this->Html->link('i', array('action' => 'i'), array('id' => 'Accidentales-i', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("i"); return false;')); ?>
+				<?php echo $this->Html->link('j', array('action' => 'j'), array('id' => 'Accidentales-j', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("j"); return false;')); ?>
+			</div>
+
+			<div style="clear: both;">
+				<label>Silencios:</label><br />
+			</div>
+			<div class="Maestrotest" style="clear: both;">		
+				<?php echo $this->Html->link('!', array('action' => '!'), array('id' => 'Accidentales-!', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("!"); return false;')); ?>
+				<?php echo $this->Html->link('"', array('action' => '"'), array('id' => 'Accidentales-"', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("\""); return false;')); ?>
+				<?php echo $this->Html->link('#', array('action' => '#'), array('id' => 'Accidentales-#', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("#"); return false;')); ?>
+				<?php echo $this->Html->link('$', array('action' => '$'), array('id' => 'Accidentales-$', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("$"); return false;')); ?>
+				<?php echo $this->Html->link('%', array('action' => '%'), array('id' => 'Accidentales-%', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("%"); return false;')); ?>
+				<?php echo $this->Html->link('&', array('action' => '&'), array('id' => 'Accidentales-&', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("&"); return false;')); ?>
+				<?php echo $this->Html->link('\'', array('action' => '\''), array('id' => 'Accidentales-\'', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("\'"); return false;')); ?>
+				<?php echo $this->Html->link('(', array('action' => '('), array('id' => 'Accidentales-(', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("("); return false;')); ?>
+				<?php echo $this->Html->link(')', array('action' => ')'), array('id' => 'Accidentales-)', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed(")"); return false;')); ?>
+				<?php echo $this->Html->link('*', array('action' => '*'), array('id' => 'Accidentales-*', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("*"); return false;')); ?>
+			</div>
+
+			<div style="clear: both;">
+				<label>Claves:</label><br />
+			</div>
+			<div class="Maestrotest" style="clear: both;">
+				<!-- From K to P!-->
+				<?php echo $this->Html->link('1', array('action' => '1'), array('id' => 'Accidentales-1', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("1"); return false;')); ?>
+				<?php echo $this->Html->link('2', array('action' => '2'), array('id' => 'Accidentales-2', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("2"); return false;')); ?>
+				<?php echo $this->Html->link('3', array('action' => '3'), array('id' => 'Accidentales-3', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("3"); return false;')); ?>
+			</div>
+			
+			<script type="text/javascript">
+				if ("<?php echo $this->data['manuscripts']['Autor']; ?>" != "") {
+					$("#<?php echo "autor-".$this->data['manuscripts']['Autor']; ?>").attr('style', 'background-color: #e8ded4; border: solid 1px #6c3f30; color: #6c3f30; width: 15px;');
+				} else {
+					$("#<?php echo "autor-todos"; ?>").attr('style', 'background-color: #e8ded4; border: solid 1px #6c3f30; color: #6c3f30; width: 66px;');
+				}
+			</script>
+			<br />
+			<?php //echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'div' => false)); ?>
+			<?php echo $this->Form->end(); ?>
+		</div>
+		<?php
+			/*echo "<table class='col-xs-2'>";
+			$i = 0;
+			$j = 0;
+
+			for ($i = 0; $i < 6; $i++)
+			{
+				echo "<tr>";
+				for ($j = 0; $j < 2; $j++)
+				{
+					echo "<td>";
+					echo $this->Form->button( chr(97 + ($i *2 + $j)), array('type'=>'button', 'class' => 'btn btn-m btn-default Maestrotest', 'data-halign' => 'center',
+						'onclick' => 'NotePressed(\''.chr(97 + ($i *2 + $j)).'\');' ));
+					echo "</td>";
+				}
+				echo "</tr>";
+			}
+			echo "</table>";*/
+		?>
+		<!-- Por ahora width="1000" height="320" !-->
+		<div class="col-xs-10">
+			<canvas id="incipit" width="1000" height="320">
+				<script> 
+					var incipitDocument = document.getElementById("incipit");
+					initializeIncipit(incipitDocument); 
+				</script>
+			</canvas>
+		</div>
+	</div>
+
+	<!-- FIN CODIGO DE ALEJANDRO* !-->
 	</fieldset>
 	</br>
 	<?php echo $this->Form->submit(__('Search', true), array('class'=>'btn btn-primary'));?>
