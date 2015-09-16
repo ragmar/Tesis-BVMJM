@@ -122,7 +122,6 @@ function CanvasClass ()
 
     this.testElements = new Array();
 
-    this.insideElements = new Array();
     this.logicalPlace   = new Array();
     this.incipit        = new IncipitClass();
 
@@ -186,7 +185,6 @@ function CanvasClass ()
 
         context.insertElement(context, context.incipit.getNoteByName("clef").name, 0, 0, null, null, null, null);
 
-        context.insideElements.push(0);
         context.logicalPlace.push(context.step*15); //15 for normal clef
     };
 
@@ -239,7 +237,6 @@ function CanvasClass ()
         {
             context.insertElement(context, note.name, context.testElements.length, 0, null, null, null, null);
 
-            context.insideElements.push(context.insideElements.length * 50);
             context.logicalPlace.push(cursor[1] * context.step - (context.step * 6) + 2);
         }
 
@@ -257,7 +254,7 @@ function CanvasClass ()
         {
             context.gDrawingContext.fillStyle = "black";
             context.gDrawingContext.font = note.font;
-            context.gDrawingContext.fillText(note.value, context.insideElements.length*50, cursor[1] * context.step - (context.step * 6) + 2);
+            context.gDrawingContext.fillText(note.value, context.testElements.length*50, cursor[1] * context.step - (context.step * 6) + 2);
         }
 
         context.drawPentagram(context);
@@ -398,7 +395,7 @@ function CanvasClass ()
             var noteToDraw = context.incipit.getNoteByName(context.testElements[i].noteName);
 
             context.gDrawingContext.font = noteToDraw.font;
-            context.gDrawingContext.fillText(noteToDraw.value, context.insideElements[i], context.logicalPlace[i]);
+            context.gDrawingContext.fillText(noteToDraw.value, context.testElements[i].xPosition * 50, context.logicalPlace[i]);
         }
 
         context.gDrawingContext.stroke();
@@ -408,7 +405,7 @@ function CanvasClass ()
         if(dibujarMallado)
         {
             context.gDrawingContext.beginPath();
-            context.gDrawingContext.lineWidth="1";
+            context.gDrawingContext.lineWidth = "1";
 
             for(var i=0; i<context.gCanvasElement.width; i++)
             {
