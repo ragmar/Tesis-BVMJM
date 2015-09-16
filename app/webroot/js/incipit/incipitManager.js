@@ -117,12 +117,10 @@ function CanvasClass ()
     this.step       = 8;
     this.stepOnY    = 40;
     this.stepOnX    = 125;
-    this.maxSetpY   = 29;
-    this.minSetpY   = 11;
+    this.maxStepY   = 29;
+    this.minStepY   = 11;
 
-    this.testElements = new Array();
-
-    this.logicalPlace   = new Array();
+    this.incipitElements = new Array();
     this.incipit        = new IncipitClass();
 
     /*REGION EVENTS*/
@@ -183,42 +181,48 @@ function CanvasClass ()
 
         context.gDrawingContext.textBaseline = "top";
 
-        context.insertElement(context, context.incipit.getNoteByName("clef").name, 0, 0, null, null, null, null);
-
-        context.logicalPlace.push(context.step*15); //15 for normal clef
+        context.insertElement(context, context.incipit.getNoteByName("clef").name, 0, 9, null, null, null, null);
     };
 
     //Cursor position on cavnas
     this.getCursorPosition = function(context, event) 
     {
         var rect = context.gCanvasElement.getBoundingClientRect();
+        var cursor = {x: 0, y: 0}
         var x = Math.round((event.clientX-rect.left)/(rect.right-rect.left)*context.gCanvasElement.width);
         var y = Math.round((event.clientY-rect.top)/(rect.bottom-rect.top)*context.gCanvasElement.height);
 
-        var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
-
-        var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
+        cursor.x = Math.floor(x/50);
+        cursor.y = Math.floor(y/context.step);
         
-        if(cursor[1] > context.maxSetpY)
+        if(cursor.y > context.maxStepY)
         {
-            cursor[1] = context.maxSetpY;
+            cursor.y = context.maxStepY;
         }
 
-        if(cursor[1] < context.minSetpY)
+        if(cursor.y < context.minStepY)
         {
-            cursor[1] = context.minSetpY;
+            cursor.y = context.minStepY;
         }
 
         return cursor;
+    };
+
+    //Transform cursor coordinates to incipitElements coordinates
+    this.cursorToElement = function(context, cursor)
+    {
+        var x = cursor.x;
+        var y = cursor.y - context.minStepY;
+        return {x: x, y: y};
     };
 
 
     //Click on an Existing Element on the current canvas
     this.clickExistingElement = function(context, cursor)
     {
-        if(cursor[0] <= context.testElements.length - 1)
+        if(cursor.x <= context.incipitElements.length - 1)
         {
-            noteSelected = cursor[0];
+            noteSelected = cursor.x;
             return true;
         }
 
@@ -235,9 +239,8 @@ function CanvasClass ()
 
         if(note != null)
         {
-            context.insertElement(context, note.name, context.testElements.length, 0, null, null, null, null);
-
-            context.logicalPlace.push(cursor[1] * context.step - (context.step * 6) + 2);
+            var eleCoord = context.cursorToElement(context, cursor);
+            context.insertElement(context, note.name, context.incipitElements.length, eleCoord.y, null, null, null, null);
         }
 
         context.drawPentagram(context);
@@ -250,11 +253,23 @@ function CanvasClass ()
 
         var note = context.getCurrentNotePressed(context);
 
-        if(cursor[0] > context.testElements.length - 1 && note != null)
+        if(cursor.x > context.incipitElements.length - 1 && note != null)
         {
             context.gDrawingContext.fillStyle = "black";
-            context.gDrawingContext.font = note.font;
-            context.gDrawingContext.fillText(note.value, context.testElements.length*50, cursor[1] * context.step - (context.step * 6) + 2);
+            var tempEle = context.createElement(context, 
+                                note.name,
+                                context.incipitElements.length,
+                                context.cursorToElement(context, cursor).y,
+                                null,
+                                null,
+                                null,
+                                null);
+
+            var noteToDraw = context.incipit.getNoteByName(note.name);
+            var notePosition = context.getDrawPosition(context, tempEle, context.incipitElements.length);
+
+            context.gDrawingContext.font = noteToDraw.font;
+            context.gDrawingContext.fillText(noteToDraw.value, notePosition.x, notePosition.y);
         }
 
         context.drawPentagram(context);
@@ -287,11 +302,13 @@ function CanvasClass ()
     {
         if(noteSelected != null)
         {
-            for(var i=0; i < context.testElements.length; i++)
+            for(var i=0; i < context.incipitElements.length; i++)
             {
-                if(i == noteSelected)
+                if(i == noteSelected 
+                    && context.incipitElements[i].yPosition + up >= 0 
+                    && context.incipitElements[i].yPosition + up < 19)
                 {
-                    context.logicalPlace[i] = context.logicalPlace[i] + up * context.step;
+                    context.incipitElements[i].yPosition = context.incipitElements[i].yPosition + up;
                 }
             }
 
@@ -304,11 +321,11 @@ function CanvasClass ()
     this.changeNoteSelected = function(context, note)
     {
 
-        for(var i=0; i < context.testElements.length; i++)
+        for(var i=0; i < context.incipitElements.length; i++)
         {
             if(i == noteSelected)
             {
-                context.testElements[i].noteName = context.incipit.getNoteByValue(note).name;    
+                context.incipitElements[i].noteName = context.incipit.getNoteByValue(note).name;    
             }
         }
 
@@ -316,32 +333,46 @@ function CanvasClass ()
         context.drawPentagram(context);
     }
 
-    //Insert an Element on the Incipit
-    this.insertElement = function(context, name, positionX, positionY, puntillo, accidentales, accidentalesName, invertida)
+
+    //Create an Element of the incipit
+    this.createElement = function(context, name, xPosition, yPosition, puntillo, accidentales, accidentalesName, invertida)
     {
 
         if(name == null)               name = "clef";
-        if(positionX == null)          positionX = 0;
-        if(positionY == null)          positionY = 0;
+        if(xPosition == null)          xPosition = 0;
+        if(yPosition == null)          yPosition = 0;
         if(puntillo == null)           puntillo = false;
         if(accidentales == null)       accidentales = false;
         if(accidentalesName == null)   accidentalesName = "becuadro";
         if(invertida == null)          invertida = false;
         
+        return(
+            {
+                noteName: name, 
+                xPosition: xPosition,
+                yPosition: yPosition,
+                puntillo: puntillo,
+                accidentales: accidentales,
+                accidentalesName: accidentalesName,
+                invertida: invertida
+            });
+    }
 
-        context.testElements.push({
-                                    noteName: name, 
-                                    xPosition: positionX,
-                                    yPosition: positionY,
-                                    puntillo: puntillo,
-                                    accidentales: accidentales,
-                                    accidentalesName: accidentalesName,
-                                    invertida: invertida
-                                });
+    //Insert an Element on the Incipit
+    this.insertElement = function(context, name, xPosition, yPosition, puntillo, accidentales, accidentalesName, invertida)
+    {   
+        context.incipitElements.push(context.createElement(context, 
+                                                        name, 
+                                                        xPosition, 
+                                                        yPosition, 
+                                                        puntillo, 
+                                                        accidentales, 
+                                                        accidentalesName, 
+                                                        invertida));
     }
 
     //Erase an Element on the position X on the incipit
-    this.eraseElement = function(context, positionX)
+    this.eraseElement = function(context, xPosition)
     {
         /*if(this.name == null)               this.name = "clef";
         if(this.positionX == null)          this.positionX = 0;
@@ -352,7 +383,7 @@ function CanvasClass ()
         if(this.invertida == null)          this.invertida = false;
         
 
-        context.TestElements.push({
+        context.incipitElements.push({
                                     NoteName: this.name, 
                                     xPosition: this.positionX,
                                     yPosition: this.positionY,
@@ -364,6 +395,22 @@ function CanvasClass ()
     }
 
     /*REGION DRAW*/
+    //functions that returns the drawing coords of the element
+    this.getDrawPosition = function(context, element, index)
+    {
+
+        var positionX = element.xPosition * 50;
+
+        /*yPosition is between 0 and 18, we multiply by Step to draw it on the clicked position, but 
+        the Stem cause problems not drawing the Note head on the position, that why the substract
+        step*6 + 2 occurs, to set it on the mouse position */
+        var positionY = (element.yPosition + context.minStepY) * context.step - (context.step * 6) + 2;
+
+        return {x: positionX, y: positionY};
+
+    }
+
+    //Main function that draw incipit
     this.drawPentagram = function(context)
     {   
         //Incipit.gDrawingContext.clearRect(0, 0, Incipit.gCanvasElement.width, Incipit.gCanvasElement.height);
@@ -384,7 +431,7 @@ function CanvasClass ()
         }
 
         //notes
-        for(var i=0; i < context.testElements.length; i++)
+        for(var i=0; i < context.incipitElements.length; i++)
         {
             context.gDrawingContext.fillStyle = "black";
             if(i == noteSelected)
@@ -392,10 +439,11 @@ function CanvasClass ()
                 context.gDrawingContext.fillStyle = "orange";
             }
             
-            var noteToDraw = context.incipit.getNoteByName(context.testElements[i].noteName);
+            var noteToDraw = context.incipit.getNoteByName(context.incipitElements[i].noteName);
+            var notePosition = context.getDrawPosition(context, context.incipitElements[i], i);
 
             context.gDrawingContext.font = noteToDraw.font;
-            context.gDrawingContext.fillText(noteToDraw.value, context.testElements[i].xPosition * 50, context.logicalPlace[i]);
+            context.gDrawingContext.fillText(noteToDraw.value, notePosition.x, notePosition.y);
         }
 
         context.gDrawingContext.stroke();
@@ -433,7 +481,7 @@ function CanvasClass ()
                 context.gDrawingContext.lineWidth="1";
                 context.gDrawingContext.strokeStyle="#000000";
 
-                if(j/8 == context.maxSetpY +1 || j/8 == context.minSetpY)
+                if(j/8 == context.maxStepY +1 || j/8 == context.minStepY)
                 {
                     context.gDrawingContext.strokeStyle="#0000FF";
                 }
