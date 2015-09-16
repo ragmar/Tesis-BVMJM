@@ -17,38 +17,42 @@ function IncipitClass()
         var context = this;
         context.Notes = 
         [
-            {name: "clef", value: "1", font: "bold 46px Maestro"}, //46 for clef
-            {name: "clef2", value: "2", font: "bold 46px Maestro"}, //46 for clef
-            {name: "clef3", value: "3", font: "bold 46px Maestro"}, //46 for clef
+            //Claves
+            {name: "clef", value: "1", font: "bold 46px Maestro", xStep: "0"}, //46 for clef
+            {name: "clef2", value: "2", font: "bold 46px Maestro", xStep: "0"}, //46 for clef
+            {name: "clef3", value: "3", font: "bold 46px Maestro", xStep: "0"}, //46 for clef
 
-            {name: "maxima", value: "a", font: "bold 38px Maestro"},
-            {name: "longa", value: "b", font: "bold 38px Maestro"},
-            {name: "breve", value: "c", font: "bold 38px Maestro"},
-            {name: "semibreve", value: "d", font: "bold 38px Maestro"},
-            {name: "minim", value: "e", font: "bold 38px Maestro"},
-            {name: "crotchet", value: "f", font: "bold 38px Maestro"},
-            {name: "quaver", value: "g", font: "bold 38px Maestro"},
-            {name: "semiquaver", value: "h", font: "bold 38px Maestro"},
-            {name: "demisemiquaver", value: "i", font: "bold 38px Maestro"},
-            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro"},
+            //Notas
+            {name: "maxima", value: "a", font: "bold 38px Maestro", xStep: "0"},
+            {name: "longa", value: "b", font: "bold 38px Maestro", xStep: "0"},
+            {name: "breve", value: "c", font: "bold 38px Maestro", xStep: "0"},
+            {name: "semibreve", value: "d", font: "bold 38px Maestro", xStep: "0"},
+            {name: "minim", value: "e", font: "bold 38px Maestro", xStep: "0"},
+            {name: "crotchet", value: "f", font: "bold 38px Maestro", xStep: "0"},
+            {name: "quaver", value: "g", font: "bold 38px Maestro", xStep: "0"},
+            {name: "semiquaver", value: "h", font: "bold 38px Maestro", xStep: "0"},
+            {name: "demisemiquaver", value: "i", font: "bold 38px Maestro", xStep: "0"},
+            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro", xStep: "0"},
 
-            {name: "sostenido", value: "k", font: "bold 38px Maestro"},
-            {name: "doblesostenido", value: "l", font: "bold 38px Maestro"},
-            {name: "bemol", value: "m", font: "bold 38px Maestro"},
-            {name: "doblebemol", value: "n", font: "bold 38px Maestro"},
-            {name: "becuadro", value: "o", font: "bold 38px Maestro"},
-            {name: "sostenido2", value: "p", font: "bold 38px Maestro"},
+            //Accidentales
+            {name: "sostenido", value: "k", font: "bold 38px Maestro", xStep: "0"},
+            {name: "doblesostenido", value: "l", font: "bold 38px Maestro", xStep: "0"},
+            {name: "bemol", value: "m", font: "bold 38px Maestro", xStep: "0"},
+            {name: "doblebemol", value: "n", font: "bold 38px Maestro", xStep: "0"},
+            {name: "becuadro", value: "o", font: "bold 38px Maestro", xStep: "0"},
+            {name: "sostenido2", value: "p", font: "bold 38px Maestro", xStep: "0"},
 
-            {name: "silencio1", value: "!", font: "bold 38px Maestro"},
-            {name: "silencio2", value: "\"", font: "bold 38px Maestro"},
-            {name: "silencio3", value: "#", font: "bold 38px Maestro"},
-            {name: "silencio4", value: "$", font: "bold 38px Maestro"},
-            {name: "silencio5", value: "%", font: "bold 38px Maestro"},
-            {name: "silencio6", value: "&", font: "bold 38px Maestro"},
-            {name: "silencio7", value: "'", font: "bold 38px Maestro"},
-            {name: "silencio8", value: "(", font: "bold 38px Maestro"},
-            {name: "silencio9", value: ")", font: "bold 38px Maestro"},
-            {name: "silencio0", value: "*", font: "bold 38px Maestro"}
+            //silencios
+            {name: "silencio1", value: "!", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio2", value: "\"", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio3", value: "#", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio4", value: "$", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio5", value: "%", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio6", value: "&", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio7", value: "'", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio8", value: "(", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio9", value: ")", font: "bold 38px Maestro", xStep: "0"},
+            {name: "silencio0", value: "*", font: "bold 38px Maestro", xStep: "0"}
         ];
     }    
 
@@ -116,9 +120,10 @@ function CanvasClass ()
     this.maxSetpY   = 29;
     this.minSetpY   = 11;
 
+    this.testElements = new Array();
+
     this.insideElements = new Array();
     this.logicalPlace   = new Array();
-    this.noteType       = new Array();
     this.incipit        = new IncipitClass();
 
     /*REGION EVENTS*/
@@ -179,7 +184,8 @@ function CanvasClass ()
 
         context.gDrawingContext.textBaseline = "top";
 
-        context.noteType.push(context.incipit.getNoteByName("clef"));
+        context.insertElement(context, context.incipit.getNoteByName("clef").name, 0, 0, null, null, null, null);
+
         context.insideElements.push(0);
         context.logicalPlace.push(context.step*15); //15 for normal clef
     };
@@ -188,20 +194,12 @@ function CanvasClass ()
     this.getCursorPosition = function(context, event) 
     {
         var rect = context.gCanvasElement.getBoundingClientRect();
-
-        //console.log(context.gCanvasElement);
         var x = Math.round((event.clientX-rect.left)/(rect.right-rect.left)*context.gCanvasElement.width);
         var y = Math.round((event.clientY-rect.top)/(rect.bottom-rect.top)*context.gCanvasElement.height);
 
         var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
 
-
-        //console.log("x y");
-        //console.log(x,y);
         var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
-
-        //console.log("cursor");
-        //console.log(cursor);
         
         if(cursor[1] > context.maxSetpY)
         {
@@ -213,66 +211,14 @@ function CanvasClass ()
             cursor[1] = context.minSetpY;
         }
 
-        /* returns Cell with .row and .column properties */
-        /*
-        var x;
-        var y;
-        if (event.pageX != undefined && event.pageY != undefined) 
-        {
-            x = event.pageX;
-            y = event.pageY;
-        }
-        else 
-        {
-            x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-            y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-        }
-
-        x -= context.gCanvasElement.offsetLeft;
-        y -= context.gCanvasElement.offsetTop;
-
-        x = Math.min(x, context.gCanvasElement.width * 50);
-        y = Math.min(y, context.gCanvasElement.height * context.step);
-
-        console.log("x y");
-        console.log(x,y);
-        var cursor = new Array(Math.floor(x/50), Math.floor(y/context.step));
-
-        console.log("cursor");
-        console.log(cursor);
-        
-        if(cursor[1] > context.maxSetpY)
-        {
-            cursor[1] = context.maxSetpY;
-        }
-
-        if(cursor[1] < context.minSetpY)
-        {
-            cursor[1] = context.minSetpY;
-        }
-        console.log("cursor limited");
-        console.log(cursor);*/
         return cursor;
-    };
-
-
-    this.drawingCoordToLogicalCoord = function(drawingCoordX, drawingCoordY)
-    {
-        var logicalCoord = new Array();
-
-        logicalCoord.push(drawingCoordY * this.step - (this.step * 6) + 2)
-    };
-
-    this.logicalCoordToDrawingCoord = function(logicalCoordX, logicalCoordY)
-    {
-        var drawingCoord = new Array();
     };
 
 
     //Click on an Existing Element on the current canvas
     this.clickExistingElement = function(context, cursor)
     {
-        if(cursor[0] <= context.insideElements.length - 1)
+        if(cursor[0] <= context.testElements.length - 1)
         {
             noteSelected = cursor[0];
             return true;
@@ -282,17 +228,17 @@ function CanvasClass ()
         return false;
     };
 
-
+    //Add a new note on the Incipit
     this.addNote = function(context, cursor) 
     {   
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
-        context.drawingCoordToLogicalCoord(cursor[0],cursor[1]);
 
         var note = context.getCurrentNotePressed(context);
 
         if(note != null)
         {
-            context.noteType.push(note);
+            context.insertElement(context, note.name, context.testElements.length, 0, null, null, null, null);
+
             context.insideElements.push(context.insideElements.length * 50);
             context.logicalPlace.push(cursor[1] * context.step - (context.step * 6) + 2);
         }
@@ -300,13 +246,14 @@ function CanvasClass ()
         context.drawPentagram(context);
     };
 
+    //Show the note to be draw
     this.showNote = function(context, cursor) 
     {
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
 
         var note = context.getCurrentNotePressed(context);
 
-        if(cursor[0] > context.insideElements.length - 1 && note != null)
+        if(cursor[0] > context.testElements.length - 1 && note != null)
         {
             context.gDrawingContext.fillStyle = "black";
             context.gDrawingContext.font = note.font;
@@ -334,7 +281,7 @@ function CanvasClass ()
     {
         if(noteSelected != null)
         {
-            context.changeNoteSelected(context,note);
+            context.changeNoteSelected(context, note);
         }
     }
 
@@ -343,7 +290,7 @@ function CanvasClass ()
     {
         if(noteSelected != null)
         {
-            for(var i=0; i < context.insideElements.length; i++)
+            for(var i=0; i < context.testElements.length; i++)
             {
                 if(i == noteSelected)
                 {
@@ -356,19 +303,67 @@ function CanvasClass ()
         }
     }
 
+    //Called by a button, it change the current note selected
     this.changeNoteSelected = function(context, note)
     {
 
-        for(var i=0; i < context.insideElements.length; i++)
+        for(var i=0; i < context.testElements.length; i++)
         {
             if(i == noteSelected)
             {
-                context.noteType[i] = context.incipit.getNoteByValue(note);    
+                context.testElements[i].noteName = context.incipit.getNoteByValue(note).name;    
             }
         }
 
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawPentagram(context);
+    }
+
+    //Insert an Element on the Incipit
+    this.insertElement = function(context, name, positionX, positionY, puntillo, accidentales, accidentalesName, invertida)
+    {
+
+        if(name == null)               name = "clef";
+        if(positionX == null)          positionX = 0;
+        if(positionY == null)          positionY = 0;
+        if(puntillo == null)           puntillo = false;
+        if(accidentales == null)       accidentales = false;
+        if(accidentalesName == null)   accidentalesName = "becuadro";
+        if(invertida == null)          invertida = false;
+        
+
+        context.testElements.push({
+                                    noteName: name, 
+                                    xPosition: positionX,
+                                    yPosition: positionY,
+                                    puntillo: puntillo,
+                                    accidentales: accidentales,
+                                    accidentalesName: accidentalesName,
+                                    invertida: invertida
+                                });
+    }
+
+    //Erase an Element on the position X on the incipit
+    this.eraseElement = function(context, positionX)
+    {
+        /*if(this.name == null)               this.name = "clef";
+        if(this.positionX == null)          this.positionX = 0;
+        if(this.positionY == null)          this.positionY = 0;
+        if(this.puntillo == null)           this.puntillo = false;
+        if(this.accidentales == null)       this.accidentales = false;
+        if(this.accidentalesName == null)   this.accidentalesName = "becuadro";
+        if(this.invertida == null)          this.invertida = false;
+        
+
+        context.TestElements.push({
+                                    NoteName: this.name, 
+                                    xPosition: this.positionX,
+                                    yPosition: this.positionY,
+                                    puntillo: this.puntillo,
+                                    accidentales: this.accidentales,
+                                    accidentalesName: this.accidentalesName,
+                                    invertida: this.invertida
+                                });*/
     }
 
     /*REGION DRAW*/
@@ -392,7 +387,7 @@ function CanvasClass ()
         }
 
         //notes
-        for(var i=0; i < context.insideElements.length; i++)
+        for(var i=0; i < context.testElements.length; i++)
         {
             context.gDrawingContext.fillStyle = "black";
             if(i == noteSelected)
@@ -400,8 +395,10 @@ function CanvasClass ()
                 context.gDrawingContext.fillStyle = "orange";
             }
             
-            context.gDrawingContext.font = context.noteType[i].font;
-            context.gDrawingContext.fillText(context.noteType[i].value, context.insideElements[i], context.logicalPlace[i]);
+            var noteToDraw = context.incipit.getNoteByName(context.testElements[i].noteName);
+
+            context.gDrawingContext.font = noteToDraw.font;
+            context.gDrawingContext.fillText(noteToDraw.value, context.insideElements[i], context.logicalPlace[i]);
         }
 
         context.gDrawingContext.stroke();
@@ -456,6 +453,7 @@ function CanvasClass ()
     /*ENDREGION*/
 };
 
+//Define the object Canvas
 var CanvasIncipit = new CanvasClass();
 
 //Recive the note to currently display
@@ -471,6 +469,7 @@ function toneUpDown(up)
     CanvasIncipit.toneUpDown(CanvasIncipit, up);
 };
 
+//Initialize the Canvas
 function initializeIncipit(canvasElement) 
 {
 
