@@ -51,16 +51,16 @@ function IncipitClass()
             {name: "hemidemisemiquaver",value: "j", font: "bold 38px Maestro", xStep: "0", isClef: false},
 
             //silencios
-            {name: "silencio1", value: "!", font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "silencio1", value: "!",  font: "bold 38px Maestro", xStep: "0", isClef: false},
             {name: "silencio2", value: "\"", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio3", value: "#", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio4", value: "$", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio5", value: "%", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio6", value: "&", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio7", value: "'", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio8", value: "(", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio9", value: ")", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio0", value: "*", font: "bold 38px Maestro", xStep: "0", isClef: false}
+            {name: "silencio3", value: "#",  font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "silencio4", value: "$",  font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "silencio5", value: "%",  font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "silencio6", value: "&",  font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "silencio7", value: "'",  font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "silencio8", value: "(",  font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "silencio9", value: ")",  font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "silencio0", value: "*",  font: "bold 38px Maestro", xStep: "0", isClef: false}
         ];
     }    
 
