@@ -34,33 +34,33 @@ function IncipitClass()
         context.Notes = 
         [
             //Claves
-            {name: "clef",      value: "1", font: "bold 46px Maestro", xStep: "0", isClef: true}, //46 for clef
-            {name: "clef2",     value: "2", font: "bold 46px Maestro", xStep: "0", isClef: true}, //46 for clef
-            {name: "clef3",     value: "3", font: "bold 46px Maestro", xStep: "0", isClef: true}, //46 for clef
+            {name: "clef",      value: "1", font: "bold 46px Maestro", isClef: true}, //46 for clef
+            {name: "clef2",     value: "2", font: "bold 46px Maestro", isClef: true}, //46 for clef
+            {name: "clef3",     value: "3", font: "bold 46px Maestro", isClef: true}, //46 for clef
 
             //Notas
-            {name: "maxima",            value: "a", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "longa",             value: "b", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "breve",             value: "c", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "semibreve",         value: "d", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "minim",             value: "e", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "crotchet",          value: "f", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "quaver",            value: "g", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "semiquaver",        value: "h", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "demisemiquaver",    value: "i", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "hemidemisemiquaver",value: "j", font: "bold 38px Maestro", xStep: "0", isClef: false},
+            {name: "maxima",            value: "a", font: "bold 38px Maestro", isClef: false},
+            {name: "longa",             value: "b", font: "bold 38px Maestro", isClef: false},
+            {name: "breve",             value: "c", font: "bold 38px Maestro", isClef: false},
+            {name: "semibreve",         value: "d", font: "bold 38px Maestro", isClef: false},
+            {name: "minim",             value: "e", font: "bold 38px Maestro", isClef: false},
+            {name: "crotchet",          value: "f", font: "bold 38px Maestro", isClef: false},
+            {name: "quaver",            value: "g", font: "bold 38px Maestro", isClef: false},
+            {name: "semiquaver",        value: "h", font: "bold 38px Maestro", isClef: false},
+            {name: "demisemiquaver",    value: "i", font: "bold 38px Maestro", isClef: false},
+            {name: "hemidemisemiquaver",value: "j", font: "bold 38px Maestro", isClef: false},
 
             //silencios
-            {name: "silencio1", value: "!",  font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio2", value: "\"", font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio3", value: "#",  font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio4", value: "$",  font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio5", value: "%",  font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio6", value: "&",  font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio7", value: "'",  font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio8", value: "(",  font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio9", value: ")",  font: "bold 38px Maestro", xStep: "0", isClef: false},
-            {name: "silencio0", value: "*",  font: "bold 38px Maestro", xStep: "0", isClef: false}
+            {name: "silencio1", value: "!",  font: "bold 38px Maestro", isClef: false},
+            {name: "silencio2", value: "\"", font: "bold 38px Maestro", isClef: false},
+            {name: "silencio3", value: "#",  font: "bold 38px Maestro", isClef: false},
+            {name: "silencio4", value: "$",  font: "bold 38px Maestro", isClef: false},
+            {name: "silencio5", value: "%",  font: "bold 38px Maestro", isClef: false},
+            {name: "silencio6", value: "&",  font: "bold 38px Maestro", isClef: false},
+            {name: "silencio7", value: "'",  font: "bold 38px Maestro", isClef: false},
+            {name: "silencio8", value: "(",  font: "bold 38px Maestro", isClef: false},
+            {name: "silencio9", value: ")",  font: "bold 38px Maestro", isClef: false},
+            {name: "silencio0", value: "*",  font: "bold 38px Maestro", isClef: false}
         ];
     }    
 
