@@ -1,5 +1,4 @@
 var currenteNotePressed = "f";
-var currenteAccidentalPressed = null;
 var dibujarMallado = false;
 var noteSelected = null;
 
@@ -24,7 +23,14 @@ function IncipitClass()
             {name: "doblebemol",        value: "n", font: "bold 35px Maestro", xPosition: -20, yPosition: 5},
             {name: "becuadro",          value: "o", font: "bold 35px Maestro", xPosition: -13, yPosition: 12},
             {name: "sostenido",         value: "p", font: "bold 35px Maestro", xPosition: -13, yPosition: 11}
-        ]
+        ];
+
+        context.DotNote =
+        [
+            //Accidentales
+            {name: "dot",    value: "q", font: "bold 35px Maestro", xPosition: 18, yPosition: 5}
+        ];
+
         context.Notes = 
         [
             //Claves
@@ -362,17 +368,41 @@ function CanvasClass ()
         context.drawPentagram(context);
     }
 
+    //Get the button of the table pushed and add the dot to the note
+    this.dotPushed = function(context, dot)
+    {
+        if(noteSelected != null)
+        {
+            context.addDot(context, dot);
+        }
+    }
+
+    //Add the accidental on the current note
+    this.addDot = function(context, accidental)
+    {
+        for(var i=0; i < context.incipitElements.length; i++)
+        {
+            if(i == noteSelected)
+            {
+                context.incipitElements[i].hasDot = true;
+            }
+        }
+
+        context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
+        context.drawPentagram(context);
+    }
+
 
     //Create an Element of the incipit
-    this.createElement = function(context, name, xPosition, yPosition, puntillo, hasAccidental, accidental, invertida, isClef)
+    this.createElement = function(context, name, xPosition, yPosition, hasDot, hasAccidental, accidental, invertida, isClef)
     {
 
         if(name == null)               name = "clef";
         if(xPosition == null)          xPosition = 0;
         if(yPosition == null)          yPosition = 0;
-        if(puntillo == null)           puntillo = false;
+        if(hasDot == null)             hasDot = false;
         if(hasAccidental == null)      hasAccidental = false;
-        if(accidental == null)          accidental = "becuadro";
+        if(accidental == null)         accidental = "becuadro";
         if(invertida == null)          invertida = false;
         if(isClef == null)             isClef = false;
         
@@ -381,7 +411,7 @@ function CanvasClass ()
                 noteName: name, 
                 xPosition: xPosition,
                 yPosition: yPosition,
-                puntillo: puntillo,
+                hasDot: hasDot,
                 hasAccidental: hasAccidental,
                 accidental: accidental,
                 invertida: invertida,
@@ -390,13 +420,13 @@ function CanvasClass ()
     }
 
     //Insert an Element on the Incipit
-    this.insertElement = function(context, name, xPosition, yPosition, puntillo, hasAccidental, accidental, invertida, isClef)
+    this.insertElement = function(context, name, xPosition, yPosition, hasDot, hasAccidental, accidental, invertida, isClef)
     {   
         context.incipitElements.push(context.createElement(context, 
                                                         name, 
                                                         xPosition, 
                                                         yPosition, 
-                                                        puntillo, 
+                                                        hasDot, 
                                                         hasAccidental, 
                                                         accidental, 
                                                         invertida,
@@ -463,6 +493,14 @@ function CanvasClass ()
 
                 context.gDrawingContext.font = accidental.font;
                 context.gDrawingContext.fillText(accidental.value, notePosition.x + accidental.xPosition, notePosition.y + accidental.yPosition);
+            }
+
+            if(context.incipitElements[i].hasDot)
+            {
+                var dot = context.incipit.DotNote[0];
+
+                context.gDrawingContext.font = dot.font;
+                context.gDrawingContext.fillText(dot.value, notePosition.x + dot.xPosition, notePosition.y + dot.yPosition);
             }
 
             context.gDrawingContext.font = noteToDraw.font;
@@ -534,8 +572,13 @@ function NotePressed(note)
 //Recive the accidental to currently add
 function accidentalPressed(accidental)
 {
-    currenteAccidentalPressed = accidental
     CanvasIncipit.accidentalPushed(CanvasIncipit, accidental);
+};
+
+//Recive the Dot to currently add
+function dotPressed(dot)
+{
+    CanvasIncipit.dotPushed(CanvasIncipit, dot);
 };
 
 //Move the note up or down, depending of the button pushed

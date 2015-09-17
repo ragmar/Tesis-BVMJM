@@ -163,6 +163,7 @@ input{
 				<?php echo $this->Html->link('m', array('action' => 'm'), array('id' => 'Accidentales-m', 'class' => 'btn-primary buton-incipit', 'onclick' => 'accidentalPressed("m"); return false;')); ?>
 				<?php echo $this->Html->link('n', array('action' => 'n'), array('id' => 'Accidentales-n', 'class' => 'btn-primary buton-incipit', 'onclick' => 'accidentalPressed("n"); return false;')); ?>
 				<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Accidentales-o', 'class' => 'btn-primary buton-incipit', 'onclick' => 'accidentalPressed("o"); return false;')); ?>
+				<?php echo $this->Html->link('q', array('action' => 'q'), array('id' => 'Accidentales-q', 'class' => 'btn-primary buton-incipit', 'onclick' => 'dotPressed("q"); return false;')); ?>
 			</div>
 			
 			<div style="clear: both;">
