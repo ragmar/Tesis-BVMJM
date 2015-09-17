@@ -157,13 +157,12 @@ input{
 				<label>Accidentales:</label><br />
 			</div>
 			<div class="maestro" style="clear: both;">
-				<!-- From K to P!-->
-				<?php echo $this->Html->link('k', array('action' => 'k'), array('id' => 'Accidentales-k', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("k"); return false;')); ?>
-				<?php echo $this->Html->link('l', array('action' => 'l'), array('id' => 'Accidentales-l', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("l"); return false;')); ?>
-				<?php echo $this->Html->link('m', array('action' => 'm'), array('id' => 'Accidentales-m', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("m"); return false;')); ?>
-				<?php echo $this->Html->link('n', array('action' => 'n'), array('id' => 'Accidentales-n', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("n"); return false;')); ?>
-				<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Accidentales-o', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("o"); return false;')); ?>
-				<?php echo $this->Html->link('p', array('action' => 'p'), array('id' => 'Accidentales-p', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("p"); return false;')); ?>
+				<!-- From L to P!-->
+				<?php echo $this->Html->link('p', array('action' => 'p'), array('id' => 'Accidentales-p', 'class' => 'btn-primary buton-incipit', 'onclick' => 'accidentalPressed("p"); return false;')); ?>
+				<?php echo $this->Html->link('l', array('action' => 'l'), array('id' => 'Accidentales-l', 'class' => 'btn-primary buton-incipit', 'onclick' => 'accidentalPressed("l"); return false;')); ?>
+				<?php echo $this->Html->link('m', array('action' => 'm'), array('id' => 'Accidentales-m', 'class' => 'btn-primary buton-incipit', 'onclick' => 'accidentalPressed("m"); return false;')); ?>
+				<?php echo $this->Html->link('n', array('action' => 'n'), array('id' => 'Accidentales-n', 'class' => 'btn-primary buton-incipit', 'onclick' => 'accidentalPressed("n"); return false;')); ?>
+				<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Accidentales-o', 'class' => 'btn-primary buton-incipit', 'onclick' => 'accidentalPressed("o"); return false;')); ?>
 			</div>
 			
 			<div style="clear: both;">
