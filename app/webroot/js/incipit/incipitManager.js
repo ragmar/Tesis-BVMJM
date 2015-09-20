@@ -1,6 +1,6 @@
 var currenteNotePressed = "f";
 var dibujarMallado = false;
-var noteSelected = null;
+var positionNoteSelected = null;
 
 
 function IncipitClass()
@@ -23,6 +23,35 @@ function IncipitClass()
             {name: "doblebemol",        value: "n", font: "bold 35px Maestro", xPosition: -20, yPosition: 5},
             {name: "becuadro",          value: "o", font: "bold 35px Maestro", xPosition: -13, yPosition: 12},
             {name: "sostenido",         value: "p", font: "bold 35px Maestro", xPosition: -13, yPosition: 11}
+        ];
+
+        context.AccidentalClefPositionNote =
+        [
+            {name: "clef",  xPosition: 0, yPosition: 4},
+            {name: "clef1", xPosition: 0, yPosition: 4},
+            {name: "clef2", xPosition: 0, yPosition: 4}
+        ];
+
+        context.AccidentalClefPositionSostenido =
+        [ 
+            {xPosition: 50, yPosition: -22},
+            {xPosition: 60, yPosition: 4},
+            {xPosition: 70, yPosition: -30},
+            {xPosition: 80, yPosition: -6},
+            {xPosition: 90, yPosition: 20},
+            {xPosition: 100, yPosition: -14},
+            {xPosition: 110, yPosition: 12}
+        ];
+
+        context.AccidentalClefPositionBemol =
+        [ 
+            {xPosition: 50, yPosition: 5},
+            {xPosition: 60, yPosition: -19},
+            {xPosition: 70, yPosition: 13},
+            {xPosition: 80, yPosition: -11},
+            {xPosition: 90, yPosition: 21},
+            {xPosition: 100, yPosition: -3},
+            {xPosition: 110, yPosition: 28}
         ];
 
         context.DotNote =
@@ -233,11 +262,11 @@ function CanvasClass ()
     {
         if(cursor.x <= context.incipitElements.length - 1)
         {
-            noteSelected = cursor.x;
+            positionNoteSelected = cursor.x;
             return true;
         }
 
-        noteSelected = null;
+        positionNoteSelected = null;
         return false;
     };
 
@@ -280,7 +309,9 @@ function CanvasClass ()
             var notePosition = context.getDrawPosition(context, tempEle, context.incipitElements.length);
 
             context.gDrawingContext.font = noteToDraw.font;
-            context.gDrawingContext.fillText(noteToDraw.value, notePosition.x, notePosition.y);
+            context.gDrawingContext.fillText(noteToDraw.value, 
+                                            notePosition.x, 
+                                            notePosition.y);
         }
 
         context.drawPentagram(context);
@@ -289,11 +320,11 @@ function CanvasClass ()
     //Get the button pressed for drawing upper or downer the current note selected
     this.toneUpDown = function(context, up)
     {
-        if(noteSelected != null)
+        if(positionNoteSelected != null)
         {
             for(var i=0; i < context.incipitElements.length; i++)
             {
-                if(i == noteSelected 
+                if(i == positionNoteSelected 
                     && context.incipitElements[i].yPosition + up >= 0 
                     && context.incipitElements[i].yPosition + up < 19)
                 {
@@ -322,7 +353,7 @@ function CanvasClass ()
     //Get the button of the table currently pressed and change the note
     this.buttonPushed = function(context, note) 
     {
-        if(noteSelected != null)
+        if(positionNoteSelected != null)
         {
             context.changeNoteSelected(context, note);
         }
@@ -333,7 +364,7 @@ function CanvasClass ()
     {
         for(var i=0; i < context.incipitElements.length; i++)
         {
-            if(i == noteSelected)
+            if(i == positionNoteSelected)
             {
                 context.incipitElements[i].noteName = context.incipit.getNoteByValue(note).name;    
             }
@@ -346,7 +377,7 @@ function CanvasClass ()
     //Get the button of the table pushed and add the accidental to the note
     this.accidentalPushed = function(context, accidental)
     {
-        if(noteSelected != null)
+        if(positionNoteSelected != null)
         {
             context.addAccidental(context, accidental);
         }
@@ -357,9 +388,20 @@ function CanvasClass ()
     {
         for(var i=0; i < context.incipitElements.length; i++)
         {
-            if(i == noteSelected)
+            if(i == positionNoteSelected)
             {
-                context.incipitElements[i].hasAccidental = true;
+                if(context.incipitElements[i].isClef) 
+                {
+                    if(context.incipitElements[i].qtyAccidental < 7)
+                    {
+                        context.incipitElements[i].qtyAccidental += 1;
+                    }
+                }
+                else 
+                {
+                    context.incipitElements[i].qtyAccidental = 1;
+                }
+                
                 context.incipitElements[i].accidental = context.incipit.getAccidentalByValue(accidental);
             }
         }
@@ -371,7 +413,7 @@ function CanvasClass ()
     //Get the button of the table pushed and add the dot to the note
     this.dotPushed = function(context, dot)
     {
-        if(noteSelected != null)
+        if(positionNoteSelected != null)
         {
             context.addDot(context, dot);
         }
@@ -382,7 +424,7 @@ function CanvasClass ()
     {
         for(var i=0; i < context.incipitElements.length; i++)
         {
-            if(i == noteSelected)
+            if(i == positionNoteSelected)
             {
                 context.incipitElements[i].hasDot = true;
             }
@@ -394,14 +436,14 @@ function CanvasClass ()
 
 
     //Create an Element of the incipit
-    this.createElement = function(context, name, xPosition, yPosition, hasDot, hasAccidental, accidental, invertida, isClef)
+    this.createElement = function(context, name, xPosition, yPosition, hasDot, qtyAccidental, accidental, invertida, isClef)
     {
 
         if(name == null)               name = "clef";
         if(xPosition == null)          xPosition = 0;
         if(yPosition == null)          yPosition = 0;
         if(hasDot == null)             hasDot = false;
-        if(hasAccidental == null)      hasAccidental = false;
+        if(qtyAccidental == null)      qtyAccidental = 0;
         if(accidental == null)         accidental = "becuadro";
         if(invertida == null)          invertida = false;
         if(isClef == null)             isClef = false;
@@ -412,7 +454,7 @@ function CanvasClass ()
                 xPosition: xPosition,
                 yPosition: yPosition,
                 hasDot: hasDot,
-                hasAccidental: hasAccidental,
+                qtyAccidental: qtyAccidental,
                 accidental: accidental,
                 invertida: invertida,
                 isClef: isClef
@@ -420,14 +462,14 @@ function CanvasClass ()
     }
 
     //Insert an Element on the Incipit
-    this.insertElement = function(context, name, xPosition, yPosition, hasDot, hasAccidental, accidental, invertida, isClef)
+    this.insertElement = function(context, name, xPosition, yPosition, hasDot, qtyAccidental, accidental, invertida, isClef)
     {   
         context.incipitElements.push(context.createElement(context, 
                                                         name, 
                                                         xPosition, 
                                                         yPosition, 
                                                         hasDot, 
-                                                        hasAccidental, 
+                                                        qtyAccidental, 
                                                         accidental, 
                                                         invertida,
                                                         isClef));
@@ -479,7 +521,7 @@ function CanvasClass ()
         for(var i=0; i < context.incipitElements.length; i++)
         {
             context.gDrawingContext.fillStyle = "black";
-            if(i == noteSelected)
+            if(i == positionNoteSelected)
             {
                 context.gDrawingContext.fillStyle = "orange";
             }
@@ -487,12 +529,40 @@ function CanvasClass ()
             var noteToDraw = context.incipit.getNoteByName(context.incipitElements[i].noteName);
             var notePosition = context.getDrawPosition(context, context.incipitElements[i], i);
 
-            if(context.incipitElements[i].hasAccidental)
+            if(context.incipitElements[i].qtyAccidental > 0)
             {
                 var accidental = context.incipitElements[i].accidental;
 
-                context.gDrawingContext.font = accidental.font;
-                context.gDrawingContext.fillText(accidental.value, notePosition.x + accidental.xPosition, notePosition.y + accidental.yPosition);
+                if(context.incipitElements[i].isClef)
+                {
+                    var xPositionAccidental;
+
+                    for(var j=0; j < context.incipitElements[i].qtyAccidental; j++)
+                    {
+                        if(accidental.name == "sostenido")
+                        {
+                            xPositionAccidental = context.incipit.AccidentalClefPositionSostenido[j];
+                        }
+
+
+                        if(accidental.name == "bemol")
+                        {
+                            xPositionAccidental = context.incipit.AccidentalClefPositionBemol[j];
+                        }
+
+                        context.gDrawingContext.font = accidental.font;
+                        context.gDrawingContext.fillText(accidental.value, 
+                                                        notePosition.x + xPositionAccidental.xPosition, 
+                                                        notePosition.y + xPositionAccidental.yPosition);
+                    }
+                }
+                else
+                {
+                    context.gDrawingContext.font = accidental.font;
+                    context.gDrawingContext.fillText(accidental.value, 
+                                                    notePosition.x + accidental.xPosition, 
+                                                    notePosition.y + accidental.yPosition);
+                }
             }
 
             if(context.incipitElements[i].hasDot)
@@ -500,11 +570,15 @@ function CanvasClass ()
                 var dot = context.incipit.DotNote[0];
 
                 context.gDrawingContext.font = dot.font;
-                context.gDrawingContext.fillText(dot.value, notePosition.x + dot.xPosition, notePosition.y + dot.yPosition);
+                context.gDrawingContext.fillText(dot.value, 
+                                                notePosition.x + dot.xPosition, 
+                                                notePosition.y + dot.yPosition);
             }
 
             context.gDrawingContext.font = noteToDraw.font;
-            context.gDrawingContext.fillText(noteToDraw.value, notePosition.x, notePosition.y);
+            context.gDrawingContext.fillText(noteToDraw.value, 
+                                            notePosition.x, 
+                                            notePosition.y);
         }
 
         context.gDrawingContext.stroke();
