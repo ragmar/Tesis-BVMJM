@@ -138,14 +138,6 @@ input{
 	</div>
 	
 	<!-- CODIGO DE ALEJANDRO* !-->
-	<div class="maestro">
-		<p>A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z
-		<p>a b c d e f g h i j k l m n ñ o p q r s t u v w x y z
-		<p> 1 2 3 4 5 6 7 8 9 0
-		<p> ! " # $ % & / ( ) = ? ¡
-		<p> , . ; : { } ´ * [ ]
-		<p> rxr
-	</div>
 	<div>
 		<div class="col-md-2 column">
 			<br />
