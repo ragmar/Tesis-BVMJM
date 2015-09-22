@@ -138,14 +138,6 @@ input{
 	</div>
 	
 	<!-- CODIGO DE ALEJANDRO* !-->
-	<div class="maestro">
-		<p>A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z
-		<p>a b c d e f g h i j k l m n ñ o p q r s t u v w x y z
-		<p> 1 2 3 4 5 6 7 8 9 0
-		<p> ! " # $ % & / ( ) = ? ¡
-		<p> , . ; : { } ´ * [ ]
-		<p> rxr
-	</div>
 	<div>
 		<div class="col-md-2 column">
 			<br />
@@ -203,9 +195,9 @@ input{
 			</div>
 			<div class="maestro" style="clear: both;">
 				<!-- From K to P!-->
-				<?php echo $this->Html->link('1', array('action' => '1'), array('id' => 'Accidentales-1', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("1"); return false;')); ?>
-				<?php echo $this->Html->link('2', array('action' => '2'), array('id' => 'Accidentales-2', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("2"); return false;')); ?>
-				<?php echo $this->Html->link('3', array('action' => '3'), array('id' => 'Accidentales-3', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("3"); return false;')); ?>
+				<?php echo $this->Html->link('1', array('action' => '1'), array('id' => 'Accidentales-1', 'class' => 'btn-primary buton-incipit', 'onclick' => 'ClefPressed("1"); return false;')); ?>
+				<?php echo $this->Html->link('2', array('action' => '2'), array('id' => 'Accidentales-2', 'class' => 'btn-primary buton-incipit', 'onclick' => 'ClefPressed("2"); return false;')); ?>
+				<?php echo $this->Html->link('3', array('action' => '3'), array('id' => 'Accidentales-3', 'class' => 'btn-primary buton-incipit', 'onclick' => 'ClefPressed("3"); return false;')); ?>
 			</div>
 			
 			<script type="text/javascript">
