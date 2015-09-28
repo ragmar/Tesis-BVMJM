@@ -58,7 +58,7 @@ function IncipitClass()
         context.DotNote =
         [
             //Accidentales
-            {name: "dot",    value: "q", font: "bold 35px Maestro", xPosition: 18, yPosition: 5, paec: ""}
+            {name: "dot",    value: "q", font: "bold 35px Maestro", xPosition: 18, yPosition: 5, paec: "."}
         ];
 
         context.Notes = 
@@ -69,28 +69,28 @@ function IncipitClass()
             {name: "bass",     value: "3", font: "bold 56px Maestro", isRest: false, yPosition: 3, paec: "%F-4"}, //46 for clef
 
             //Notas
-            {name: "maxima",             value: "a", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "longa",              value: "b", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "breve",              value: "c", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "semibreve",          value: "d", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "minim",              value: "e", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "crotchet",           value: "f", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "quaver",             value: "g", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "semiquaver",         value: "h", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "demisemiquaver",     value: "i", font: "bold 38px Maestro", isRest: false, paec: ""},
-            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "maxima",             value: "a", font: "bold 38px Maestro", isRest: false, paec: ""}, 
+            {name: "longa",              value: "b", font: "bold 38px Maestro", isRest: false, paec: "0"},
+            {name: "breve",              value: "c", font: "bold 38px Maestro", isRest: false, paec: "9"},
+            {name: "semibreve",          value: "d", font: "bold 38px Maestro", isRest: false, paec: "1"},
+            {name: "minim",              value: "e", font: "bold 38px Maestro", isRest: false, paec: "2"},
+            {name: "crotchet",           value: "f", font: "bold 38px Maestro", isRest: false, paec: "4"},
+            {name: "quaver",             value: "g", font: "bold 38px Maestro", isRest: false, paec: "8"},
+            {name: "semiquaver",         value: "h", font: "bold 38px Maestro", isRest: false, paec: "6"},
+            {name: "demisemiquaver",     value: "i", font: "bold 38px Maestro", isRest: false, paec: "3"},
+            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro", isRest: false, paec: "5"},
 
             //Silencios
             {name: "restMax",            value: "!",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restLon",            value: "\"", font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restBrev",           value: "#",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restSemirev",        value: "$",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restMinim",          value: "%",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restCrotchet",       value: "&",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restQuaver",         value: "'",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restSemiqua",        value: "(",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restDemsemqu",       value: ")",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restHemdemsemqu",    value: "*",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""}
+            {name: "restLon",            value: "\"", font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "0-"},
+            {name: "restBrev",           value: "#",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "9-"},
+            {name: "restSemirev",        value: "$",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "1-"},
+            {name: "restMinim",          value: "%",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "2-"},
+            {name: "restCrotchet",       value: "&",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "4-"},
+            {name: "restQuaver",         value: "'",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "8-"},
+            {name: "restSemiqua",        value: "(",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "6-"},
+            {name: "restDemsemqu",       value: ")",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "3-"},
+            {name: "restHemdemsemqu",    value: "*",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "5-"}
         ];
     }    
 
@@ -584,11 +584,12 @@ function CanvasClass ()
             var paecAccidental  = "";
             var paecDotNote     = "";
             var paecRythm       = "";
-            var accidental = context.incipit.getAccidentalByName(context.drawIncipitElements[i].accidentalName);
+            var note            = context.incipit.getNoteByName(context.drawIncipitElements[i].noteName);
+            var accidental      = context.incipit.getAccidentalByName(context.drawIncipitElements[i].accidentalName);
 
             if(context.drawIncipitElements[i].isClef)
             {
-                paecNote = context.incipit.getPAECByName(context.drawIncipitElements[i].noteName);
+                paecNote = context.incipit.getPAECByName(note.name);
 
                 if(context.drawIncipitElements[i].qtyAccidental > 0)
                 {
@@ -620,7 +621,26 @@ function CanvasClass ()
                     }
                     paec += "$"+paecAccidental;
                 }
-                paec += paecNote
+                paec += paecNote + " ";
+            }
+            else
+            {
+                paecRythm = context.incipit.getPAECByName(note.name);
+
+                if(!note.isRest)
+                {
+                    if(context.drawIncipitElements[i].qtyAccidental > 0)
+                    {
+                        paecAccidental = context.incipit.getPAECByName(accidental.name);  
+                    } 
+                    if(context.drawIncipitElements[i].hasDot) 
+                    {
+                        paecDotNote = context.incipit.getPAECByName(context.incipit.DotNote[0].name);
+                    }
+                    paecDotNote += "G";
+                }
+
+                paec += paecAccidental+paecRythm+paecDotNote;
             }
 
             console.log(paec);
@@ -679,7 +699,7 @@ function CanvasClass ()
             var noteToDraw = context.incipit.getNoteByName(context.drawIncipitElements[i].noteName);
             var notePosition = context.getDrawPosition(context, context.drawIncipitElements[i], i);
 
-            if(context.drawIncipitElements[i].qtyAccidental > 0)
+            if(context.drawIncipitElements[i].qtyAccidental > 0 && !noteToDraw.isRest)
             {
                 var accidental = context.incipit.getAccidentalByName(context.drawIncipitElements[i].accidentalName);
 
@@ -714,7 +734,7 @@ function CanvasClass ()
                 }
             }
 
-            if(context.drawIncipitElements[i].hasDot)
+            if(context.drawIncipitElements[i].hasDot && !noteToDraw.isRest)
             {
                 var dot = context.incipit.DotNote[0];
 
