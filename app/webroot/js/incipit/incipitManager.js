@@ -19,11 +19,11 @@ function IncipitClass()
         context.Accidentals =
         [
             //Accidentales
-            {name: "doblesostenido",    value: "l", font: "bold 35px Maestro", xPosition: -13, yPosition: 4},
-            {name: "bemol",             value: "m", font: "bold 35px Maestro", xPosition: -13, yPosition: 5},
-            {name: "doblebemol",        value: "n", font: "bold 35px Maestro", xPosition: -20, yPosition: 5},
-            {name: "becuadro",          value: "o", font: "bold 35px Maestro", xPosition: -13, yPosition: 12},
-            {name: "sostenido",         value: "p", font: "bold 35px Maestro", xPosition: -13, yPosition: 11}
+            {name: "doblesostenido",    value: "l", font: "bold 35px Maestro", xPosition: -13, yPosition: 4, paec: "xx"},
+            {name: "bemol",             value: "m", font: "bold 35px Maestro", xPosition: -13, yPosition: 5, paec: "b"},
+            {name: "doblebemol",        value: "n", font: "bold 35px Maestro", xPosition: -20, yPosition: 5, paec: "bb"},
+            {name: "becuadro",          value: "o", font: "bold 35px Maestro", xPosition: -13, yPosition: 12, paec: "n"},
+            {name: "sostenido",         value: "p", font: "bold 35px Maestro", xPosition: -13, yPosition: 11, paec: "x"}
         ];
 
         context.AccidentalClefPositionNote =
@@ -58,39 +58,39 @@ function IncipitClass()
         context.DotNote =
         [
             //Accidentales
-            {name: "dot",    value: "q", font: "bold 35px Maestro", xPosition: 18, yPosition: 5}
+            {name: "dot",    value: "q", font: "bold 35px Maestro", xPosition: 18, yPosition: 5, paec: ""}
         ];
 
         context.Notes = 
         [
             //Claves
-            {name: "treble",   value: "1", font: "bold 56px Maestro", isRest: false, yPosition: 7}, //46 for clef
-            {name: "alto",     value: "2", font: "bold 56px Maestro", isRest: false, yPosition: 5}, //46 for clef
-            {name: "bass",     value: "3", font: "bold 56px Maestro", isRest: false, yPosition: 3}, //46 for clef
+            {name: "treble",   value: "1", font: "bold 56px Maestro", isRest: false, yPosition: 7, paec: "%G-2"}, //46 for clef
+            {name: "alto",     value: "2", font: "bold 56px Maestro", isRest: false, yPosition: 5, paec: "%C-3"}, //46 for clef
+            {name: "bass",     value: "3", font: "bold 56px Maestro", isRest: false, yPosition: 3, paec: "%F-4"}, //46 for clef
 
             //Notas
-            {name: "maxima",             value: "a", font: "bold 38px Maestro", isRest: false},
-            {name: "longa",              value: "b", font: "bold 38px Maestro", isRest: false},
-            {name: "breve",              value: "c", font: "bold 38px Maestro", isRest: false},
-            {name: "semibreve",          value: "d", font: "bold 38px Maestro", isRest: false},
-            {name: "minim",              value: "e", font: "bold 38px Maestro", isRest: false},
-            {name: "crotchet",           value: "f", font: "bold 38px Maestro", isRest: false},
-            {name: "quaver",             value: "g", font: "bold 38px Maestro", isRest: false},
-            {name: "semiquaver",         value: "h", font: "bold 38px Maestro", isRest: false},
-            {name: "demisemiquaver",     value: "i", font: "bold 38px Maestro", isRest: false},
-            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro", isRest: false},
+            {name: "maxima",             value: "a", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "longa",              value: "b", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "breve",              value: "c", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "semibreve",          value: "d", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "minim",              value: "e", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "crotchet",           value: "f", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "quaver",             value: "g", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "semiquaver",         value: "h", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "demisemiquaver",     value: "i", font: "bold 38px Maestro", isRest: false, paec: ""},
+            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro", isRest: false, paec: ""},
 
             //Silencios
-            {name: "restMax",            value: "!",  font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restLon",            value: "\"", font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restBrev",           value: "#",  font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restSemirev",        value: "$",  font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restMinim",          value: "%",  font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restCrotchet",       value: "&",  font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restQuaver",         value: "'",  font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restSemiqua",        value: "(",  font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restDemsemqu",       value: ")",  font: "bold 38px Maestro", isRest: true, yPosition: 8},
-            {name: "restHemdemsemqu",    value: "*",  font: "bold 38px Maestro", isRest: true, yPosition: 8}
+            {name: "restMax",            value: "!",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restLon",            value: "\"", font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restBrev",           value: "#",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restSemirev",        value: "$",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restMinim",          value: "%",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restCrotchet",       value: "&",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restQuaver",         value: "'",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restSemiqua",        value: "(",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restDemsemqu",       value: ")",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
+            {name: "restHemdemsemqu",    value: "*",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""}
         ];
     }    
 
@@ -142,6 +142,35 @@ function IncipitClass()
                 return this.Accidentals[i];
             }
         }
+    }
+
+    this.getPAECByName = function(name)
+    {
+        for(var i = 0; i < this.Notes.length; i++)
+        {
+            if(this.Notes[i].name === name)
+            {
+                return this.Notes[i].paec;
+            }
+        }
+
+        for(var i = 0; i < this.DotNote.length; i++)
+        {
+            if(this.DotNote[i].name === name)
+            {
+                return this.DotNote[i].paec;
+            }
+        }
+
+        for(var i = 0; i < this.Accidentals.length; i++)
+        {
+            if(this.Accidentals[i].name === name)
+            {
+                return this.Accidentals[i].paec;
+            }
+        }
+
+        return null;
     }
     /*ENDREGION*/
     /*ENDREGION*/
@@ -362,7 +391,6 @@ function CanvasClass ()
                     && context.drawIncipitElements[i].yPosition + up >= 0 
                     && context.drawIncipitElements[i].yPosition + up < 19)
                 {
-                    console.log(context.drawIncipitElements[i]);
                     context.drawIncipitElements[i].yPosition = context.drawIncipitElements[i].yPosition + up;
                 }
             }
@@ -546,6 +574,63 @@ function CanvasClass ()
 
     }
 
+    this.TransformToPAEC = function(context)
+    {
+        var paec            = "";
+
+        for(var i = 0; i < context.drawIncipitElements.length; i++)
+        {
+            var paecNote        = "";
+            var paecAccidental  = "";
+            var paecDotNote     = "";
+            var paecRythm       = "";
+            var accidental = context.incipit.getAccidentalByName(context.drawIncipitElements[i].accidentalName);
+
+            if(context.drawIncipitElements[i].isClef)
+            {
+                paecNote = context.incipit.getPAECByName(context.drawIncipitElements[i].noteName);
+
+                if(context.drawIncipitElements[i].qtyAccidental > 0)
+                {
+                    paecAccidental = context.incipit.getPAECByName(accidental.name);
+
+                    for(var j = 0; j < context.drawIncipitElements[i].qtyAccidental; j++)
+                    {
+                        if(accidental.name == "bemol")
+                        {
+                            if(j == 0) paecAccidental += "B";
+                            if(j == 1) paecAccidental += "E";
+                            if(j == 2) paecAccidental += "A";
+                            if(j == 3) paecAccidental += "D";
+                            if(j == 4) paecAccidental += "G";
+                            if(j == 5) paecAccidental += "C";
+                            if(j == 6) paecAccidental += "F";
+                        }
+
+                        if(accidental.name == "sostenido")
+                        {
+                            if(j == 0) paecAccidental += "F";
+                            if(j == 1) paecAccidental += "C";
+                            if(j == 2) paecAccidental += "G";
+                            if(j == 3) paecAccidental += "D";
+                            if(j == 4) paecAccidental += "A";
+                            if(j == 5) paecAccidental += "E";
+                            if(j == 6) paecAccidental += "B";
+                        }
+                    }
+                    paec += "$"+paecAccidental;
+                }
+                paec += paecNote
+            }
+
+            console.log(paec);
+
+            //accidentals preceded by $: x sharpened, b flat; the symbol is followed by the capital letters indicating the altered notes.
+
+
+        }
+    }
+
     /*REGION DRAW*/
     //functions that returns the drawing coords of the element
     this.getDrawPosition = function(context, element, index)
@@ -604,12 +689,10 @@ function CanvasClass ()
 
                     for(var j=0; j < context.drawIncipitElements[i].qtyAccidental; j++)
                     {
-                        console.log(context.drawIncipitElements[i]);
                         if(accidental.name == "sostenido")
                         {
                             positionAccidental = context.incipit.AccidentalClefPositionSostenido[j];
                         }
-
 
                         if(accidental.name == "bemol")
                         {
@@ -732,6 +815,7 @@ function dotPressed(dot)
 function toneUpDown(up) 
 {
     CanvasIncipit.toneUpDown(CanvasIncipit, up);
+    CanvasIncipit.TransformToPAEC(CanvasIncipit);
 };
 
 //Initialize the Canvas
