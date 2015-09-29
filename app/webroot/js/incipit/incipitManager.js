@@ -577,6 +577,8 @@ function CanvasClass ()
     this.TransformToPAEC = function(context)
     {
         var paec            = "";
+        var lastPositionY   = 14;
+        var lastPositionDot = false;
 
         for(var i = 0; i < context.drawIncipitElements.length; i++)
         {
@@ -586,6 +588,7 @@ function CanvasClass ()
             var paecRythm       = "";
             var note            = context.incipit.getNoteByName(context.drawIncipitElements[i].noteName);
             var accidental      = context.incipit.getAccidentalByName(context.drawIncipitElements[i].accidentalName);
+            var paecLastNote    = "";
 
             if(context.drawIncipitElements[i].isClef)
             {
@@ -637,11 +640,44 @@ function CanvasClass ()
                     {
                         paecDotNote = context.incipit.getPAECByName(context.incipit.DotNote[0].name);
                     }
-                    paecDotNote += "G";
                 }
 
-                paec += paecAccidental+paecRythm+paecDotNote;
+                var positionY = context.drawIncipitElements[i].yPosition;
+
+                if((positionY >= 0 && positionY < 2)
+                    && lastPositionY >= 2)
+                {
+                    paecLastNote = "'''";
+                }
+                else if((positionY >= 2 && positionY < 9)
+                    && (lastPositionY < 2 || lastPositionY >= 9)) 
+                {
+                    paecLastNote = "''";
+                }
+                else if((positionY >= 9 && positionY < 16) 
+                    && (lastPositionY < 9 || lastPositionY >= 16))
+                {
+                    paecLastNote = "'";
+                }
+                else if((positionY >= 16 && positionY < 19) 
+                    && lastPositionY < 16)
+                {
+                    paecLastNote = ",";
+                }else
+                {
+                    paecLastNote = "";
+                }
+
+                lastPositionY = positionY;
+
+                paec += paecLastNote+paecAccidental+paecRythm+paecDotNote;
             }
+
+            //'''DC''BAGFEDC'BAGFEDC,BAG
+            //,GAB'CDEFGAB''CDEFGAB'''CD
+            //regular interval CDEFGAB = 'CDEFGAB
+
+
 
             console.log(paec);
 
