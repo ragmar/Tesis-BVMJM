@@ -172,6 +172,33 @@ function IncipitClass()
 
         return null;
     }
+
+    this.getNoteByPAEC = function(paec)
+    {
+        for(var i = 0; i < this.Notes.length; i++)
+        {
+            if(this.Notes[i].paec === paec)
+            {
+                return this.Notes[i];
+            }
+        }
+
+        for(var i = 0; i < this.DotNote.length; i++)
+        {
+            if(this.DotNote[i].paec === paec)
+            {
+                return this.DotNote[i];
+            }
+        }
+
+        for(var i = 0; i < this.Accidentals.length; i++)
+        {
+            if(this.Accidentals[i].paec === paec)
+            {
+                return this.Accidentals[i];
+            }
+        }
+    }
     /*ENDREGION*/
     /*ENDREGION*/
 }
@@ -239,7 +266,7 @@ function CanvasClass ()
 
         context.gCanvasElement = canvasElement;
         context.gCanvasElement.width = canvasElement.width;
-        context.gCanvasElement.height = canvasElement.height;
+        context.gCanvasElement.height = canvasElement.height; //standard is 320
         //set the on click function on the canvas
         context.gCanvasElement.addEventListener("click", function(event) { context.clickOnCanvas(context, event) } , false);
         //set the mouse hover function on the canvas
@@ -722,7 +749,7 @@ function CanvasClass ()
         /*FIN DE MALLADO*/
     }
     /*ENDREGION*/
-    /*REGION PLAINE & EASIE CODE */
+    /*REGION INCIPIT TO PLAINE & EASIE CODE */
 
     this.getRythmPAEC = function(context, noteElement, note)
     {
@@ -792,23 +819,24 @@ function CanvasClass ()
         return [paecOctave, paecNote];
     }
 
-    this.GetAccidentalPAEC = function(context, noteElement, isRest, note, lastAccidentalByNote, accidental)
+    this.getAccidentalPAEC = function(context, noteElement, isRest, note, lastAccidentalByNote, accidental, notesArray)
     {
-        if(isRest || noteElement.qtyAccidenta == 0)
+        if(isRest || noteElement.qtyAccidental == 0)
         {
             return "";
         }
 
-        paecOctave = context.incipit.getPAECByName(accidental.name);  
+        return context.incipit.getPAECByName(accidental.name);  
     }
 
-    this.TransformToPAEC = function(context)
+    this.TransformIncipitToPAEC = function(context)
     {
         var paec                 = "";
         var lastPositionY        = 14;
         var lastRythm            = "";
         var clef                 = "treble";
         var lastAccidentalByNote = ["", "", "", "", "", "", ""];
+        var notesArray           = [ "B", "A", "G", "F", "E", "D", "C"];
         var lastOctave           = "";
 
         for(var i = 0; i < context.drawIncipitElements.length; i++)
@@ -896,24 +924,164 @@ function CanvasClass ()
                                                         note.isRest,
                                                         octaveRythm[1],
                                                         lastAccidentalByNote,
-                                                        accidental);       
+                                                        accidental,
+                                                        notesArray);       
 
                 
                 paec += paecOctave+paecAccidental+paecRythm+paecNote;
             }
+        }
 
+        console.log(paec);
+    }
+    /*ENDREGION*/
+    /*REGION Transform PAEC to Incipit */
+    this.TransformPAECToIncipit = function (context, paec)
+    {
+        context.drawIncipitElements.splice(0, context.drawIncipitElements.length);
+        console.log("paec "+paec);
 
+        var xPosition   = 0;
+        var octave      = "";
+        var noteName    = "treble";
+        var currentClef = "treble";
+        var hasDot      = false;
 
+        for(var index = 0; index < paec.length; index++)
+        {
+            var noteAccClefDot  = null;
 
+            var yPosition       = 0;
+            var qtyAccidental   = 0;
+            var accidentalName  = "becuadro";
+            var invertida       = false;
+            var isClef          = false;
 
-            console.log(paec);
+            if(paec[index] == "$") //Armadura de clave
+            {
+                noteAccClefDot = context.incipit.getNoteByPAEC(paec[index + 1]);
+                accidentalName = noteAccClefDot.name;
+                index = index + 2;
 
-            //accidentals preceded by $: 
-            //x sharpened, b flat; the symbol is followed by the capital letters indicating the altered notes.
+                while( paec[index] != "%")
+                {
+                    qtyAccidental = qtyAccidental + 1;
+                    index++;
+                }
+            }
 
+            if(paec[index] == "%") // clave
+            {
+                isClef          = true;
+                noteAccClefDot  = context.incipit.getNoteByPAEC(paec.substring(index, index + 4));
+                noteName        = noteAccClefDot.name;
+                currentClef     = noteAccClefDot.name;
+                yPosition       = noteAccClefDot.yPosition;
 
+                index           = index + 4; //4 for the cleft
+            }
+
+            if(paec[index] == "'" || paec[index] == ",") //octava
+            {
+                var tempIndex = 0;
+
+                while(paec[index + tempIndex] == "'" || paec[index + tempIndex] == ",")
+                {
+                    tempIndex++;
+                }
+
+                octave = paec.substring(index, index+tempIndex);
+                index = index + tempIndex;
+            }
+
+            if(paec[index] == "x" || paec[index] == "b" || paec[index] == "n") //ACCIDENTAL de nota
+            {
+                var paecAccidental = paec[index];
+
+                index = index + 1;
+
+                if(paec[index] == "x" || paec[index] == "b")
+                {
+                    paecAccidental = paecAccidental + paec[index];
+                    index = index + 1;
+                }
+
+                noteAccClefDot  = context.incipit.getNoteByPAEC(paecAccidental);
+                accidentalName  = noteAccClefDot.name;
+                qtyAccidental   = 1;
+            }
+
+            if(paec[index] == "0" || paec[index] == "1" || paec[index] == "2" || paec[index] == "3" 
+                || paec[index] == "4" || paec[index] == "5" || paec[index] == "6" || paec[index] == "7" 
+                || paec[index] == "8" || paec[index] == "9") //if paec[index] is a number
+            {
+                var paecRythm = paec[index];
+                hasDot = false;
+
+                index = index +1;
+
+                if(paec[index] == ".")
+                {
+                    hasDot = true;
+                    index = index + 1;
+                }
+
+                if(paec[index] == "-")
+                {
+                    paecRythm = paecRythm + paec[index];
+                    index = index + 1;
+                }
+                noteAccClefDot = context.incipit.getNoteByPAEC(paecRythm);
+                noteName = noteAccClefDot.name;
+            }
+
+            if(paec[index] == "A" || paec[index] == "B" || paec[index] == "C" 
+                || paec[index] == "D" || paec[index] == "E" || paec[index] == "F" || paec[index] == "G")
+            {
+                var notesArray           = [ "B", "A", "G", "F", "E", "D", "C"];
+                var position = 0;
+                var i = 0;
+                // 19 notes the incipit can represent, 31 notes can mean
+                //'''DC''BAGFEDC'BAGFEDC,BAG                 Treble
+                //         ''EDC'BAGFEDC,BAGFEDC,,BA         Alto
+                //                 'FEDC,BAGFEDC,,BAFEDC,,,B Bass
+                //'''DC''BAGFEDC'BAGFEDC,BAGFEDC,,BAFEDC,,,B
+
+                while(paec[index] != notesArray[i])
+                {
+                    i++
+                }
+
+                if(octave == "'''")        position = - 5;
+                else if(octave == "''")    position = 2;
+                else if(octave == "'")     position = 9;
+                else if(octave == ",")     position = 16;
+                else if(octave == ",,")    position = 23;
+                else if(octave == ",,,")   position = 30;
+
+                position = position + i;
+
+                if(currentClef == "treble") position-=0;
+                if(currentClef == "alto")   position-=6;
+                if(currentClef == "bass")   position-=12;
+
+                yPosition = position;
+            }
+
+            context.insertElement(context,
+                                noteName,
+                                xPosition,
+                                yPosition,
+                                hasDot,
+                                qtyAccidental,
+                                accidentalName,
+                                invertida,
+                                isClef);
+            
+            xPosition = xPosition + 1;
         }
     }
+
     /*ENDREGION*/
     /*ENDREGION*/
 };
@@ -951,7 +1119,6 @@ function dotPressed(dot)
 function toneUpDown(up) 
 {
     CanvasIncipit.toneUpDown(CanvasIncipit, up);
-    CanvasIncipit.TransformToPAEC(CanvasIncipit);
 };
 
 //Initialize the Canvas

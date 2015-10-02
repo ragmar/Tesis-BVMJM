@@ -20,7 +20,6 @@ input{
 <!-- Codigo de alejandro -->
 
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
-<!--<?php echo $this->Html->css('incipit/incipitManager'); ?> -->
 <style>
 	@font-face 
 	{
@@ -211,25 +210,7 @@ input{
 			<?php //echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'div' => false)); ?>
 			<?php echo $this->Form->end(); ?>
 		</div>
-		<?php
-			/*echo "<table class='col-xs-2'>";
-			$i = 0;
-			$j = 0;
 
-			for ($i = 0; $i < 6; $i++)
-			{
-				echo "<tr>";
-				for ($j = 0; $j < 2; $j++)
-				{
-					echo "<td>";
-					echo $this->Form->button( chr(97 + ($i *2 + $j)), array('type'=>'button', 'class' => 'btn btn-m btn-default maestro', 'data-halign' => 'center',
-						'onclick' => 'NotePressed(\''.chr(97 + ($i *2 + $j)).'\');' ));
-					echo "</td>";
-				}
-				echo "</tr>";
-			}
-			echo "</table>";*/
-		?>
 		<!-- Por ahora width="1000" height="320" !-->
 		<div class="col-xs-10">
 
