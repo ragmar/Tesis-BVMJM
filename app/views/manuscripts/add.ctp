@@ -1490,7 +1490,7 @@ th {
 		<!-- Codigo de alejandro -->
 
 		<?php 
-			echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control')) 
+			echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control'));
 			echo $this->Form->hidden('ItemsIncipit.transposition', array('id' => 'incipitTransposition', 'label' => false, 'div' => false, 'class' => 'form-control')); 
 		?>
 			<canvas id="incipit" width="800" height="320">
