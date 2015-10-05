@@ -1488,6 +1488,11 @@ th {
 		</td>
 		<td>
 		<!-- Codigo de alejandro -->
+
+		<?php 
+			echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control')) 
+			echo $this->Form->hidden('ItemsIncipit.transposition', array('id' => 'incipitTransposition', 'label' => false, 'div' => false, 'class' => 'form-control')); 
+		?>
 			<canvas id="incipit" width="800" height="320">
 				<script> 
 					var incipitDocument = document.getElementById("incipit");
@@ -1496,8 +1501,6 @@ th {
 			</canvas>
 		<!-- fin del codigo de alejandro-->
 		<?php echo $this->Form->input('031p', array('id' => '031p', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
-		<?php echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control')) ?>
-		<?php echo $this->Form->hidden('ItemsIncipit.transposition', array('id' => 'incipitTransposition', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
 		</td>
 	</tr>
 	<tr>
