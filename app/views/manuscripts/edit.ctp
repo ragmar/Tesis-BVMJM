@@ -1731,6 +1731,7 @@ th {
 			<?php
 			if(isset($item['ItemsIncipit']['paec']))
 			{
+				echo $this->Form->hidden('ItemsIncipit.id', array('id' => 'incipitId', 'label' => false, 'div' => false, 'class' => 'form-control', 'value' => $item['ItemsIncipit']['id']));
 				echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control', 'value' => $item['ItemsIncipit']['paec']));
 				echo $this->Form->hidden('ItemsIncipit.transposition', array('id' => 'incipitTransposition', 'label' => false, 'div' => false, 'class' => 'form-control', 'value' => $item['ItemsIncipit']['transposition']));
 			}
