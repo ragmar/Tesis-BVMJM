@@ -1456,8 +1456,7 @@ function hue ($letter = null) {
 			$data['Item'] = $data['Manuscript'];
 			unset($data['Manuscript']);
 
-			if($data['ItemsIncipit']['transposition'] == "") //this verify if exist a plaine & easie code to safe it on the database
-			{
+			if($data['ItemsIncipit']['transposition'] == "")//this verify if exist a plaine & easie code to safe it on the database
 			{
 				unset($data['ItemsIncipit']);
 			}
