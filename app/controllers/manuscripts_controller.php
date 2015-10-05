@@ -1029,7 +1029,7 @@ function hue ($letter = null) {
 			$data['Item'] = $data['Manuscript'];
 			unset($data['Manuscript']);
 
-			if($data['ItemsIncipit']['transposition'] == "")
+			if($data['ItemsIncipit']['paec'] == "") //this verify if exist a plaine & easie code to safe it on the database
 			{
 				unset($data['ItemsIncipit']);
 			}
@@ -1456,8 +1456,14 @@ function hue ($letter = null) {
 			$data['Item'] = $data['Manuscript'];
 			unset($data['Manuscript']);
 
+			if($data['ItemsIncipit']['transposition'] == "") //this verify if exist a plaine & easie code to safe it on the database
+			{
+			{
+				unset($data['ItemsIncipit']);
+			}
+
 			$this->Item->create();
-			if ($this->Item->save($data)) {
+			if ($this->Item->saveAll($data)) {
 				
 				if ($_FILES['data']['error']['Manuscript']['item'] == '1') {
 					$this->Session->setFlash(__('El archivo o documento no pudo ser cargado, verifique si sobrepasa los '.ini_get('upload_max_filesize').' permitidos.', true));
