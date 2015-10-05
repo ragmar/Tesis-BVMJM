@@ -278,17 +278,27 @@ function CanvasClass ()
 
         context.gDrawingContext.textBaseline = "top";
 
-        var clef = context.incipit.getNoteByName("treble");
 
-        context.insertElement(context, //context
-                            clef.name, //name
-                            0,     //xposition
-                            clef.yPosition,//yposition
-                            null,  //hasDot
-                            null,  //qtyAccidental
-                            null,  //accidentalname
-                            null,  //inverted
-                            true); //isclef
+        var paec = document.getElementById("incipitPaec");
+
+        console.log(paec);
+
+        context.TransformPAECToIncipit(context, paec.value);
+
+        if(context.drawIncipitElements.length == 0)
+        {
+            var clef = context.incipit.getNoteByName("treble");
+
+            context.insertElement(context, //context
+                                    clef.name, //name
+                                    0,     //xposition
+                                    clef.yPosition,//yposition
+                                    null,  //hasDot
+                                    null,  //qtyAccidental
+                                    null,  //accidentalname
+                                    null,  //inverted
+                                    true); //isclef
+        }
     };
 
     //Cursor position on cavnas
@@ -965,13 +975,12 @@ function CanvasClass ()
     this.TransformPAECToIncipit = function (context, paec)
     {
         context.drawIncipitElements.splice(0, context.drawIncipitElements.length);
-        console.log("paec "+paec);
 
         var xPosition   = 0;
         var octave      = "";
         var noteName    = "treble";
         var currentClef = "treble";
-        var hasDot      = false;
+        var hasDot      = false;    
 
         for(var index = 0; index < paec.length; index++)
         {
