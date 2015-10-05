@@ -53,4 +53,14 @@ class Item extends AppModel {
 				'counterQuery' => ''
 		)
 	);
+
+	var $hasOne = array(
+		'ItemsIncipit' => array(
+			'className' => 'ItemsIncipit',
+			'foreignKey' => 'item_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
 }

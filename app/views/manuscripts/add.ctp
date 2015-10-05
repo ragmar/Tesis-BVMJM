@@ -1417,6 +1417,7 @@ th {
 	<tr>
 		<td><b>$p</b></td>
 		<td>Notación musical.
+		<!-- Codigo de alejandro -->
 		<br />
 			<label style="border-bottom: solid 1px #6C3F30;"><?php __('Menu del Íncipit'); ?></label>
 			<br />
@@ -1483,6 +1484,7 @@ th {
 					$("#<?php echo "autor-todos"; ?>").attr('style', 'background-color: #e8ded4; border: solid 1px #6c3f30; color: #6c3f30; width: 66px;');
 				}
 			</script>
+		<!-- fin del codigo de alejandro-->
 		</td>
 		<td>
 		<!-- Codigo de alejandro -->
@@ -1493,7 +1495,17 @@ th {
 				</script>
 			</canvas>
 		<!-- fin del codigo de alejandro-->
-		<?php echo $this->Form->input('031p', array('id' => '031p', 'label' => false, 'div' => false, 'class' => 'form-control')); ?></td>
+		<?php echo $this->Form->input('031p', array('id' => '031p', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
+		<?php echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control')) ?>
+		<?php echo $this->Form->hidden('ItemsIncipit.transposition', array('id' => 'incipitTransposition', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
+		</td>
+	</tr>
+	<tr>
+		<td><b>TONO</b></td>
+		<td>LO MIO</td>
+		<td>
+
+		</td>
 	</tr>
 	<tr>
 		<td><b>$q</b></td>
@@ -6303,7 +6315,6 @@ $("#031b").bind('keyup change', function(event) {
 	
 	$("#031p").bind('keyup change', function(event) {
 		var tmp_031 = "";
-
 		if ($('#031a').val().length > 0) {
 			tmp_031 = tmp_031 + '^a' + $('#031a').val();
 		}

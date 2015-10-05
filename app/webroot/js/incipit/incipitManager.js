@@ -362,6 +362,8 @@ function CanvasClass ()
                                 null, //accidentalName
                                 false, //inverted
                                 false); //isClef
+
+            context.TransformIncipitToPAEC(context);
         }
 
         context.drawPentagram(context);
@@ -479,6 +481,7 @@ function CanvasClass ()
             }
         }
 
+        context.TransformIncipitToPAEC(context);
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawPentagram(context);
     }
@@ -521,6 +524,7 @@ function CanvasClass ()
                 }
                 
                 context.drawIncipitElements[i].accidentalName = accidental.name;
+                context.TransformIncipitToPAEC(context);
             }
         }
 
@@ -547,6 +551,7 @@ function CanvasClass ()
                 && !context.incipit.getNoteByName(context.drawIncipitElements[i].noteName).isRest)
             {
                 context.drawIncipitElements[i].hasDot = !context.drawIncipitElements[i].hasDot;
+                context.TransformIncipitToPAEC(context);
             }
         }
 
@@ -832,6 +837,11 @@ function CanvasClass ()
     this.TransformIncipitToPAEC = function(context)
     {
         var paec                 = "";
+        var var031g              = "";
+        var var031n              = "";
+        var var031o              = ""; //It is not working
+        var var031p              = "";
+
         var lastPositionY        = 14;
         var lastRythm            = "";
         var clef                 = "treble";
@@ -883,9 +893,12 @@ function CanvasClass ()
                             if(j == 6) paecAccidental += "B";
                         }
                     }
+
+                    var031n = paecAccidental;
                     paec += "$"+paecAccidental;
                 }
                 paec += paecNote + " ";
+                var031g = paecNote.substring(1, 4);
             }
             else
             {
@@ -927,12 +940,25 @@ function CanvasClass ()
                                                         accidental,
                                                         notesArray);       
 
-                
+                var031p += paecOctave+paecAccidental+paecRythm+paecNote;
                 paec += paecOctave+paecAccidental+paecRythm+paecNote;
             }
         }
 
-        console.log(paec);
+        $("#incipitPaec").val(paec);
+        $("#incipitTransposition").val(paec);
+
+        $("#031g").val(var031g);
+        $("#031n").val(var031n);
+        $("#031o").val(var031o);
+        $("#031p").val(var031p);
+        $("#0312").val("pe");
+
+        $("#031g").trigger("change");
+        $("#031n").trigger("change");
+        $("#031o").trigger("change");
+        $("#031p").trigger("change");
+        $("#0312").trigger("change");
     }
     /*ENDREGION*/
     /*REGION Transform PAEC to Incipit */

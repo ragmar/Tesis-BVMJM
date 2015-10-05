@@ -1027,10 +1027,11 @@ function hue ($letter = null) {
 			unset($data['Manuscript']['cover']);
 			unset($data['Manuscript']['item']);
 			$data['Item'] = $data['Manuscript'];
+			$data['ItemsIncipit'] = $data['ItemsIncipit'];
 			unset($data['Manuscript']);
 
 			$this->Item->create();
-			if ($this->Item->save($data)) {
+			if ($this->Item->saveAll($data)) {
 				$item = $this->Item->getLastInsertID();
 
 				if ($_FILES['data']['error']['Manuscript']['item'] == '1') {
