@@ -1027,8 +1027,12 @@ function hue ($letter = null) {
 			unset($data['Manuscript']['cover']);
 			unset($data['Manuscript']['item']);
 			$data['Item'] = $data['Manuscript'];
-			$data['ItemsIncipit'] = $data['ItemsIncipit'];
 			unset($data['Manuscript']);
+
+			if($data['ItemsIncipit']['transposition'] == "")
+			{
+				unset($data['ItemsIncipit']);
+			}
 
 			$this->Item->create();
 			if ($this->Item->saveAll($data)) {
