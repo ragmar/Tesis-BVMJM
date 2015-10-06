@@ -1032,8 +1032,13 @@ function hue ($letter = null) {
 			$data['Item'] = $data['Manuscript'];
 			unset($data['Manuscript']);
 
+			if($data['ItemsIncipit']['paec'] == "") //this verify if exist a plaine & easie code to safe it on the database
+			{
+				unset($data['ItemsIncipit']);
+			}
+
 			$this->Item->create();
-			if ($this->Item->save($data)) {
+			if ($this->Item->saveAll($data)) {
 				$item = $this->Item->getLastInsertID();
 				if(isset($fileName)){
 					$this->ParsePdfToText($fileName, $item);
@@ -1460,8 +1465,13 @@ function hue ($letter = null) {
 			$data['Item'] = $data['Manuscript'];
 			unset($data['Manuscript']);
 
+			if($data['ItemsIncipit']['paec'] == "")//this verify if exist a plaine & easie code to safe it on the database
+			{
+				unset($data['ItemsIncipit']);
+			}
+
 			$this->Item->create();
-			if ($this->Item->save($data)) {
+			if ($this->Item->saveAll($data)) {
 				if(isset($fileName)){
 					$this->ParsePdfToText($fileName, $id);
 				}
