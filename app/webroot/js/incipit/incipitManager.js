@@ -1,6 +1,7 @@
 var currenteNotePressed = "f";
 var dibujarMallado = false;
 var positionNoteSelected = null;
+var CanvasIncipit = new CanvasClass(); //Define the object Canvas
 
 
 function IncipitClass()
@@ -19,11 +20,11 @@ function IncipitClass()
         context.Accidentals =
         [
             //Accidentales
-            {name: "doblesostenido",    value: "l", font: "bold 35px Maestro", xPosition: -13, yPosition: 4, paec: "xx"},
-            {name: "bemol",             value: "m", font: "bold 35px Maestro", xPosition: -13, yPosition: 5, paec: "b"},
-            {name: "doblebemol",        value: "n", font: "bold 35px Maestro", xPosition: -20, yPosition: 5, paec: "bb"},
-            {name: "becuadro",          value: "o", font: "bold 35px Maestro", xPosition: -13, yPosition: 12, paec: "n"},
-            {name: "sostenido",         value: "p", font: "bold 35px Maestro", xPosition: -13, yPosition: 11, paec: "x"}
+            {name: "doblesostenido",    value: "l", font: 35, xPosition: -13, yPosition: 4, paec: "xx"},
+            {name: "bemol",             value: "m", font: 35, xPosition: -13, yPosition: 5, paec: "b"},
+            {name: "doblebemol",        value: "n", font: 35, xPosition: -20, yPosition: 5, paec: "bb"},
+            {name: "becuadro",          value: "o", font: 35, xPosition: -13, yPosition: 12, paec: "n"},
+            {name: "sostenido",         value: "p", font: 35, xPosition: -13, yPosition: 11, paec: "x"}
         ];
 
         context.AccidentalClefPositionNote =
@@ -58,39 +59,39 @@ function IncipitClass()
         context.DotNote =
         [
             //Accidentales
-            {name: "dot",    value: "q", font: "bold 35px Maestro", xPosition: 18, yPosition: 5, paec: "."}
+            {name: "dot",    value: "q", font: 35, xPosition: 18, yPosition: 5, paec: "."}
         ];
 
         context.Notes = 
         [
             //Claves
-            {name: "treble",   value: "1", font: "bold 56px Maestro", isRest: false, yPosition: 7, paec: "%G-2"}, //46 for clef
-            {name: "alto",     value: "2", font: "bold 56px Maestro", isRest: false, yPosition: 5, paec: "%C-3"}, //46 for clef
-            {name: "bass",     value: "3", font: "bold 56px Maestro", isRest: false, yPosition: 3, paec: "%F-4"}, //46 for clef
+            {name: "treble",   value: "1", font: 56, isRest: false, yPosition: 7, paec: "%G-2"}, //46 for clef
+            {name: "alto",     value: "2", font: 56, isRest: false, yPosition: 5, paec: "%C-3"}, //46 for clef
+            {name: "bass",     value: "3", font: 56, isRest: false, yPosition: 3, paec: "%F-4"}, //46 for clef
 
             //Notas
-            {name: "maxima",             value: "a", font: "bold 38px Maestro", isRest: false, paec: ""}, 
-            {name: "longa",              value: "b", font: "bold 38px Maestro", isRest: false, paec: "0"},
-            {name: "breve",              value: "c", font: "bold 38px Maestro", isRest: false, paec: "9"},
-            {name: "semibreve",          value: "d", font: "bold 38px Maestro", isRest: false, paec: "1"},
-            {name: "minim",              value: "e", font: "bold 38px Maestro", isRest: false, paec: "2"},
-            {name: "crotchet",           value: "f", font: "bold 38px Maestro", isRest: false, paec: "4"},
-            {name: "quaver",             value: "g", font: "bold 38px Maestro", isRest: false, paec: "8"},
-            {name: "semiquaver",         value: "h", font: "bold 38px Maestro", isRest: false, paec: "6"},
-            {name: "demisemiquaver",     value: "i", font: "bold 38px Maestro", isRest: false, paec: "3"},
-            {name: "hemidemisemiquaver", value: "j", font: "bold 38px Maestro", isRest: false, paec: "5"},
+            {name: "maxima",             value: "a", font: 38, isRest: false, paec: ""}, 
+            {name: "longa",              value: "b", font: 38, isRest: false, paec: "0"},
+            {name: "breve",              value: "c", font: 38, isRest: false, paec: "9"},
+            {name: "semibreve",          value: "d", font: 38, isRest: false, paec: "1"},
+            {name: "minim",              value: "e", font: 38, isRest: false, paec: "2"},
+            {name: "crotchet",           value: "f", font: 38, isRest: false, paec: "4"},
+            {name: "quaver",             value: "g", font: 38, isRest: false, paec: "8"},
+            {name: "semiquaver",         value: "h", font: 38, isRest: false, paec: "6"},
+            {name: "demisemiquaver",     value: "i", font: 38, isRest: false, paec: "3"},
+            {name: "hemidemisemiquaver", value: "j", font: 38, isRest: false, paec: "5"},
 
             //Silencios
-            {name: "restMax",            value: "!",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: ""},
-            {name: "restLon",            value: "\"", font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "0-"},
-            {name: "restBrev",           value: "#",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "9-"},
-            {name: "restSemirev",        value: "$",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "1-"},
-            {name: "restMinim",          value: "%",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "2-"},
-            {name: "restCrotchet",       value: "&",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "4-"},
-            {name: "restQuaver",         value: "'",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "8-"},
-            {name: "restSemiqua",        value: "(",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "6-"},
-            {name: "restDemsemqu",       value: ")",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "3-"},
-            {name: "restHemdemsemqu",    value: "*",  font: "bold 38px Maestro", isRest: true, yPosition: 8, paec: "5-"}
+            {name: "restMax",            value: "!",  font: 38, isRest: true, yPosition: 8, paec: ""},
+            {name: "restLon",            value: "\"", font: 38, isRest: true, yPosition: 8, paec: "0-"},
+            {name: "restBrev",           value: "#",  font: 38, isRest: true, yPosition: 8, paec: "9-"},
+            {name: "restSemirev",        value: "$",  font: 38, isRest: true, yPosition: 8, paec: "1-"},
+            {name: "restMinim",          value: "%",  font: 38, isRest: true, yPosition: 8, paec: "2-"},
+            {name: "restCrotchet",       value: "&",  font: 38, isRest: true, yPosition: 8, paec: "4-"},
+            {name: "restQuaver",         value: "'",  font: 38, isRest: true, yPosition: 8, paec: "8-"},
+            {name: "restSemiqua",        value: "(",  font: 38, isRest: true, yPosition: 8, paec: "6-"},
+            {name: "restDemsemqu",       value: ")",  font: 38, isRest: true, yPosition: 8, paec: "3-"},
+            {name: "restHemdemsemqu",    value: "*",  font: 38, isRest: true, yPosition: 8, paec: "5-"}
         ];
     }    
 
@@ -207,20 +208,45 @@ function IncipitClass()
 function CanvasClass ()
 {
     //Variables
-    this.gCanvasElement = "";
+    this.gCanvasElement  = "";
     this.gDrawingContext = "";
+    this.operation       = "";
 
-    this.search_mode = false;
+    this.fontBase    = 800;                   // selected default width for canvas
 
-    //8 pixels make 1 step for scale 1:1 and there are a 40 stepOnY and 125 stepOnX
-    this.step       = 8;
-    this.stepOnY    = 40;
-    this.stepOnX    = 125;
-    this.maxStepY   = 29;
-    this.minStepY   = 11;
+    
+    this.stepY       = 8;  //8 pixels for pixels 320 (height)
+    this.stepX       = 50; //50 pixels for pixels 800 (width)
+    this.maxStepY    = 29;
+    this.minStepY    = 11;
 
     this.drawIncipitElements = new Array();
     this.incipit        = new IncipitClass();
+
+
+    this.getFont = function(context, fontSize) 
+    {
+        var ratio = fontSize / context.fontBase;   // calc ratio
+        var size = context.gCanvasElement.width * ratio;   // get font size based on current width
+        return "bold "+ (size|0) + "px Maestro"
+    }
+
+    this.setStepY = function(context)
+    {
+        var ratio = context.stepY / 320;   // calc ratio
+        var size = context.gCanvasElement.height * ratio;   // get font size based on current width
+        context.stepY = size;
+    }
+
+    this.setStepX = function(context)
+    {
+        var ratio = context.stepX / 800;   // calc ratio
+        var size  = context.gCanvasElement.width * ratio;   // get font size based on current width
+        context.stepX = size;
+    }
+
+    this.setBaseXStep
+
 
     /*REGION EVENTS*/
     //onClick canvas
@@ -254,11 +280,12 @@ function CanvasClass ()
     /*ENDREGION*/
     /*REGION PRIVATE FUNCTIONS*/
     //Starting canvas
-    this.initializeCanvas = function(canvasElement, search_mode) 
+    this.initializeCanvas = function(canvasElement, operation, paec) 
     {
-        var context = this;
+        var context       = this;
+        context.operation = operation;
 
-        context.search_mode = search_mode;
+        canvasElement = document.getElementById(canvasElement);
 
         if (!canvasElement) {
             canvasElement = document.createElement("incipitCanvas");
@@ -271,22 +298,36 @@ function CanvasClass ()
         context.gCanvasElement = canvasElement;
         context.gCanvasElement.width = canvasElement.width;
         context.gCanvasElement.height = canvasElement.height; //standard is 320
-        //set the on click function on the canvas
-        context.gCanvasElement.addEventListener("click", function(event) { context.clickOnCanvas(context, event) } , false);
-        //set the mouse hover function on the canvas
-        context.gCanvasElement.addEventListener("mousemove", function(event) { context.hoverOnCanvas(context, event) } , false);
 
-        window.addEventListener("keypress", function(e) { context.doKeyDown(context, e) }, false );
+        context.setStepY(context);
+        context.setStepX(context);
+
+            context.gCanvasElement.addEventListener("click", function(event) { context.clickOnCanvas(context, event) } , false);
+        if(operation != "list")
+        {
+            //set the on click function on the canvas
+            //context.gCanvasElement.addEventListener("click", function(event) { context.clickOnCanvas(context, event) } , false);
+            //set the mouse hover function on the canvas
+            context.gCanvasElement.addEventListener("mousemove", function(event) { context.hoverOnCanvas(context, event) } , false);
+
+            window.addEventListener("keypress", function(e) { context.doKeyDown(context, e) }, false );
+        }
 
         context.gDrawingContext = context.gCanvasElement.getContext("2d");
 
         context.gDrawingContext.textBaseline = "top";
 
-        if(!context.search_mode)
+        if(operation == "edit")
         {
-            var paec = document.getElementById("incipitPaec");
-            context.TransformPAECToIncipit(context, paec.value);
+            paec = document.getElementById("incipitPaec");    
+            paec = paec.value;
         }
+
+        if(operation == "edit" || operation == "list")
+        {
+            context.TransformPAECToIncipit(context, paec);
+        }
+
 
         if(context.drawIncipitElements.length == 0)
         {
@@ -302,6 +343,8 @@ function CanvasClass ()
                                     null,  //inverted
                                     true); //isclef
         }
+
+        context.drawPentagram(context);
     };
 
     //Cursor position on cavnas
@@ -312,8 +355,8 @@ function CanvasClass ()
         var x = Math.round((event.clientX-rect.left)/(rect.right-rect.left)*context.gCanvasElement.width);
         var y = Math.round((event.clientY-rect.top)/(rect.bottom-rect.top)*context.gCanvasElement.height);
 
-        cursor.x = Math.floor(x/50);
-        cursor.y = Math.floor(y/context.step);
+        cursor.x = Math.floor(x/context.stepX);
+        cursor.y = Math.floor(y/context.stepY);
         
         if(cursor.y > context.maxStepY)
         {
@@ -411,7 +454,7 @@ function CanvasClass ()
             var noteToDraw = context.incipit.getNoteByName(note.name);
             var notePosition = context.getDrawPosition(context, tempEle, context.drawIncipitElements.length);
 
-            context.gDrawingContext.font = noteToDraw.font;
+            context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
             context.gDrawingContext.fillText(noteToDraw.value, 
                                             notePosition.x, 
                                             notePosition.y);
@@ -624,12 +667,12 @@ function CanvasClass ()
     this.getDrawPosition = function(context, element, index)
     {
 
-        var positionX = element.xPosition * 50;
+        var positionX = element.xPosition * context.stepX;
 
-        /*yPosition is between 0 and 18, we multiply by Step to draw it on the clicked position, but 
-        the Stem cause problems not drawing the Note head on the position, that why the substract
+        /*yPosition is between 0 and 18, we multiply by StepY to draw it on the clicked position, but 
+        the StepY cause problems not drawing the Note head on the position, that is why the substract
         step*6 + 2 occurs, to set it on the mouse position */
-        var positionY = (element.yPosition + context.minStepY) * context.step - (context.step * 6) + 2;
+        var positionY = (element.yPosition + context.minStepY) * context.stepY - (context.stepY * 6) + 2;
 
         return {x: positionX, y: positionY};
 
@@ -644,13 +687,13 @@ function CanvasClass ()
         context.gDrawingContext.strokeStyle="#000000";
         context.gDrawingContext.lineWidth="2";
 
-        var halfScreenYpx = (context.step * context.stepOnY / 2); //Half screen y pixels
+        var halfScreenYpx = context.gCanvasElement.height / 2; //Half screen y pixels
         /* DRAWING PENTAGRAM */
 
         //Drawing the 5 lines of pentragram
         for(var i=-2, qty = 2; i<=2; i++)
         {
-            var pixelsToAdd = (context.step * qty * i + context.step / 2)
+            var pixelsToAdd = context.stepY * qty * i + context.stepY / 2;
             context.gDrawingContext.moveTo(0, halfScreenYpx + pixelsToAdd);
             context.gDrawingContext.lineTo(context.gCanvasElement.width, halfScreenYpx + pixelsToAdd);
         }
@@ -687,7 +730,7 @@ function CanvasClass ()
                             positionAccidental = context.incipit.AccidentalClefPositionBemol[j];
                         }
 
-                        context.gDrawingContext.font = accidental.font;
+                        context.gDrawingContext.font = context.getFont(context, accidental.font);
                         context.gDrawingContext.fillText(accidental.value, 
                                                         notePosition.x + positionAccidental.xPosition, 
                                                         notePosition.y + positionAccidental.yPosition);
@@ -695,7 +738,7 @@ function CanvasClass ()
                 }
                 else
                 {
-                    context.gDrawingContext.font = accidental.font;
+                    context.gDrawingContext.font = context.getFont(context, accidental.font);
                     context.gDrawingContext.fillText(accidental.value, 
                                                     notePosition.x + accidental.xPosition, 
                                                     notePosition.y + accidental.yPosition);
@@ -706,18 +749,23 @@ function CanvasClass ()
             {
                 var dot = context.incipit.DotNote[0];
 
-                context.gDrawingContext.font = dot.font;
+                context.gDrawingContext.font = context.getFont(context, dot.font);
                 context.gDrawingContext.fillText(dot.value, 
                                                 notePosition.x + dot.xPosition, 
                                                 notePosition.y + dot.yPosition);
             }
 
-            context.gDrawingContext.font = noteToDraw.font;
+            context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
             context.gDrawingContext.fillText(noteToDraw.value, 
                                             notePosition.x, 
                                             notePosition.y);
         }
 
+        if(context.operation == "list")
+        {
+            context.gDrawingContext.scale(0.5,0.5);
+        }
+        
         context.gDrawingContext.stroke();
         /* FINISH DRAWING PENTAGRAM */
 
@@ -729,9 +777,9 @@ function CanvasClass ()
 
             for(var i=0; i<context.gCanvasElement.width; i++)
             {
-                if(i%50 == 0)
+                if(i % context.stepX == 0)
                 {
-                    if( i%50 == 0)
+                    if( i % context.stepX == 0)
                     {
                         context.gDrawingContext.strokeStyle="#0000FF";
                     }
@@ -742,7 +790,6 @@ function CanvasClass ()
 
                     context.gDrawingContext.moveTo(i, 0);
                     context.gDrawingContext.lineTo(i, context.gCanvasElement.height);
-
                     context.gDrawingContext.stroke();
                 }
             }
@@ -760,7 +807,6 @@ function CanvasClass ()
 
                 context.gDrawingContext.moveTo(0, j);
                 context.gDrawingContext.lineTo(context.gCanvasElement.width, j);
-
                 context.gDrawingContext.stroke();
             }
         }
@@ -958,11 +1004,11 @@ function CanvasClass ()
             }
         }
 
-        if(!context.search_mode)
+        $("#incipitPaec").val(paec);
+        $("#incipitTransposition").val(paec);
+        
+        if(context.operation == 'add' || context.operation == 'edit')
         {
-            $("#incipitPaec").val(paec);
-            $("#incipitTransposition").val(paec);
-
             $("#031g").val(var031g);
             $("#031n").val(var031n);
             $("#031o").val(var031o);
@@ -981,6 +1027,8 @@ function CanvasClass ()
     this.TransformPAECToIncipit = function (context, paec)
     {
         context.drawIncipitElements.splice(0, context.drawIncipitElements.length);
+
+        if(paec == null || paec == "") return;
 
         var xPosition   = 0;
         var octave      = "";
@@ -1127,9 +1175,6 @@ function CanvasClass ()
     /*ENDREGION*/
 };
 
-//Define the object Canvas
-var CanvasIncipit = new CanvasClass();
-
 
 //Recive the clef to currently display
 function ClefPressed(clef)
@@ -1163,10 +1208,14 @@ function toneUpDown(up)
 };
 
 //Initialize the Canvas
-function initializeIncipit(canvasElement, search_mode) 
+function initializeIncipit(canvasElement, operation, paec, canvas) 
 {
-
-    CanvasIncipit.initializeCanvas(canvasElement, search_mode);
-
-    CanvasIncipit.drawPentagram(CanvasIncipit);
+    if(canvas == null)
+    {
+        CanvasIncipit.initializeCanvas(canvasElement, operation, paec);
+    }
+    else
+    {
+        canvas.initializeCanvas(canvasElement, operation, paec)
+    }
 };

@@ -1,13 +1,13 @@
 <script type="text/javascript">
 function validate() {
 var txt = document.getElementById("Manuscript245");
-if(txt.value== "" || txt.value== null) {
+/*if(txt.value== "" || txt.value== null) {
 alert("Por favor, ingrese al menos el título");
 txt.style.border = "2px solid red";
 return false;
 } else {
 txt.style.border = "";
-}
+}*/
 }
 </script>
 <style>
@@ -206,12 +206,17 @@ input{
 			<?php echo $this->Form->button('^', array('type' => 'button', 'id' => 'toneUp', 'onclick' => 'toneUpDown(-1);')); ?>
 			<?php echo $this->Form->button('^', array('type' => 'button', 'id' => 'toneDown', 'class' => 'rotate', 'onclick' => 'toneUpDown(1);')); ?>
 
-			<canvas id="incipit" width="1000" height="320">
+			<canvas id="incipit" width="800" height="320" class="maestro">
 				<script> 
 					var incipitDocument = document.getElementById("incipit");
-					initializeIncipit(incipitDocument, true); 
+					initializeIncipit(incipitDocument.id, "search", null , null); 
 				</script>
 			</canvas>
+
+			<?php 
+				echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control'));
+				echo $this->Form->hidden('ItemsIncipit.transposition', array('id' => 'incipitTransposition', 'label' => false, 'div' => false, 'class' => 'form-control'));
+				?>
 		</div>
 	</div>
 
@@ -460,20 +465,42 @@ function marc21_decode($camp = null) {
 					}
 				?>
 				</dd>
-					<?php if (!empty($item['Item']['650'])) { ?>
-					<dt style="width: 120px"><?php __('Temas:');?></dt>
-					<dd style="margin-left: 130px">
-					<?php
-						$mattername = marc21_decode($item['Item']['650']);
-						if (!empty($this->data['manuscripts']['Temas'])) {
-							echo '<b>' . $mattername['a'] . '.</b>';
-						} else {
-							echo $mattername['a'] . '.';
-						}
-						if (isset($mattername['x'])) {echo ' ' . $mattername['x']. '.';}
+				<?php if (!empty($item['Item']['650'])) { ?>
+				<dt style="width: 120px"><?php __('Temas:');?></dt>
+				<dd style="margin-left: 130px">
+				<?php
+					$mattername = marc21_decode($item['Item']['650']);
+					if (!empty($this->data['manuscripts']['Temas'])) {
+						echo '<b>' . $mattername['a'] . '.</b>';
+					} else {
+						echo $mattername['a'] . '.';
+					}
+					if (isset($mattername['x'])) {echo ' ' . $mattername['x']. '.';}
+				?>
+				</dd>
+				<?php } ?>
+				<!-- codigo de alejandro -->
+				<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
+				<dt style="width: 120px"><?php __('Incipit:');?></dt>
+
+				<dd style="margin-left: 130px">
+					<?php 
+						echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\"> class=\"maestro\"";
 					?>
-					</dd>
-					<?php } ?>
+						<script> 
+							var incipitDocument = <?php echo "\"". $item['Item']['id'] . "\"" ;?>;
+							var paec = <?php echo "\"" .$item['ItemsIncipit']['paec'] . "\"" ;?>;
+							incipitDocument = document.getElementById("canvas" + incipitDocument); 
+							var currentCanvas = new CanvasClass();
+							initializeIncipit(incipitDocument.id, "list", paec, currentCanvas); 
+						</script>
+
+					<?php 
+						echo "</canvas>";
+					?>
+				</dd>
+				<?php } ?>
+				<!-- fin decodigo de alejandro -->
 			</dl>
 		</td>
 	</tr>

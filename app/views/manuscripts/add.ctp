@@ -1479,13 +1479,15 @@ th {
 		<!-- Codigo de alejandro -->
 
 			<?php 
+				echo $this->Form->button('^', array('type' => 'button', 'id' => 'toneUp', 'onclick' => 'toneUpDown(-1);')); 
+				echo $this->Form->button('^', array('type' => 'button', 'id' => 'toneDown', 'class' => 'rotate', 'onclick' => 'toneUpDown(1);')); 
 				echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control'));
 				echo $this->Form->hidden('ItemsIncipit.transposition', array('id' => 'incipitTransposition', 'label' => false, 'div' => false, 'class' => 'form-control')); 
 			?>
 			<canvas id="incipit" width="800" height="320">
 				<script> 
 					var incipitDocument = document.getElementById("incipit");
-					initializeIncipit(incipitDocument, false); 
+					initializeIncipit(incipitDocument.id, "add", null , null); 
 				</script>
 			</canvas>
 		<!-- fin del codigo de alejandro-->

@@ -1718,6 +1718,8 @@ th {
 		<td>
 			<!-- Codigo de alejandro -->
 			<?php
+			echo $this->Form->button('^', array('type' => 'button', 'id' => 'toneUp', 'onclick' => 'toneUpDown(-1);')); 
+			echo $this->Form->button('^', array('type' => 'button', 'id' => 'toneDown', 'class' => 'rotate', 'onclick' => 'toneUpDown(1);')); 
 			if(isset($item['ItemsIncipit']['paec']))
 			{
 				echo $this->Form->hidden('ItemsIncipit.id', array('id' => 'incipitId', 'label' => false, 'div' => false, 'class' => 'form-control', 'value' => $item['ItemsIncipit']['id']));
@@ -1736,7 +1738,7 @@ th {
 			<canvas id="incipit" width="800" height="320">
 				<script> 
 					var incipitDocument = document.getElementById("incipit");
-					initializeIncipit(incipitDocument); 
+					initializeIncipit(incipitDocument.id, "edit", null , null); 
 				</script>
 			</canvas>
 			<!-- fin del codigo de alejandro-->
