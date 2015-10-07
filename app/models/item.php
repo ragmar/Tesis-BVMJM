@@ -1,6 +1,9 @@
 <?php
 class Item extends AppModel {
 	var $name = 'Item';
+
+	var $actsAs = array('Containable');
+	
 	var $validate = array(
 		'id' => array(
 			'notempty' => array(
@@ -58,7 +61,7 @@ class Item extends AppModel {
 		'ItemsIncipit' => array(
 			'className' => 'ItemsIncipit',
 			'foreignKey' => 'item_id',
-			'conditions' => '',
+			'conditions' => array('ItemsIncipit.item_id = Item.id'),
 			'fields' => '',
 			'order' => ''
 		)

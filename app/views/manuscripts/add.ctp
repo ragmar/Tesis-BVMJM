@@ -14,6 +14,23 @@ th {
 
 <!--CODIGO DE ALEJANDRO -->
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
+<script type="text/javascript">
+
+	function addLoadEvent(func) {
+	  var oldonload = window.onload;
+	  if (typeof window.onload != 'function') {
+	    window.onload = func;
+	  } else {
+	    window.onload = function() {
+	      if (oldonload) {
+	        oldonload();
+	      }
+	      func();
+	    }
+	  }
+	}
+</script>
+
 <style>
 	@font-face 
 	{
@@ -1486,8 +1503,12 @@ th {
 			?>
 			<canvas id="incipit" width="800" height="320">
 				<script> 
-					var incipitDocument = document.getElementById("incipit");
-					initializeIncipit(incipitDocument.id, "add", null , null); 
+					addLoadEvent(
+						function() {
+							var incipitDocument = document.getElementById("incipit");
+							initializeIncipit(incipitDocument.id, "add", null , null); 
+						}
+					);
 				</script>
 			</canvas>
 		<!-- fin del codigo de alejandro-->
@@ -13397,6 +13418,17 @@ $("#508a").bind('keyup change', function(event) {
 			$('#245a').focus();
 			return false;
 		}
+
+		if ($('#031r').val() == "" && $('#031p').val() != ""){
+			alert("EL campo 'Tonalidad o modo' no puede estar vacío si hay un íncipit presente.");
+			$(".tabs").hide();
+			$('.active').removeClass('active');
+			$('#t0xx').parent().addClass('active');
+			$('#0xx').show();
+			$('#031r').focus();
+			return false;
+		}
+
 
 		/*if ($('#260a').val() == ""){
 			alert("EL campo 'Lugar de publicación, distribución, etc.' no puede estar vacío.");

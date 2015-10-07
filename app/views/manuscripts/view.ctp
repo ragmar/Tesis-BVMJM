@@ -44,7 +44,43 @@ function marc21_decode($camp = null) {
 
 
 
+<!--CODIGO DE ALEJANDRO -->
 
+<?php echo $this->Html->script('incipit/incipitManager'); ?>
+
+<script type="text/javascript">
+
+	function addLoadEvent(func) {
+	  var oldonload = window.onload;
+	  if (typeof window.onload != 'function') {
+	    window.onload = func;
+	  } else {
+	    window.onload = function() {
+	      if (oldonload) {
+	        oldonload();
+	      }
+	      func();
+	    }
+	  }
+	}
+</script>
+
+<style>
+	@font-face 
+	{
+	  font-family: Maestro;
+	  src: url(<?php echo $this->Html->url('/files/incipit/Maestro.ttf'); ?>) format('truetype');
+	}
+
+	.maestro
+	{
+		font-family: Maestro;
+		font-size: 15pt;
+	} 
+
+
+</style>
+<!--FIN DE CODIGO DE ALEJANDRO -->
 <style type="text/css">
 	#magazine{
 		width:800px;
@@ -73,7 +109,7 @@ function marc21_decode($camp = null) {
    margin-left: 10px;
    position: relative;
    opacity: 0.7;
-   height: '90px;
+   height: 90px;
 }
 </style>
 <style>
@@ -819,6 +855,32 @@ function marc21_decode($camp = null) {
 					<?php echo $time->format('d-m-Y', $item['Item']['modified']); ?>
 				</dd>
 				-->
+				<!-- codigo de alejandro -->
+					<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
+					<dt><?php __('Incipit:');?></dt>
+
+					<dd>
+						<?php 
+							echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\"> class=\"maestro\"";
+						?>
+							<script> 
+								addLoadEvent(
+									function() {
+										var incipitDocument = <?php echo "\"". $item['Item']['id'] . "\"" ;?>;
+										var paec = <?php echo "\"" .$item['ItemsIncipit']['paec'] . "\"" ;?>;
+										incipitDocument = document.getElementById("canvas" + incipitDocument); 
+										var currentCanvas = new CanvasClass();
+										initializeIncipit(incipitDocument.id, "list", paec, currentCanvas); 
+									}
+								);
+							</script>
+
+						<?php 
+							echo "</canvas>";
+						?>
+					</dd>
+					<?php } ?>
+					<!-- fin decodigo de alejandro -->
 			</dl>
 		</div>
 	</div>

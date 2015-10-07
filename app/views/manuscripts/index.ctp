@@ -25,6 +25,43 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 }
 ?>
 
+<!--CODIGO DE ALEJANDRO -->
+<?php echo $this->Html->script('incipit/incipitManager'); ?>
+
+<script type="text/javascript">
+
+	function addLoadEvent(func) {
+	  var oldonload = window.onload;
+	  if (typeof window.onload != 'function') {
+	    window.onload = func;
+	  } else {
+	    window.onload = function() {
+	      if (oldonload) {
+	        oldonload();
+	      }
+	      func();
+	    }
+	  }
+	}
+</script>
+
+<style>
+	@font-face 
+	{
+	  font-family: Maestro;
+	  src: url(<?php echo $this->Html->url('/files/incipit/Maestro.ttf'); ?>) format('truetype');
+	}
+
+	.maestro
+	{
+		font-family: Maestro;
+		font-size: 15pt;
+	} 
+
+</style>
+
+<!--FIN DEL CODIGO DE ALEJANDRO -->
+
 <?php if(isset($_POST['submit'])){ if(!empty($_POST['Item_id'])) {
 	 // Counting number of checked checkboxes.
 	 $checked_count = count($_POST['Item_id']); 
@@ -311,6 +348,32 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 					<?php } ?>
 					</dt>
 					<dd style="margin-left: 130px"></dd>
+					<!-- codigo de alejandro -->
+					<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
+					<dt style="width: 120px"><?php __('Incipit:');?></dt>
+
+					<dd style="margin-left: 130px">
+						<?php 
+							echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\"> class=\"maestro\"";
+						?>
+							<script> 
+								addLoadEvent(
+									function() {
+										var incipitDocument = <?php echo "\"". $item['Item']['id'] . "\"" ;?>;
+										var paec = <?php echo "\"" .$item['ItemsIncipit']['paec'] . "\"" ;?>;
+										incipitDocument = document.getElementById("canvas" + incipitDocument); 
+										var currentCanvas = new CanvasClass();
+										initializeIncipit(incipitDocument.id, "list", paec, currentCanvas); 
+									}
+								);
+							</script>
+
+						<?php 
+							echo "</canvas>";
+						?>
+					</dd>
+					<?php } ?>
+					<!-- fin decodigo de alejandro -->
 				</dl>
 			</td>
 		</tr>

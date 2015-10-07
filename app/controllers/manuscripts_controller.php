@@ -930,7 +930,7 @@ function hue ($letter = null) {
 		if (!empty($this->data)) {
 			$this->layout = 'default';
 			$this->Item->recursive = -1;
-			$conditions = array('Item.h-006' => 'k', 'Item.h-007' => 'a', 'Item.published' => '1');	
+			$conditions = array('Item.h-006' => 'd', 'Item.h-007' => 'm', 'Item.published' => '1');	
 			
 			if (!empty($this->data['Manuscript']['245'])) { // Titulo
 				$conditions['Item.245 LIKE'] = '%' . $this->data['Manuscript']['245'] . '%'; 
@@ -951,6 +951,11 @@ function hue ($letter = null) {
 			if (!empty($this->data['Manuscript']['690'])) { // Siglo
 				$conditions['Item.690 LIKE'] = '%' . $this->data['Manuscript']['690'] . '%';
 			}
+			/*CODIGO DE ALEJANDRO */
+			if (!empty($this->data['ItemsIncipit']['paec'])) { // Siglo
+				$conditions['ItemsIncipit.paec LIKE'] = '%' . $this->data['ItemsIncipit']['paec'] . '%';
+			}
+			/*FIN DE CODIGO DE ALEJANDRO*/
 			
 			//debug($conditions); die;
 			
@@ -959,7 +964,8 @@ function hue ($letter = null) {
 			
 			$this->paginate = array(
 				//'limit' => '20',
-				'conditions' => $conditions
+				'conditions' => $conditions,
+				'contain' => 'ItemsIncipit' //this is use to fiulter the items incipit
 			);
 			
 			$this->set('items', $this->paginate('Item'));

@@ -20,6 +20,23 @@ input{
 <!-- Codigo de alejandro -->
 
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
+<script type="text/javascript">
+
+	function addLoadEvent(func) {
+	  var oldonload = window.onload;
+	  if (typeof window.onload != 'function') {
+	    window.onload = func;
+	  } else {
+	    window.onload = function() {
+	      if (oldonload) {
+	        oldonload();
+	      }
+	      func();
+	    }
+	  }
+	}
+</script>
+
 <style>
 	@font-face 
 	{
@@ -208,8 +225,12 @@ input{
 
 			<canvas id="incipit" width="800" height="320" class="maestro">
 				<script> 
-					var incipitDocument = document.getElementById("incipit");
-					initializeIncipit(incipitDocument.id, "search", null , null); 
+					addLoadEvent(
+						function() {
+							var incipitDocument = document.getElementById("incipit");
+							initializeIncipit(incipitDocument.id, "search", null , null); 
+						}
+					);
 				</script>
 			</canvas>
 
@@ -488,11 +509,15 @@ function marc21_decode($camp = null) {
 						echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\"> class=\"maestro\"";
 					?>
 						<script> 
-							var incipitDocument = <?php echo "\"". $item['Item']['id'] . "\"" ;?>;
-							var paec = <?php echo "\"" .$item['ItemsIncipit']['paec'] . "\"" ;?>;
-							incipitDocument = document.getElementById("canvas" + incipitDocument); 
-							var currentCanvas = new CanvasClass();
-							initializeIncipit(incipitDocument.id, "list", paec, currentCanvas); 
+							addLoadEvent(
+								function() {
+									var incipitDocument = <?php echo "\"". $item['Item']['id'] . "\"" ;?>;
+									var paec = <?php echo "\"" .$item['ItemsIncipit']['paec'] . "\"" ;?>;
+									incipitDocument = document.getElementById("canvas" + incipitDocument); 
+									var currentCanvas = new CanvasClass();
+									initializeIncipit(incipitDocument.id, "list", paec, currentCanvas); 
+								}
+							);
 						</script>
 
 					<?php 
