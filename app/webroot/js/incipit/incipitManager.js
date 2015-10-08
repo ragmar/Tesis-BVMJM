@@ -672,7 +672,9 @@ function CanvasClass ()
         /*yPosition is between 0 and 18, we multiply by StepY to draw it on the clicked position, but 
         the StepY cause problems not drawing the Note head on the position, that is why the substract
         step*6 + 2 occurs, to set it on the mouse position */
-        var positionY = (element.yPosition + context.minStepY) * context.stepY - (context.stepY * 6) + 2;
+        var pixelsToAdd = 2;
+        if(context.operation == "list") pixelsToAdd = 0.5;
+        var positionY = (element.yPosition + context.minStepY) * context.stepY - (context.stepY * 6) + pixelsToAdd;
 
         return {x: positionX, y: positionY};
 
