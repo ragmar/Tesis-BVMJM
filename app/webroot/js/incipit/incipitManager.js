@@ -36,31 +36,54 @@ function IncipitClass()
 
         context.AccidentalClefPositionSostenido =
         [ 
-            {xPosition: 50, yPosition: -22},
-            {xPosition: 60, yPosition: 4},
-            {xPosition: 70, yPosition: -30},
-            {xPosition: 80, yPosition: -6},
-            {xPosition: 90, yPosition: 20},
-            {xPosition: 100, yPosition: -14},
-            {xPosition: 110, yPosition: 12}
+            {xPosition: 50, yPosition: -22 + 16},
+            {xPosition: 60, yPosition: 4 + 16},
+            {xPosition: 70, yPosition: -30 + 16},
+            {xPosition: 80, yPosition: -6 + 16},
+            {xPosition: 90, yPosition: 20 + 16},
+            {xPosition: 100, yPosition: -14 + 16},
+            {xPosition: 110, yPosition: 12 + 16}
         ];
 
         context.AccidentalClefPositionBemol =
         [ 
-            {xPosition: 50, yPosition: 5},
-            {xPosition: 60, yPosition: -19},
-            {xPosition: 70, yPosition: 13},
-            {xPosition: 80, yPosition: -11},
-            {xPosition: 90, yPosition: 21},
-            {xPosition: 100, yPosition: -3},
-            {xPosition: 110, yPosition: 28}
+            {xPosition: 50, yPosition: 5 + 17},
+            {xPosition: 60, yPosition: -19 + 17},
+            {xPosition: 70, yPosition: 13 + 17},
+            {xPosition: 80, yPosition: -11 + 17},
+            {xPosition: 90, yPosition: 21 + 17},
+            {xPosition: 100, yPosition: -3 + 17},
+            {xPosition: 110, yPosition: 28 + 17}
         ];
 
         context.DotNote =
         [
             //Accidentales
-            {name: "dot",    value: "q", font: 35, xPosition: 18, yPosition: 5, paec: "."}
+            {name: "dot",    value: "q", font: 35, xPosition: 18, yPosition: 4, paec: "."}
         ];
+
+        context.Bar = 
+        [
+            {name: "barra1",              value: ";", font: 38, paec: "/", yPosition: 12, xPosition: 35},
+            {name: "barra2",              value: "<", font: 38, paec: "//", yPosition: 12, xPosition: 35},
+           // {name: "barra3",              value: "=", font: 38, paec: "", yPosition: 12, xPosition: 35}, //dont have PAEC
+            {name: "barra4",              value: ">", font: 38, paec: "//:", yPosition: 12, xPosition: 35},
+            {name: "barra6",              value: "?", font: 38, paec: "://", yPosition: 12, xPosition: 35},
+            {name: "barra5",              value: "@", font: 38, paec: "://:", yPosition: 12, xPosition: 35}
+        ];
+
+        context.Time = 
+        [
+            {name: "tiempo1",              value: "t", font: 70, paec: "4/4",  yPosition: 6, xPosition: 50},
+            {name: "tiempo2",              value: "u", font: 70, paec: "2/2",  yPosition: 6, xPosition: 50},
+            {name: "tiempo3",              value: "v", font: 70, paec: "2/4",  yPosition: 6, xPosition: 50},
+            {name: "tiempo4",              value: "w", font: 70, paec: "3/4",  yPosition: 6, xPosition: 50},
+            {name: "tiempo5",              value: "x", font: 70, paec: "3/8",  yPosition: 6, xPosition: 50},
+            {name: "tiempo6",              value: "y", font: 70, paec: "6/8",  yPosition: 6, xPosition: 50},
+            {name: "tiempo7",              value: "z", font: 70, paec: "9/8",  yPosition: 6, xPosition: 50},
+            {name: "tiempo8",              value: "{", font: 70, paec: "12/8", yPosition: 6, xPosition: 50},
+            {name: "tiempo9",              value: "|", font: 70, paec: "3/2",  yPosition: 6, xPosition: 50}
+        ]
 
         context.Notes = 
         [
@@ -70,7 +93,7 @@ function IncipitClass()
             {name: "bass",     value: "3", font: 56, isRest: false, yPosition: 3, paec: "%F-4"}, //46 for clef
 
             //Notas
-            {name: "maxima",             value: "a", font: 38, isRest: false, paec: ""}, 
+//            {name: "maxima",             value: "a", font: 38, isRest: false, paec: ""}, //no code in PAEC
             {name: "longa",              value: "b", font: 38, isRest: false, paec: "0"},
             {name: "breve",              value: "c", font: 38, isRest: false, paec: "9"},
             {name: "semibreve",          value: "d", font: 38, isRest: false, paec: "1"},
@@ -80,9 +103,10 @@ function IncipitClass()
             {name: "semiquaver",         value: "h", font: 38, isRest: false, paec: "6"},
             {name: "demisemiquaver",     value: "i", font: 38, isRest: false, paec: "3"},
             {name: "hemidemisemiquaver", value: "j", font: 38, isRest: false, paec: "5"},
+            
 
             //Silencios
-            {name: "restMax",            value: "!",  font: 38, isRest: true, yPosition: 8, paec: ""},
+//            {name: "restMax",            value: "!",  font: 38, isRest: true, yPosition: 8, paec: ""}, //no code in PAEC
             {name: "restLon",            value: "\"", font: 38, isRest: true, yPosition: 8, paec: "0-"},
             {name: "restBrev",           value: "#",  font: 38, isRest: true, yPosition: 8, paec: "9-"},
             {name: "restSemirev",        value: "$",  font: 38, isRest: true, yPosition: 8, paec: "1-"},
@@ -120,8 +144,60 @@ function IncipitClass()
         }
     }
     /*ENDREGION*/
-    /*REGION ACCIDENTALS FUNCTIONS*/
+
+    /*REGION TIME FUNCTIONS*/
+    //Get the time by the name
+    this.getTimeByName = function(name)
+    {
+        for(var i = 0; i < this.Time.length; i++)
+        {
+            if(this.Time[i].name === name)
+            {
+                return this.Time[i];
+            }
+        }
+    }
+
+    //Get the time by the value
+    this.getTimeByValue = function(value)
+    {
+        for(var i = 0; i < this.Time.length; i++)
+        {
+            if(this.Time[i].value === value)
+            {
+                return this.Time[i];
+            }
+        }
+    }
+    /*END REGION*/
+    /*REGION TIME FUNCTIONS*/
     //Get the note by the name
+    this.getBarByName = function(name)
+    {
+        for(var i = 0; i < this.Bar.length; i++)
+        {
+            if(this.Bar[i].name === name)
+            {
+                return this.Bar[i];
+            }
+        }
+    }
+
+    //Get the time by the value
+    this.getBarByValue = function(value)
+    {
+        for(var i = 0; i < this.Bar.length; i++)
+        {
+            if(this.Bar[i].value === value)
+            {
+                return this.Bar[i];
+            }
+        }
+    }
+    /*END REGION*/
+
+    /*REGION ACCIDENTALS FUNCTIONS*/
+    //Get the accidental by the name
     this.getAccidentalByName = function(name)
     {
         for(var i = 0; i < this.Accidentals.length; i++)
@@ -171,6 +247,22 @@ function IncipitClass()
             }
         }
 
+        for(var i = 0; i < this.Time.length; i++)
+        {
+            if(this.Time[i].name === name)
+            {
+                return this.Time[i].paec;
+            }
+        }
+
+        for(var i = 0; i < this.Bar.length; i++)
+        {
+            if(this.Bar[i].name === name)
+            {
+                return this.Bar[i].paec;
+            }
+        }
+
         return null;
     }
 
@@ -199,6 +291,22 @@ function IncipitClass()
                 return this.Accidentals[i];
             }
         }
+
+        for(var i = 0; i < this.Time.length; i++)
+        {
+            if(this.Time[i].paec === paec)
+            {
+                return this.Time[i];
+            }
+        }
+
+        for(var i = 0; i < this.Bar.length; i++)
+        {
+            if(this.Bar[i].paec === paec)
+            {
+                return this.Bar[i];
+            }
+        }
     }
     /*ENDREGION*/
     /*ENDREGION*/
@@ -214,11 +322,12 @@ function CanvasClass ()
 
     this.fontBase    = 800;                   // selected default width for canvas
 
-    
-    this.stepY       = 8;  //8 pixels for pixels 320 (height)
-    this.stepX       = 50; //50 pixels for pixels 800 (width)
-    this.maxStepY    = 29;
-    this.minStepY    = 11;
+    this.baseStepY    = 8;
+    this.baseStepX    = 50;
+    this.stepY        = 0;  //8 pixels for pixels 320 (height)
+    this.stepX        = 0; //50 pixels for pixels 800 (width)
+    this.maxStepY     = 29;
+    this.minStepY     = 11;
 
     this.drawIncipitElements = new Array();
     this.incipit        = new IncipitClass();
@@ -233,19 +342,34 @@ function CanvasClass ()
 
     this.setStepY = function(context)
     {
-        var ratio = context.stepY / 320;   // calc ratio
+        var ratio = context.baseStepY / 320;   // calc ratio
         var size = context.gCanvasElement.height * ratio;   // get font size based on current width
         context.stepY = size;
     }
 
     this.setStepX = function(context)
     {
-        var ratio = context.stepX / 800;   // calc ratio
+        var ratio = context.baseStepX / 800;   // calc ratio
         var size  = context.gCanvasElement.width * ratio;   // get font size based on current width
         context.stepX = size;
     }
 
-    this.setBaseXStep
+    this.ratioX = function(context, x)
+    {
+        var ratio = context.stepX / context.baseStepX * x;   // calc ratioX
+        //var size  = context.gCanvasElement.width * ratio;   // get font size based on current width
+        //context.stepX = size;
+        return ratio
+    }
+
+    this.ratioY = function(context, y)
+    {
+
+        var ratio = context.stepY / context.baseStepY * y;   // calc ratioY
+        //var size  = context.gCanvasElement.width * ratio;   // get font size based on current width
+        //context.stepX = size;
+        return ratio
+    }
 
 
     /*REGION EVENTS*/
@@ -256,6 +380,13 @@ function CanvasClass ()
 
         if(!context.clickExistingElement(context, cursor))
         {
+            var up   = document.getElementById("toneUp");
+            var down = document.getElementById("toneDown");
+
+
+            up.style.visibility   = "hidden";
+            down.style.visibility = "hidden";
+
             context.addNote(context, cursor);
         }
     };
@@ -302,13 +433,17 @@ function CanvasClass ()
         context.setStepY(context);
         context.setStepX(context);
 
-            context.gCanvasElement.addEventListener("click", function(event) { context.clickOnCanvas(context, event) } , false);
+        context.gCanvasElement.addEventListener("click", 
+                function(event) { context.clickOnCanvas(context, event) }, 
+                false);
         if(operation != "list")
         {
             //set the on click function on the canvas
             //context.gCanvasElement.addEventListener("click", function(event) { context.clickOnCanvas(context, event) } , false);
             //set the mouse hover function on the canvas
-            context.gCanvasElement.addEventListener("mousemove", function(event) { context.hoverOnCanvas(context, event) } , false);
+            context.gCanvasElement.addEventListener("mousemove", 
+                function(event) { context.hoverOnCanvas(context, event) }, 
+                false);
 
             window.addEventListener("keypress", function(e) { context.doKeyDown(context, e) }, false );
         }
@@ -341,7 +476,11 @@ function CanvasClass ()
                                     null,  //qtyAccidental
                                     null,  //accidentalname
                                     null,  //inverted
-                                    true); //isclef
+                                    true,  //isclef
+                                    null,  //hasBar
+                                    null,  //barName
+                                    false,  //hasTime
+                                    null); //timeName
         }
 
         context.drawPentagram(context);
@@ -386,6 +525,15 @@ function CanvasClass ()
         if(cursor.x <= context.drawIncipitElements.length - 1)
         {
             positionNoteSelected = cursor.x;
+
+            var up   = document.getElementById("toneUp");
+            var down = document.getElementById("toneDown");
+
+            up.style.left   = cursor.x * context.stepX + context.stepX + context.stepX / 2 + "px";
+            down.style.left = cursor.x * context.stepX + context.stepX +  context.stepX / 2 + "px";
+
+            up.style.visibility   = "visible";
+            down.style.visibility = "visible";
             return true;
         }
 
@@ -417,7 +565,11 @@ function CanvasClass ()
                                 null, //qtyAccidental
                                 null, //accidentalName
                                 false, //inverted
-                                false); //isClef
+                                false,  //isclef
+                                null,  //hasBar
+                                null,  //barName
+                                false,  //hasTime
+                                null); //timeName
 
             context.TransformIncipitToPAEC(context);
         }
@@ -449,10 +601,17 @@ function CanvasClass ()
                                 null,                               //hasDot
                                 null,                               //qtyAccidental
                                 null,                               //accidentalName
-                                false);                             //isClef
+                                false,                              //isClef
+                                false,                              //hasBar
+                                null,                               //barName
+                                false,                              //hasTime
+                                null);                              //timeName
+
 
             var noteToDraw = context.incipit.getNoteByName(note.name);
-            var notePosition = context.getDrawPosition(context, tempEle, context.drawIncipitElements.length);
+            var notePosition = context.getDrawPosition(context, 
+                                                        tempEle.xPosition, 
+                                                        tempEle.yPosition);
 
             context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
             context.gDrawingContext.fillText(noteToDraw.value, 
@@ -477,6 +636,7 @@ function CanvasClass ()
                     && context.drawIncipitElements[i].yPosition + up < 19)
                 {
                     context.drawIncipitElements[i].yPosition = context.drawIncipitElements[i].yPosition + up;
+                    context.TransformIncipitToPAEC(context);
                 }
             }
 
@@ -502,8 +662,31 @@ function CanvasClass ()
     this.clefPushed = function(context, clef) 
     {
         positionNoteSelected = 0;
-        context.changeNoteSelected(context, clef, true, false);
+        if(clef != null)
+        {
+            context.changeNoteSelected(context, clef, true, false);
+        }
     }
+
+    //Get the time of the table currently pressed and change the time
+    this.timePushed = function(context, time) 
+    {
+        positionNoteSelected = 0;
+        if(time != null)
+        {
+            context.addTime(context, time);
+        }
+    }
+
+    //Get the time of the table currently pressed and change the time
+    this.barPushed = function(context, bar) 
+    {
+        if(bar != null)
+        {
+            context.addBar(context, bar);
+        }
+    }
+    
 
     //Get the note of the table currently pressed and change the note
     this.notePushed = function(context, note) 
@@ -513,6 +696,25 @@ function CanvasClass ()
             context.changeNoteSelected(context, note, false);
         }
     }
+
+    //Get the button of the table pushed and add the dot to the note
+    this.dotPushed = function(context)
+    {
+        if(positionNoteSelected != null)
+        {
+            context.addDot(context);
+        }
+    }
+
+    //Get the accidental of the table pushed and add the accidental to the note
+    this.accidentalPushed = function(context, accidental)
+    {
+        if(positionNoteSelected != null)
+        {
+            context.addAccidental(context, accidental);
+        }
+    }
+
 
     //It change the current note selected
     this.changeNoteSelected = function(context, note, isClef)
@@ -540,15 +742,6 @@ function CanvasClass ()
         context.TransformIncipitToPAEC(context);
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawPentagram(context);
-    }
-
-    //Get the accidental of the table pushed and add the accidental to the note
-    this.accidentalPushed = function(context, accidental)
-    {
-        if(positionNoteSelected != null)
-        {
-            context.addAccidental(context, accidental);
-        }
     }
 
     //Add the accidental on the current note
@@ -588,14 +781,43 @@ function CanvasClass ()
         context.drawPentagram(context);
     }
 
-    //Get the button of the table pushed and add the dot to the note
-    this.dotPushed = function(context)
+    this.addTime = function(context, currentTime)
     {
-        if(positionNoteSelected != null)
+        var time = context.incipit.getTimeByValue(currentTime);
+
+        if(positionNoteSelected != null
+            && context.drawIncipitElements[positionNoteSelected].isClef)
         {
-            context.addDot(context);
+            context.drawIncipitElements[positionNoteSelected].hasTime = true;
+            context.drawIncipitElements[positionNoteSelected].timeName = time.name;
+            context.TransformIncipitToPAEC(context);
         }
+
+        context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
+        context.drawPentagram(context);
     }
+
+    this.addBar = function(context, currentBar)
+    {
+        var bar = context.incipit.getBarByValue(currentBar);
+
+        if(positionNoteSelected == null)
+        {
+            positionNoteSelected = context.drawIncipitElements.length - 1;
+        }
+
+        if(positionNoteSelected != null
+            && !context.drawIncipitElements[positionNoteSelected].isClef)
+        {
+            context.drawIncipitElements[positionNoteSelected].hasBar = true;
+            context.drawIncipitElements[positionNoteSelected].barName = bar.name;
+            context.TransformIncipitToPAEC(context);
+        }
+
+        context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
+        context.drawPentagram(context);
+    }
+
 
     //Add the accidental on the current note
     this.addDot = function(context)
@@ -617,17 +839,23 @@ function CanvasClass ()
 
 
     //Create an Element of the incipit
-    this.createElement = function(context, name, xPosition, yPosition, hasDot, qtyAccidental, accidentalName, invertida, isClef)
+    this.createElement = function(context, name, xPosition, yPosition, 
+        hasDot, qtyAccidental, accidentalName, invertida, isClef,
+        hasBar, barName, hasTime, timeName )
     {
 
-        if(name == null)               name = "treble";
-        if(xPosition == null)          xPosition = 0;
-        if(yPosition == null)          yPosition = 0;
-        if(hasDot == null)             hasDot = false;
-        if(qtyAccidental == null)      qtyAccidental = 0;
-        if(accidentalName == null)     accidentalName = "becuadro";
-        if(invertida == null)          invertida = false;
-        if(isClef == null)             isClef = false;
+        if(name == null)               name             = "treble";
+        if(xPosition == null)          xPosition        = 0;
+        if(yPosition == null)          yPosition        = 0;
+        if(hasDot == null)             hasDot           = false;
+        if(qtyAccidental == null)      qtyAccidental    = 0;
+        if(accidentalName == null)     accidentalName   = "becuadro";
+        if(invertida == null)          invertida        = false;
+        if(isClef == null)             isClef           = false;
+        if(hasBar == null)             hasBar           = false;
+        if(barName == null)            barName          = "barra1";
+        if(hasTime == null)            hasTime          = false;
+        if(timeName == null)           timeName         = "tiempo1";
         
         return(
             {
@@ -638,12 +866,18 @@ function CanvasClass ()
                 qtyAccidental: qtyAccidental,
                 accidentalName: accidentalName,
                 invertida: invertida,
-                isClef: isClef
+                isClef: isClef,
+                hasBar: hasBar,
+                barName: barName,
+                hasTime: hasTime,
+                timeName: timeName
             });
     }
 
     //Insert an Element on the Incipit
-    this.insertElement = function(context, name, xPosition, yPosition, hasDot, qtyAccidental, accidentalName, invertida, isClef)
+    this.insertElement = function(context, name, xPosition, yPosition, 
+        hasDot, qtyAccidental, accidentalName, invertida, isClef,
+        hasBar, barName, hasTime, timeName)
     {   
         context.drawIncipitElements.push(context.createElement(context, 
                                                         name, 
@@ -653,7 +887,11 @@ function CanvasClass ()
                                                         qtyAccidental, 
                                                         accidentalName, 
                                                         invertida,
-                                                        isClef));
+                                                        isClef,
+                                                        hasBar,
+                                                        barName,
+                                                        hasTime,
+                                                        timeName));
     }
 
     //Erase an Element on the position X on the incipit
@@ -664,17 +902,17 @@ function CanvasClass ()
 
     /*REGION DRAW*/
     //functions that returns the drawing coords of the element
-    this.getDrawPosition = function(context, element, index)
+    this.getDrawPosition = function(context, elementX, elementY)
     {
 
-        var positionX = element.xPosition * context.stepX;
+        var positionX = elementX * context.stepX;
 
         /*yPosition is between 0 and 18, we multiply by StepY to draw it on the clicked position, but 
         the StepY cause problems not drawing the Note head on the position, that is why the substract
-        step*6 + 2 occurs, to set it on the mouse position */
+        step*6 + pixelsToAdd occurs, to set it on the mouse position */
         var pixelsToAdd = 2;
         if(context.operation == "list") pixelsToAdd = 0.5;
-        var positionY = (element.yPosition + context.minStepY) * context.stepY - (context.stepY * 6) + pixelsToAdd;
+        var positionY = (elementY + context.minStepY) * context.stepY - (context.stepY * 6) + pixelsToAdd;
 
         return {x: positionX, y: positionY};
 
@@ -710,7 +948,9 @@ function CanvasClass ()
             }
             
             var noteToDraw = context.incipit.getNoteByName(context.drawIncipitElements[i].noteName);
-            var notePosition = context.getDrawPosition(context, context.drawIncipitElements[i], i);
+            var notePosition = context.getDrawPosition(context, 
+                                                        context.drawIncipitElements[i].xPosition, 
+                                                        context.drawIncipitElements[i].yPosition);
 
             if(context.drawIncipitElements[i].qtyAccidental > 0 && !noteToDraw.isRest)
             {
@@ -718,10 +958,11 @@ function CanvasClass ()
 
                 if(context.drawIncipitElements[i].isClef)
                 {
-                    var positionAccidental;
 
                     for(var j=0; j < context.drawIncipitElements[i].qtyAccidental; j++)
                     {
+                        var positionAccidental = "";
+
                         if(accidental.name == "sostenido")
                         {
                             positionAccidental = context.incipit.AccidentalClefPositionSostenido[j];
@@ -733,6 +974,10 @@ function CanvasClass ()
                         }
 
                         context.gDrawingContext.font = context.getFont(context, accidental.font);
+
+                        /*ontext.gDrawingContext.fillText(accidental.value, 
+                                                        notePosition.x + context.ratioX(context, positionAccidental.xPosition), 
+                                                        notePosition.y + context.ratioY(context, positionAccidental.yposition));*/
                         context.gDrawingContext.fillText(accidental.value, 
                                                         notePosition.x + positionAccidental.xPosition, 
                                                         notePosition.y + positionAccidental.yPosition);
@@ -742,8 +987,8 @@ function CanvasClass ()
                 {
                     context.gDrawingContext.font = context.getFont(context, accidental.font);
                     context.gDrawingContext.fillText(accidental.value, 
-                                                    notePosition.x + accidental.xPosition, 
-                                                    notePosition.y + accidental.yPosition);
+                                                    notePosition.x + context.ratioX(context, accidental.xPosition), 
+                                                    notePosition.y + context.ratioY(context, accidental.yPosition));
                 }
             }
 
@@ -753,8 +998,38 @@ function CanvasClass ()
 
                 context.gDrawingContext.font = context.getFont(context, dot.font);
                 context.gDrawingContext.fillText(dot.value, 
-                                                notePosition.x + dot.xPosition, 
+                                                notePosition.x + context.ratioX(context, dot.xPosition), 
                                                 notePosition.y + dot.yPosition);
+            }
+
+            if(context.drawIncipitElements[i].hasTime && context.drawIncipitElements[i].isClef)
+            {
+                
+                var time = context.incipit.getTimeByName(context.drawIncipitElements[i].timeName);
+
+                var timePosition = context.getDrawPosition(context, 
+                                                        context.drawIncipitElements[i].xPosition, 
+                                                        time.yPosition);
+
+                context.gDrawingContext.font = context.getFont(context, time.font);
+                context.gDrawingContext.fillText(time.value, 
+                                                context.ratioX(context, time.xPosition) + timePosition.x, 
+                                                timePosition.y);
+            }
+
+            if(context.drawIncipitElements[i].hasBar && !context.drawIncipitElements[i].isClef)
+            {
+                
+                var bar = context.incipit.getBarByName(context.drawIncipitElements[i].barName);
+
+                var barPosition = context.getDrawPosition(context, 
+                                                        context.drawIncipitElements[i].xPosition, 
+                                                        bar.yPosition);
+
+                context.gDrawingContext.font = context.getFont(context, bar.font);
+                context.gDrawingContext.fillText(bar.value, 
+                                                context.ratioX(context, bar.xPosition) + barPosition.x, 
+                                                barPosition.y);
             }
 
             context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
@@ -900,7 +1175,7 @@ function CanvasClass ()
         var paec                 = "";
         var var031g              = "";
         var var031n              = "";
-        var var031o              = ""; //It is not working
+        var var031o              = "nd"; //nd marking no present
         var var031p              = "";
 
         var lastPositionY        = 14;
@@ -914,15 +1189,19 @@ function CanvasClass ()
         {
             var note            = context.incipit.getNoteByName(context.drawIncipitElements[i].noteName);
             var accidental      = context.incipit.getAccidentalByName(context.drawIncipitElements[i].accidentalName);
+            var time            = context.incipit.getTimeByName(context.drawIncipitElements[i].timeName);
 
             var paecNote        = "";
             var paecAccidental  = "";
             var paecOctave      = "";
             var paecRythm       = "";
             var paecLastNote    = "";
+            var paecTime        = "";
+            var paecBar         = "";
 
             if(context.drawIncipitElements[i].isClef)
             {
+
                 clef = note.name;
                 paecNote = context.incipit.getPAECByName(note.name);
 
@@ -958,11 +1237,25 @@ function CanvasClass ()
                     var031n = paecAccidental;
                     paec += "$"+paecAccidental;
                 }
+
+
+                if(context.drawIncipitElements[i].hasTime)
+                {
+                    paecTime = context.incipit.getPAECByName(time.name);
+                    var031o = paecTime;
+                    paec +=  "@"+paecTime;
+                }
+
                 paec += paecNote + " ";
                 var031g = paecNote.substring(1, 4);
             }
             else
             {
+                if(context.drawIncipitElements[i].hasBar)
+                {
+                    paecBar = context.incipit.getPAECByName(context.drawIncipitElements[i].barName);
+                }
+
                 paecRythm = context.getRythmPAEC(context, 
                                                 context.drawIncipitElements[i], 
                                                 note);
@@ -1001,8 +1294,8 @@ function CanvasClass ()
                                                         accidental,
                                                         notesArray);       
 
-                var031p += paecOctave+paecAccidental+paecRythm+paecNote;
-                paec += paecOctave+paecAccidental+paecRythm+paecNote;
+                var031p += paecOctave+paecAccidental+paecRythm+paecNote+paecBar;
+                paec += paecOctave+paecAccidental+paecRythm+paecNote+paecBar;
             }
         }
 
@@ -1040,43 +1333,73 @@ function CanvasClass ()
 
         for(var index = 0; index < paec.length; index++)
         {
-            var noteAccClefDot  = null;
+            var elem  = null;
 
             var yPosition       = 0;
             var qtyAccidental   = 0;
             var accidentalName  = "becuadro";
             var invertida       = false;
             var isClef          = false;
+            var hasTime         = false;
+            var timeName        = "tiempo1";
+            var hasBar          = false;
+            var barName         = "barra1";
 
             if(paec[index] == "$") //Armadura de clave
             {
-                noteAccClefDot = context.incipit.getNoteByPAEC(paec[index + 1]);
-                accidentalName = noteAccClefDot.name;
+                elem = context.incipit.getNoteByPAEC(paec[index + 1]);
+                accidentalName = elem.name;
                 index = index + 2;
 
-                while( paec[index] != "%")
+                while(index < paec.length && (paec[index] != "%" && paec[index] != "@" && paec[index] != " "))
                 {
                     qtyAccidental = qtyAccidental + 1;
                     index++;
                 }
             }
 
+            if(paec[index] == "@") //Armadura de clave
+            {
+                var paecTime = "";
+
+                hasTime = true;
+                index++;
+
+                while(index < paec.length && (paec[index] != "%" && paec[index] != "$" && paec[index] != " "))
+                {
+                    paecTime += paec[index];
+                    index++;
+                }
+
+                elem  = context.incipit.getNoteByPAEC(paecTime);
+                timeName = elem.name;
+
+            }
+
             if(paec[index] == "%") // clave
             {
-                isClef          = true;
-                noteAccClefDot  = context.incipit.getNoteByPAEC(paec.substring(index, index + 4));
-                noteName        = noteAccClefDot.name;
-                currentClef     = noteAccClefDot.name;
-                yPosition       = noteAccClefDot.yPosition;
+                var paecClef = "%";
 
-                index           = index + 4; //4 for the cleft
+                isClef = true;
+                index++;
+
+                while(index < paec.length && (paec[index] != "%" && paec[index] != "$" && paec[index] != " "))
+                {
+                    paecClef += paec[index];
+                    index++;
+                }
+
+                elem  = context.incipit.getNoteByPAEC(paecClef);
+                noteName        = elem.name;
+                currentClef     = elem.name;
+                yPosition       = elem.yPosition;
             }
 
             if(paec[index] == "'" || paec[index] == ",") //octava
             {
                 var tempIndex = 0;
 
-                while(paec[index + tempIndex] == "'" || paec[index + tempIndex] == ",")
+                while(index < paec.length && (paec[index + tempIndex] == "'" || paec[index + tempIndex] == ","))
                 {
                     tempIndex++;
                 }
@@ -1097,8 +1420,8 @@ function CanvasClass ()
                     index = index + 1;
                 }
 
-                noteAccClefDot  = context.incipit.getNoteByPAEC(paecAccidental);
-                accidentalName  = noteAccClefDot.name;
+                elem  = context.incipit.getNoteByPAEC(paecAccidental);
+                accidentalName  = elem.name;
                 qtyAccidental   = 1;
             }
 
@@ -1122,8 +1445,8 @@ function CanvasClass ()
                     paecRythm = paecRythm + paec[index];
                     index = index + 1;
                 }
-                noteAccClefDot = context.incipit.getNoteByPAEC(paecRythm);
-                noteName = noteAccClefDot.name;
+                elem = context.incipit.getNoteByPAEC(paecRythm);
+                noteName = elem.name;
             }
 
             if(paec[index] == "A" || paec[index] == "B" || paec[index] == "C" 
@@ -1159,6 +1482,21 @@ function CanvasClass ()
                 yPosition = position;
             }
 
+            if(index+1 < paec.length && (paec[index+1] == "/" || paec[index+1] == ":"))
+            {
+                hasBar = true;
+                var paecBar = "";
+
+                while(index+1 < paec.length && (paec[index+1] == "/" || paec[index+1] == ":"))
+                {
+                    paecBar += paec[index+1];
+                    index++;
+                }
+
+                elem = context.incipit.getNoteByPAEC(paecBar);
+                barName = elem.name
+            }
+
             context.insertElement(context,
                                 noteName,
                                 xPosition,
@@ -1167,7 +1505,11 @@ function CanvasClass ()
                                 qtyAccidental,
                                 accidentalName,
                                 invertida,
-                                isClef);
+                                isClef,  //isclef
+                                hasBar,  //hasBar
+                                barName,  //barName
+                                hasTime,  //hasTime
+                                timeName); //timeName
             
             xPosition = xPosition + 1;
         }
@@ -1182,6 +1524,17 @@ function CanvasClass ()
 function ClefPressed(clef)
 {
     CanvasIncipit.clefPushed(CanvasIncipit, clef);
+};
+
+function TimePressed(time)
+{
+    CanvasIncipit.clefPushed(CanvasIncipit, null);
+    CanvasIncipit.timePushed(CanvasIncipit, time);
+};
+
+function BarPressed(bar)
+{
+    CanvasIncipit.barPushed(CanvasIncipit, bar);
 };
 
 //Recive the note to currently display

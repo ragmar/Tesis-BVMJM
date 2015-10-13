@@ -188,27 +188,26 @@ input{
 				<label>Armadura de Compás:</label><br />
 			</div>
 			<div class="maestro" style="clear: both;">		
-				<?php echo $this->Html->link('t', array('action' => 't'), array('id' => 'Accidentales-t', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("t"); return false;')); ?>
-				<?php echo $this->Html->link('u', array('action' => 'u'), array('id' => 'Accidentales-u', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("u"); return false;')); ?>
-				<?php echo $this->Html->link('v', array('action' => 'v'), array('id' => 'Accidentales-v', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("v"); return false;')); ?>
-				<?php echo $this->Html->link('w', array('action' => 'w'), array('id' => 'Accidentales-w', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("w"); return false;')); ?>
-				<?php echo $this->Html->link('x', array('action' => 'x'), array('id' => 'Accidentales-x', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("x"); return false;')); ?>
-				<?php echo $this->Html->link('y', array('action' => 'y'), array('id' => 'Accidentales-y', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("y"); return false;')); ?>
-				<?php echo $this->Html->link('z', array('action' => 'z'), array('id' => 'Accidentales-z', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("z"); return false;')); ?>
-				<?php echo $this->Html->link('{', array('action' => '{'), array('id' => 'Accidentales-{', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("{"); return false;')); ?>
-				<?php echo $this->Html->link('|', array('action' => '|'), array('id' => 'Accidentales-|', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("|"); return false;')); ?>
+				<?php echo $this->Html->link('t', array('action' => 't'), array('id' => 'Accidentales-t', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("t"); return false;')); ?>
+				<?php echo $this->Html->link('u', array('action' => 'u'), array('id' => 'Accidentales-u', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("u"); return false;')); ?>
+				<?php echo $this->Html->link('v', array('action' => 'v'), array('id' => 'Accidentales-v', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("v"); return false;')); ?>
+				<?php echo $this->Html->link('w', array('action' => 'w'), array('id' => 'Accidentales-w', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("w"); return false;')); ?>
+				<?php echo $this->Html->link('x', array('action' => 'x'), array('id' => 'Accidentales-x', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("x"); return false;')); ?>
+				<?php echo $this->Html->link('y', array('action' => 'y'), array('id' => 'Accidentales-y', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("y"); return false;')); ?>
+				<?php echo $this->Html->link('z', array('action' => 'z'), array('id' => 'Accidentales-z', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("z"); return false;')); ?>
+				<?php echo $this->Html->link('{', array('action' => '{'), array('id' => 'Accidentales-{', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("{"); return false;')); ?>
+				<?php echo $this->Html->link('|', array('action' => '|'), array('id' => 'Accidentales-|', 'class' => 'btn-primary buton-incipit', 'onclick' => 'TimePressed("|"); return false;')); ?>
 			</div>
 
 			<div style="clear: both;">
 				<label>Barras de Compás:</label><br />
 			</div>
 			<div class="maestro" style="clear: both;">	
-				<?php echo $this->Html->link(';', array('action' => ';'), array('i;' => 'Accidentales-y', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed(";"); return false;')); ?>	
-				<?php echo $this->Html->link('<', array('action' => '<'), array('id' => 'Accidentales-<', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("<"); return false;')); ?>
-				<?php echo $this->Html->link('=', array('action' => '='), array('id' => 'Accidentales-=', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("="); return false;')); ?>
-				<?php echo $this->Html->link('>', array('action' => '>'), array('id' => 'Accidentales->', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed(">"); return false;')); ?>
-				<?php echo $this->Html->link('?', array('action' => '?'), array('id' => 'Accidentales-?', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("?"); return false;')); ?>
-				<?php echo $this->Html->link('@', array('action' => '@'), array('id' => 'Accidentales-@', 'class' => 'btn-primary buton-incipit', 'onclick' => 'NotePressed("@"); return false;')); ?>
+				<?php echo $this->Html->link(';', array('action' => ';'), array('i;' => 'Accidentales-y', 'class' => 'btn-primary buton-incipit', 'onclick' => 'BarPressed(";"); return false;')); ?>	
+				<?php echo $this->Html->link('<', array('action' => '<'), array('id' => 'Accidentales-<', 'class' => 'btn-primary buton-incipit', 'onclick' => 'BarPressed("<"); return false;')); ?>
+				<?php echo $this->Html->link('>', array('action' => '>'), array('id' => 'Accidentales->', 'class' => 'btn-primary buton-incipit', 'onclick' => 'BarPressed(">"); return false;')); ?>
+				<?php echo $this->Html->link('?', array('action' => '?'), array('id' => 'Accidentales-?', 'class' => 'btn-primary buton-incipit', 'onclick' => 'BarPressed("?"); return false;')); ?>
+				<?php echo $this->Html->link('@', array('action' => '@'), array('id' => 'Accidentales-@', 'class' => 'btn-primary buton-incipit', 'onclick' => 'BarPressed("@"); return false;')); ?>
 			</div>
 			
 			<div style="clear: both;">
