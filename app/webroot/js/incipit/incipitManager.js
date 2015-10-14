@@ -521,7 +521,7 @@ function CanvasClass ()
         up.style.visibility   = "hidden";
         down.style.visibility = "hidden";
 
-        if(element <= context.drawIncipitElements.length - 1)
+        if(element != null && element <= context.drawIncipitElements.length - 1)
         {
             positionNoteSelected = element;
 
@@ -914,7 +914,7 @@ function CanvasClass ()
                                                         timeName));
     }
 
-    //Erase an Element
+    //Erase Incipit
     this.eraseIncipit = function(context)
     {
         context.drawIncipitElements.splice(0, context.drawIncipitElements.length);
@@ -939,11 +939,13 @@ function CanvasClass ()
 
         positionNoteSelected = null;
 
+        context.clickExistingElement(context, null);
 
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawPentagram(context);
     }
 
+    //Erase a note
     this.eraseNote = function(context)
     {
         if(positionNoteSelected == null)
@@ -974,6 +976,8 @@ function CanvasClass ()
         }
 
         positionNoteSelected = null;
+
+        context.clickExistingElement(context, null);
 
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawPentagram(context);
