@@ -29,20 +29,20 @@ function IncipitClass()
 
         context.AccidentalClefPositionNote =
         [
-            {name: "treble",    xPosition: 0, yPosition: 4},
-            {name: "alto",      xPosition: 0, yPosition: 4},
-            {name: "bass",      xPosition: 0, yPosition: 4}
+            {name: "treble",    xPosition: 0, yPosition: 0},
+            {name: "alto",      xPosition: 0, yPosition: 24},
+            {name: "bass",      xPosition: 0, yPosition: 48}
         ];
 
         context.AccidentalClefPositionSostenido =
         [ 
-            {xPosition: 50, yPosition: -22 + 16},
-            {xPosition: 60, yPosition: 4 + 16},
-            {xPosition: 70, yPosition: -30 + 16},
-            {xPosition: 80, yPosition: -6 + 16},
-            {xPosition: 90, yPosition: 20 + 16},
-            {xPosition: 100, yPosition: -14 + 16},
-            {xPosition: 110, yPosition: 12 + 16}
+            {xPosition: 50, yPosition: -6},
+            {xPosition: 60, yPosition: 20},
+            {xPosition: 70, yPosition: -14},
+            {xPosition: 80, yPosition: 10},
+            {xPosition: 90, yPosition: 36},
+            {xPosition: 100, yPosition: 2},
+            {xPosition: 110, yPosition: 28}
         ];
 
         context.AccidentalClefPositionBemol =
@@ -378,15 +378,8 @@ function CanvasClass ()
     {
         var cursor = context.getCursorPosition(context, event);
 
-        if(!context.clickExistingElement(context, cursor))
+        if(!context.clickExistingElement(context, cursor.x))
         {
-            var up   = document.getElementById("toneUp");
-            var down = document.getElementById("toneDown");
-
-
-            up.style.visibility   = "hidden";
-            down.style.visibility = "hidden";
-
             context.addNote(context, cursor);
         }
     };
@@ -474,7 +467,7 @@ function CanvasClass ()
                                     clef.yPosition,//yposition
                                     null,  //hasDot
                                     null,  //qtyAccidental
-                                    null,  //accidentalname
+                                    null,  //accidentalName
                                     null,  //inverted
                                     true,  //isclef
                                     null,  //hasBar
@@ -520,20 +513,28 @@ function CanvasClass ()
 
 
     //Click on an Existing Element on the current canvas
-    this.clickExistingElement = function(context, cursor)
+    this.clickExistingElement = function(context, element)
     {
-        if(cursor.x <= context.drawIncipitElements.length - 1)
+        var up   = document.getElementById("toneUp");
+        var down = document.getElementById("toneDown");
+
+
+        up.style.visibility   = "hidden";
+        down.style.visibility = "hidden";
+
+        if(element <= context.drawIncipitElements.length - 1)
         {
-            positionNoteSelected = cursor.x;
+            positionNoteSelected = element;
 
-            var up   = document.getElementById("toneUp");
-            var down = document.getElementById("toneDown");
+            if(element != 0)
+            {
+                up.style.left   = element * context.stepX + context.stepX + context.stepX / 2 + "px";
+                down.style.left = element * context.stepX + context.stepX +  context.stepX / 2 + "px";
 
-            up.style.left   = cursor.x * context.stepX + context.stepX + context.stepX / 2 + "px";
-            down.style.left = cursor.x * context.stepX + context.stepX +  context.stepX / 2 + "px";
+                up.style.visibility   = "visible";
+                down.style.visibility = "visible";
+            }
 
-            up.style.visibility   = "visible";
-            down.style.visibility = "visible";
             return true;
         }
 
@@ -661,7 +662,7 @@ function CanvasClass ()
     //Get the clef of the table currently pressed and change the clef
     this.clefPushed = function(context, clef) 
     {
-        positionNoteSelected = 0;
+        context.clickExistingElement(context, 0);
         if(clef != null)
         {
             context.changeNoteSelected(context, clef, true, false);
@@ -671,7 +672,7 @@ function CanvasClass ()
     //Get the time of the table currently pressed and change the time
     this.timePushed = function(context, time) 
     {
-        positionNoteSelected = 0;
+        context.clickExistingElement(context, 0);
         if(time != null)
         {
             context.addTime(context, time);
@@ -700,6 +701,11 @@ function CanvasClass ()
     //Get the button of the table pushed and add the dot to the note
     this.dotPushed = function(context)
     {
+        if(positionNoteSelected == null)
+        {
+            context.clickExistingElement(context, context.drawIncipitElements.length - 1);
+        }
+
         if(positionNoteSelected != null)
         {
             context.addDot(context);
@@ -709,6 +715,11 @@ function CanvasClass ()
     //Get the accidental of the table pushed and add the accidental to the note
     this.accidentalPushed = function(context, accidental)
     {
+        if(positionNoteSelected == null)
+        {
+            context.clickExistingElement(context, context.drawIncipitElements.length - 1);
+        }
+
         if(positionNoteSelected != null)
         {
             context.addAccidental(context, accidental);
@@ -894,10 +905,65 @@ function CanvasClass ()
                                                         timeName));
     }
 
-    //Erase an Element on the position X on the incipit
-    this.eraseElement = function(context, xPosition)
+    //Erase an Element
+    this.eraseIncipit = function(context)
     {
+        context.drawIncipitElements.splice(0, context.drawIncipitElements.length);
 
+        var clef = context.incipit.getNoteByName("treble");
+
+        context.insertElement(context, //context
+                                    clef.name, //name
+                                    0,     //xposition
+                                    clef.yPosition,//yposition
+                                    null,  //hasDot
+                                    null,  //qtyAccidental
+                                    null,  //accidentalName
+                                    null,  //inverted
+                                    true,  //isclef
+                                    null,  //hasBar
+                                    null,  //barName
+                                    false,  //hasTime
+                                    null); //timeName
+
+        positionNoteSelected = null;
+
+
+        context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
+        context.drawPentagram(context);
+
+    }
+
+    this.eraseNote = function(context)
+    {
+        if(positionNoteSelected == null)
+        {
+            positionNoteSelected = context.drawIncipitElements.length - 1;
+        }
+
+        if(positionNoteSelected != null && positionNoteSelected > 0)
+        {
+            var index = context.drawIncipitElements.indexOf(positionNoteSelected);
+            context.drawIncipitElements.splice(index, 1);
+        }
+
+        if(positionNoteSelected == 0)
+        {
+            context.drawIncipitElements[positionNoteSelected].hasDot           = false;
+            context.drawIncipitElements[positionNoteSelected].qtyAccidental    = 0;
+            context.drawIncipitElements[positionNoteSelected].accidentalName   = "becuadro";
+            context.drawIncipitElements[positionNoteSelected].invertida        = false;
+            context.drawIncipitElements[positionNoteSelected].isClef           = true;
+            context.drawIncipitElements[positionNoteSelected].hasBar           = false;
+            context.drawIncipitElements[positionNoteSelected].barName          = "barra1";
+            context.drawIncipitElements[positionNoteSelected].hasTime          = false;
+            context.drawIncipitElements[positionNoteSelected].timeName         = "tiempo1";
+        }
+
+        positionNoteSelected = null;
+
+        context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
+        context.drawPentagram(context);
     }
 
     /*REGION DRAW*/
@@ -961,26 +1027,35 @@ function CanvasClass ()
 
                     for(var j=0; j < context.drawIncipitElements[i].qtyAccidental; j++)
                     {
-                        var positionAccidental = "";
+                        var positionAccidental = [x = 0, y = 0];
+                        var diferentClef = 0;
 
                         if(accidental.name == "sostenido")
                         {
-                            positionAccidental = context.incipit.AccidentalClefPositionSostenido[j];
+                            positionAccidental.x = context.incipit.AccidentalClefPositionSostenido[j].xPosition;
+                            positionAccidental.y = context.incipit.AccidentalClefPositionSostenido[j].yPosition;
                         }
 
                         if(accidental.name == "bemol")
                         {
-                            positionAccidental = context.incipit.AccidentalClefPositionBemol[j];
+                            positionAccidental.x = context.incipit.AccidentalClefPositionBemol[j].xPosition;
+                            positionAccidental.y = context.incipit.AccidentalClefPositionBemol[j].yPosition;
                         }
 
-                        context.gDrawingContext.font = context.getFont(context, accidental.font);
+                        for(var k = 0; k < context.incipit.AccidentalClefPositionNote.length; k++)
+                        {
+                            if(context.incipit.AccidentalClefPositionNote[k].name == noteToDraw.name)
+                            {
+                                diferentClef = context.incipit.AccidentalClefPositionNote[k].yPosition;    
+                            }
+                        }
+                        
 
-                        /*ontext.gDrawingContext.fillText(accidental.value, 
-                                                        notePosition.x + context.ratioX(context, positionAccidental.xPosition), 
-                                                        notePosition.y + context.ratioY(context, positionAccidental.yposition));*/
+                        context.gDrawingContext.font = context.getFont(context, accidental.font);
                         context.gDrawingContext.fillText(accidental.value, 
-                                                        notePosition.x + positionAccidental.xPosition, 
-                                                        notePosition.y + positionAccidental.yPosition);
+                                                        notePosition.x + context.ratioX(context, positionAccidental.x), 
+                                                        notePosition.y + context.ratioY(context, diferentClef)
+                                                        + context.ratioY(context, positionAccidental.y));
                     }
                 }
                 else
@@ -1090,6 +1165,153 @@ function CanvasClass ()
         /*FIN DE MALLADO*/
     }
     /*ENDREGION*/
+    /*REGION TRANSPOSITION*/
+    this.getTransposition = function(lastOctave, lastNote, lastAccidental, 
+                                currentOctave, currentNote, currentAccidental, 
+                                clefAccQty, clefAcc)
+    {
+
+        if((lastNote != "A" && lastNote != "B" && lastNote != "C" && lastNote != "D"
+            && lastNote != "E" && lastNote != "F" && lastNote != "G")
+            || currentNote != "A" && currentNote != "B" && currentNote != "C" && currentNote != "D"
+            && currentNote != "E" && currentNote != "F" && currentNote != "G")
+        {
+            return "";
+        }
+
+        var Notes               = ["C", "D", "E", "F", "G", "A", "B"];
+        var NotesValue        = [ 2, 2, 1, 2, 2, 2, 1];
+        var Octaves             = [",,,", ",,", ",", "'", "''", "'''"];
+
+        var lastNoteIndex       = 0;
+        var currentNoteIndex    = 0;
+
+        var HigherNote          = 0;
+
+        var lastOctaveIndex     = 0;
+        var currentOctaveIndex  = 0;
+        var transposition       = "";
+        var ascDesc             = "";
+                           /* if(j == 0) paecAccidental += "B";
+                            if(j == 1) paecAccidental += "E";
+                            if(j == 2) paecAccidental += "A";
+                            if(j == 3) paecAccidental += "D";
+                            if(j == 4) paecAccidental += "G";
+                            if(j == 5) paecAccidental += "C";
+                            if(j == 6) paecAccidental += "F";
+
+                            if(j == 0) paecAccidental += "F";
+                            if(j == 1) paecAccidental += "C";
+                            if(j == 2) paecAccidental += "G";
+                            if(j == 3) paecAccidental += "D";
+                            if(j == 4) paecAccidental += "A";
+                            if(j == 5) paecAccidental += "E";
+                            if(j == 6) paecAccidental += "B";*/
+
+        if(clefAccQty > 0)
+        {
+            if(clefAcc == "sostenido")
+            {
+                var accidental = 3; // start F
+                for(var i = 0; i < clefAccQty; i++)
+                {
+                    var tempValue = accidental;
+                    NotesValue[tempValue] -=  1;
+                    if(accidental - 1 < 0) tempValue = 7;
+
+                    NotesValue[tempValue - 1] += 1;
+                    accidental = (accidental + 4) % 7;
+                }
+            }
+            else
+            {
+                var accidental = 6; // start B
+                for(var i = 0; i < clefAccQty; i++)
+                {
+                    var tempValue = accidental;
+                    NotesValue[tempValue] +=  1;
+
+                    if(accidental - 1 < 0) tempValue = 7;
+
+                    NotesValue[tempValue - 1] -= 1;
+                    accidental = accidental - 4;
+
+                    if(accidental < 0) accidental = 7 + accidental;
+                }
+            }
+        }
+
+        for(var i = 0;i < 7; i++)
+        {
+            if(lastNote == Notes[i])
+            {
+                lastNoteIndex = i;
+            }
+
+            if(currentNote == Notes[i])
+            {
+                currentNoteIndex = i;
+            }
+        }
+
+        for(var i = 0;i < 6; i++)
+        {
+            if(lastOctave == Octaves[i])
+            {
+                lastOctaveIndex = i;
+            }
+
+            if(currentOctave == Octaves[i])
+            {
+                currentOctaveIndex = i;
+            }
+        }
+
+        var difOctaves = 0;
+        var difNotes   = 0
+
+        difOctaves = lastOctaveIndex - currentOctaveIndex; //Negative up, positive down, 0 equal
+
+        for (var i = lastNoteIndex; i != currentNoteIndex; i = (i + 1) % 7)
+        {
+            difNotes += NotesValue[i];
+        }
+
+        if(difOctaves <= 0)
+        {
+            ascDesc = "A";
+            difOctaves = difOctaves * (-1);
+            difNotes = difNotes + (difOctaves * 12);
+
+            if(lastNoteIndex > currentNoteIndex)
+            {
+                difNotes = difNotes - 12;
+                if(difOctaves == 0)
+                {
+                    ascDesc = "D";
+                    difNotes = difNotes * -1;
+                }
+            }
+        }
+        else if(difOctaves > 0)
+        {
+            ascDesc = "D";
+            if(lastNoteIndex <= currentNoteIndex)
+            {
+                difNotes = (difOctaves * 12) - difNotes;
+            }else
+            {
+                difNotes = ((difOctaves + 1) * 12) - difNotes;
+            }
+        }
+
+        transposition =difNotes.toString() + ascDesc;
+
+        return transposition;
+        //12 una octava
+
+    }
+    /*EDREGION*/
     /*REGION INCIPIT TO PLAINE & EASIE CODE */
 
     this.getRythmPAEC = function(context, noteElement, note)
@@ -1117,7 +1339,7 @@ function CanvasClass ()
 
         var notePosition    = noteElement.yPosition;
         var notesArray      = [ "B", "A", "G", "F", "E", "D", "C"];
-        var paecOctave  = "";
+        var paecOctave      = "";
         var paecNote        = "";
 
         // 19 notes the incipit can represent, 31 notes can mean
@@ -1184,6 +1406,9 @@ function CanvasClass ()
         var lastAccidentalByNote = ["", "", "", "", "", "", ""];
         var notesArray           = [ "B", "A", "G", "F", "E", "D", "C"];
         var lastOctave           = "";
+        var lastOctaveUsed       = "";
+        var paecLastNote         = "";
+        var paecLastAcc          = "";
 
         for(var i = 0; i < context.drawIncipitElements.length; i++)
         {
@@ -1195,7 +1420,6 @@ function CanvasClass ()
             var paecAccidental  = "";
             var paecOctave      = "";
             var paecRythm       = "";
-            var paecLastNote    = "";
             var paecTime        = "";
             var paecBar         = "";
 
@@ -1294,8 +1518,19 @@ function CanvasClass ()
                                                         accidental,
                                                         notesArray);       
 
+
+                context.getTransposition(lastOctaveUsed, paecLastNote, paecLastAcc,
+                                        lastOctave, paecNote, paecAccidental,
+                                        context.drawIncipitElements[0].qtyAccidental,
+                                        context.drawIncipitElements[0].accidentalName);
+
+
                 var031p += paecOctave+paecAccidental+paecRythm+paecNote+paecBar;
                 paec += paecOctave+paecAccidental+paecRythm+paecNote+paecBar;
+
+                paecLastNote = paecNote;
+                paecLastAcc  = paecAccidental;
+                lastOctaveUsed = lastOctave;
             }
         }
 
@@ -1561,6 +1796,17 @@ function toneUpDown(up)
 {
     CanvasIncipit.toneUpDown(CanvasIncipit, up);
 };
+
+function deleteNote(all)
+{
+    if(all)
+    {
+        CanvasIncipit.eraseIncipit(CanvasIncipit);
+    }else
+    {
+        CanvasIncipit.eraseNote(CanvasIncipit);
+    }
+}
 
 //Initialize the Canvas
 function initializeIncipit(canvasElement, operation, paec, canvas) 
