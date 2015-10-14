@@ -27,7 +27,6 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 
 <!--CODIGO DE ALEJANDRO -->
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
-
 <script type="text/javascript">
 
 	function addLoadEvent(func) {
@@ -48,8 +47,14 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 <style>
 	@font-face 
 	{
-	  font-family: Maestro;
-	  src: url(<?php echo $this->Html->url('/files/incipit/Maestro.ttf'); ?>) format('truetype');
+	  	font-family: Maestro;
+	  	src: url(<?php echo $this->Html->url('/files/incipit/Maestro.ttf'); ?>) format('truetype');
+
+		/*src: url('StreetFighter.eot'); /* IE9 Compat Modes */
+		/*src: url('StreetFighter.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	    /*url('StreetFighter.woff') format('woff'), /* Modern Browsers */
+	    /*url('StreetFighter.ttf')  format('truetype'), /* Safari, Android, iOS */
+	    /*url('StreetFighter.svg') format('svg'); /* Legacy iOS */
 	}
 
 	.maestro
@@ -57,7 +62,6 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 		font-family: Maestro;
 		font-size: 15pt;
 	} 
-
 </style>
 
 <!--FIN DEL CODIGO DE ALEJANDRO -->

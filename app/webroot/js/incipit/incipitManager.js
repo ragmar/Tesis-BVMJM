@@ -518,7 +518,6 @@ function CanvasClass ()
         var up   = document.getElementById("toneUp");
         var down = document.getElementById("toneDown");
 
-
         up.style.visibility   = "hidden";
         down.style.visibility = "hidden";
 
@@ -526,10 +525,20 @@ function CanvasClass ()
         {
             positionNoteSelected = element;
 
-            if(element != 0)
+            if(!context.drawIncipitElements[positionNoteSelected].isClef)
             {
-                up.style.left   = element * context.stepX + context.stepX + context.stepX / 2 + "px";
-                down.style.left = element * context.stepX + context.stepX +  context.stepX / 2 + "px";
+
+                var position = context.getDrawPosition(context, 
+                                        context.drawIncipitElements[positionNoteSelected].xPosition, 
+                                        8);
+
+
+                up.style.top     = position.y - 25 + "px";
+                down.style.top   = position.y + 195 + "px";
+
+                up.style.left     = position.x + (context.stepX / 3) + "px";
+                down.style.left   = position.x + (context.stepX / 3) +"px";   
+            
 
                 up.style.visibility   = "visible";
                 down.style.visibility = "visible";
@@ -548,7 +557,7 @@ function CanvasClass ()
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
 
         var note = context.getCurrentNotePressed(context);
-
+        
         if(note != null)
         {
             var eleCoord = context.cursorToElement(context, cursor);
@@ -912,6 +921,8 @@ function CanvasClass ()
 
         var clef = context.incipit.getNoteByName("treble");
 
+        context.TransformIncipitToPAEC(context);
+
         context.insertElement(context, //context
                                     clef.name, //name
                                     0,     //xposition
@@ -931,7 +942,6 @@ function CanvasClass ()
 
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawPentagram(context);
-
     }
 
     this.eraseNote = function(context)
@@ -943,8 +953,11 @@ function CanvasClass ()
 
         if(positionNoteSelected != null && positionNoteSelected > 0)
         {
-            var index = context.drawIncipitElements.indexOf(positionNoteSelected);
-            context.drawIncipitElements.splice(index, 1);
+            context.drawIncipitElements.splice(positionNoteSelected, 1);
+            for(var i = positionNoteSelected; i < context.drawIncipitElements.length; i++)
+            {
+                context.drawIncipitElements[i].xPosition = i;
+            }
         }
 
         if(positionNoteSelected == 0)
@@ -964,6 +977,8 @@ function CanvasClass ()
 
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawPentagram(context);
+
+        context.TransformIncipitToPAEC(context);
     }
 
     /*REGION DRAW*/
@@ -1409,6 +1424,7 @@ function CanvasClass ()
         var lastOctaveUsed       = "";
         var paecLastNote         = "";
         var paecLastAcc          = "";
+        var transposition        = "";
 
         for(var i = 0; i < context.drawIncipitElements.length; i++)
         {
@@ -1519,7 +1535,7 @@ function CanvasClass ()
                                                         notesArray);       
 
 
-                context.getTransposition(lastOctaveUsed, paecLastNote, paecLastAcc,
+                transposition += context.getTransposition(lastOctaveUsed, paecLastNote, paecLastAcc,
                                         lastOctave, paecNote, paecAccidental,
                                         context.drawIncipitElements[0].qtyAccidental,
                                         context.drawIncipitElements[0].accidentalName);
@@ -1535,7 +1551,7 @@ function CanvasClass ()
         }
 
         $("#incipitPaec").val(paec);
-        $("#incipitTransposition").val(paec);
+        $("#incipitTransposition").val(transposition);
         
         if(context.operation == 'add' || context.operation == 'edit')
         {

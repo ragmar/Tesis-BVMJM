@@ -47,7 +47,6 @@ function marc21_decode($camp = null) {
 <!--CODIGO DE ALEJANDRO -->
 
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
-
 <script type="text/javascript">
 
 	function addLoadEvent(func) {
@@ -68,8 +67,14 @@ function marc21_decode($camp = null) {
 <style>
 	@font-face 
 	{
-	  font-family: Maestro;
-	  src: url(<?php echo $this->Html->url('/files/incipit/Maestro.ttf'); ?>) format('truetype');
+	  	font-family: Maestro;
+	  	src: url(<?php echo $this->Html->url('/files/incipit/Maestro.ttf'); ?>) format('truetype');
+
+		/*src: url('StreetFighter.eot'); /* IE9 Compat Modes */
+		/*src: url('StreetFighter.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	    /*url('StreetFighter.woff') format('woff'), /* Modern Browsers */
+	    /*url('StreetFighter.ttf')  format('truetype'), /* Safari, Android, iOS */
+	    /*url('StreetFighter.svg') format('svg'); /* Legacy iOS */
 	}
 
 	.maestro
@@ -77,9 +82,8 @@ function marc21_decode($camp = null) {
 		font-family: Maestro;
 		font-size: 15pt;
 	} 
-
-
 </style>
+
 <!--FIN DE CODIGO DE ALEJANDRO -->
 <style type="text/css">
 	#magazine{
