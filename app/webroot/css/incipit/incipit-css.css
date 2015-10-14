@@ -9,6 +9,40 @@
 		float: left;
 	}
 
+	.barras-incipit
+	{
+		font-size: 15px;
+		padding-top: 15px;
+	}
+
+	.compas-incipit
+	{
+		font-size: 26px;
+	    padding-top: 3px;
+	    padding-left: 3px;
+	}
+
+	.ritmicas-incipit
+	{
+	    padding-top: 0px;
+	}
+
+	#Clave-1
+	{
+		font-size: 15px;
+	}
+
+	#Clave-2
+	{
+		font-size: 18px;
+    	padding-top: 4px;
+	}
+
+	#Clave-3
+	{
+		padding-top: 0px;
+	}
+
 	.toneUp
 	{
 		text-align: center;
