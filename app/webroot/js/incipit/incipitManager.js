@@ -17,9 +17,9 @@ function IncipitClass()
     {
         var context = this;
 
-        context.Accidentals =
+        context.Alterations =
         [
-            //Accidentales
+            //Alterationes
             {name: "doblesostenido",    value: "l", font: 35, xPosition: -13, yPosition: 4, paec: "xx"},
             {name: "bemol",             value: "m", font: 35, xPosition: -13, yPosition: 5, paec: "b"},
             {name: "doblebemol",        value: "n", font: 35, xPosition: -20, yPosition: 5, paec: "bb"},
@@ -27,14 +27,14 @@ function IncipitClass()
             {name: "sostenido",         value: "p", font: 35, xPosition: -13, yPosition: 11, paec: "x"}
         ];
 
-        context.AccidentalClefPositionNote =
+        context.AlterationClefPositionNote =
         [
             {name: "treble",    xPosition: 0, yPosition: 0},
             {name: "alto",      xPosition: 0, yPosition: 24},
             {name: "bass",      xPosition: 0, yPosition: 48}
         ];
 
-        context.AccidentalClefPositionSostenido =
+        context.AlterationClefPositionSostenido =
         [ 
             {xPosition: 50, yPosition: -6},
             {xPosition: 60, yPosition: 20},
@@ -45,20 +45,20 @@ function IncipitClass()
             {xPosition: 110, yPosition: 28}
         ];
 
-        context.AccidentalClefPositionBemol =
+        context.AlterationClefPositionBemol =
         [ 
-            {xPosition: 50, yPosition: 5 + 17},
-            {xPosition: 60, yPosition: -19 + 17},
-            {xPosition: 70, yPosition: 13 + 17},
-            {xPosition: 80, yPosition: -11 + 17},
-            {xPosition: 90, yPosition: 21 + 17},
-            {xPosition: 100, yPosition: -3 + 17},
-            {xPosition: 110, yPosition: 28 + 17}
+            {xPosition: 50, yPosition: 22},
+            {xPosition: 60, yPosition: -2},
+            {xPosition: 70, yPosition: 30},
+            {xPosition: 80, yPosition: 6},
+            {xPosition: 90, yPosition: 38},
+            {xPosition: 100, yPosition: 14},
+            {xPosition: 110, yPosition: 45}
         ];
 
         context.DotNote =
         [
-            //Accidentales
+            //Alterationes
             {name: "dot",    value: "q", font: 35, xPosition: 18, yPosition: 4, paec: "."}
         ];
 
@@ -66,7 +66,6 @@ function IncipitClass()
         [
             {name: "barra1",              value: ";", font: 38, paec: "/", yPosition: 12, xPosition: 35},
             {name: "barra2",              value: "<", font: 38, paec: "//", yPosition: 12, xPosition: 35},
-           // {name: "barra3",              value: "=", font: 38, paec: "", yPosition: 12, xPosition: 35}, //dont have PAEC
             {name: "barra4",              value: ">", font: 38, paec: "//:", yPosition: 12, xPosition: 35},
             {name: "barra6",              value: "?", font: 38, paec: "://", yPosition: 12, xPosition: 35},
             {name: "barra5",              value: "@", font: 38, paec: "://:", yPosition: 12, xPosition: 35}
@@ -93,7 +92,6 @@ function IncipitClass()
             {name: "bass",     value: "3", font: 56, isRest: false, yPosition: 3, paec: "%F-4"}, //46 for clef
 
             //Notas
-//            {name: "maxima",             value: "a", font: 38, isRest: false, paec: ""}, //no code in PAEC
             {name: "longa",              value: "b", font: 38, isRest: false, paec: "0"},
             {name: "breve",              value: "c", font: 38, isRest: false, paec: "9"},
             {name: "semibreve",          value: "d", font: 38, isRest: false, paec: "1"},
@@ -106,7 +104,6 @@ function IncipitClass()
             
 
             //Silencios
-//            {name: "restMax",            value: "!",  font: 38, isRest: true, yPosition: 8, paec: ""}, //no code in PAEC
             {name: "restLon",            value: "\"", font: 38, isRest: true, yPosition: 8, paec: "0-"},
             {name: "restBrev",           value: "#",  font: 38, isRest: true, yPosition: 8, paec: "9-"},
             {name: "restSemirev",        value: "$",  font: 38, isRest: true, yPosition: 8, paec: "1-"},
@@ -130,6 +127,8 @@ function IncipitClass()
                 return this.Notes[i];
             }
         }
+
+        return null;
     }
 
     //Get the note by the value
@@ -142,6 +141,8 @@ function IncipitClass()
                 return this.Notes[i];
             }
         }
+
+        return null;
     }
     /*ENDREGION*/
 
@@ -156,6 +157,8 @@ function IncipitClass()
                 return this.Time[i];
             }
         }
+
+        return null;
     }
 
     //Get the time by the value
@@ -168,6 +171,8 @@ function IncipitClass()
                 return this.Time[i];
             }
         }
+
+        return null;
     }
     /*END REGION*/
     /*REGION TIME FUNCTIONS*/
@@ -181,6 +186,8 @@ function IncipitClass()
                 return this.Bar[i];
             }
         }
+
+        return null;
     }
 
     //Get the time by the value
@@ -193,32 +200,38 @@ function IncipitClass()
                 return this.Bar[i];
             }
         }
+
+        return null;
     }
     /*END REGION*/
 
-    /*REGION ACCIDENTALS FUNCTIONS*/
-    //Get the accidental by the name
-    this.getAccidentalByName = function(name)
+    /*REGION ALTERATIONS FUNCTIONS*/
+    //Get the alteration by the name
+    this.getAlterationByName = function(name)
     {
-        for(var i = 0; i < this.Accidentals.length; i++)
+        for(var i = 0; i < this.Alterations.length; i++)
         {
-            if(this.Accidentals[i].name === name)
+            if(this.Alterations[i].name === name)
             {
-                return this.Accidentals[i];
+                return this.Alterations[i];
             }
         }
+
+        return null;
     }
 
     //Get the note by the value
-    this.getAccidentalByValue = function(value)
+    this.getAlterationByValue = function(value)
     {
-        for(var i = 0; i < this.Accidentals.length; i++)
+        for(var i = 0; i < this.Alterations.length; i++)
         {
-            if(this.Accidentals[i].value === value)
+            if(this.Alterations[i].value === value)
             {
-                return this.Accidentals[i];
+                return this.Alterations[i];
             }
         }
+
+        return null;
     }
 
     this.getPAECByName = function(name)
@@ -239,11 +252,11 @@ function IncipitClass()
             }
         }
 
-        for(var i = 0; i < this.Accidentals.length; i++)
+        for(var i = 0; i < this.Alterations.length; i++)
         {
-            if(this.Accidentals[i].name === name)
+            if(this.Alterations[i].name === name)
             {
-                return this.Accidentals[i].paec;
+                return this.Alterations[i].paec;
             }
         }
 
@@ -284,11 +297,11 @@ function IncipitClass()
             }
         }
 
-        for(var i = 0; i < this.Accidentals.length; i++)
+        for(var i = 0; i < this.Alterations.length; i++)
         {
-            if(this.Accidentals[i].paec === paec)
+            if(this.Alterations[i].paec === paec)
             {
-                return this.Accidentals[i];
+                return this.Alterations[i];
             }
         }
 
@@ -307,6 +320,8 @@ function IncipitClass()
                 return this.Bar[i];
             }
         }
+
+        return null;
     }
     /*ENDREGION*/
     /*ENDREGION*/
@@ -329,8 +344,9 @@ function CanvasClass ()
     this.maxStepY     = 29;
     this.minStepY     = 11;
 
+    this.defaultClefAlt      = new Array(21);
     this.drawIncipitElements = new Array();
-    this.incipit        = new IncipitClass();
+    this.incipit             = new IncipitClass();
 
 
     this.getFont = function(context, fontSize) 
@@ -371,6 +387,90 @@ function CanvasClass ()
         return ratio
     }
 
+    this.setDefaultClefAlt = function(context, clef, qtyAlteration, alterationName)
+    {
+
+        // 19 notes the incipit can represent, 31 notes can mean
+        //'''DC''BAGFEDC'BAGFEDC,BAG                 Treble
+        //         ''EDC'BAGFEDC,BAGFEDC,,BA         Alto
+        //                 'FEDC,BAGFEDC,,BAGFEDC,,,B Bass
+        //bemol BEADGCF
+        //sostenido FCGDAEB
+
+        var startPosition = 0;
+        var alteration = 0;
+
+        if(alterationName == null)
+        {
+            alterationName = "becuadro";
+        } 
+
+        if(alterationName == "sostenido" 
+            || alterationName == "becuadro")
+        {
+            if(clef == "treble") startPosition = 5;
+            if(clef == "alto")   startPosition = 6;
+            if(clef == "bass")   startPosition = 0;
+
+            alteration = -4;  
+        } 
+        if(alterationName == "bemol")
+        {
+            if(clef == "treble") startPosition = 2;
+            if(clef == "alto")   startPosition = 3;
+            if(clef == "bass")   startPosition = 5;
+
+            alteration = 4;
+        } 
+
+        for(var i = 0; i < 7; i++)
+        {
+            if(i < qtyAlteration)
+            {
+                context.defaultClefAlt[(startPosition) % 21]       = alterationName;
+                context.defaultClefAlt[(startPosition + 7) % 21]   = alterationName;
+                context.defaultClefAlt[(startPosition + 14) % 21]  = alterationName;
+            }else
+            {
+                context.defaultClefAlt[(startPosition) % 21]       = "becuadro";
+                context.defaultClefAlt[(startPosition + 7) % 21]   = "becuadro";
+                context.defaultClefAlt[(startPosition + 14) % 21]  = "becuadro";
+            }
+
+            startPosition = startPosition + alteration;
+            if(startPosition < 0) startPosition = 21 + startPosition;
+        }
+
+        context.setNotesAlterations(context, 1, true);
+
+    }
+
+    this.setNotesAlterations = function (context, index, isDefault)
+    {
+        if(index >= context.drawIncipitElements.length) return;
+
+        for(var i = index; i < context.drawIncipitElements.length; i++)
+        {
+            if(context.drawIncipitElements[i].qtyAlteration == 0)
+            {
+                context.drawIncipitElements[i].alterationName = context.defaultClefAlt[context.drawIncipitElements[i].yPosition];
+                var yPosition = context.drawIncipitElements[i].yPosition;
+
+                for(var j = i - 1; j > 0; j--)
+                {
+                    if(context.drawIncipitElements[j].hasBar) break;
+
+                    if(yPosition == context.drawIncipitElements[j].yPosition && context.drawIncipitElements[j].qtyAlteration > 0)
+                    {
+                        context.drawIncipitElements[i].alterationName = context.drawIncipitElements[j].alterationName;
+                        break;
+                    }
+                }
+            }
+
+            if(!isDefault && context.drawIncipitElements[i].hasBar) break;
+        }
+    }
 
     /*REGION EVENTS*/
     //onClick canvas
@@ -456,7 +556,6 @@ function CanvasClass ()
             context.TransformPAECToIncipit(context, paec);
         }
 
-
         if(context.drawIncipitElements.length == 0)
         {
             var clef = context.incipit.getNoteByName("treble");
@@ -466,8 +565,8 @@ function CanvasClass ()
                                     0,     //xposition
                                     clef.yPosition,//yposition
                                     null,  //hasDot
-                                    null,  //qtyAccidental
-                                    null,  //accidentalName
+                                    null,  //qtyAlteration
+                                    "becuadro",  //alterationName
                                     null,  //inverted
                                     true,  //isclef
                                     null,  //hasBar
@@ -475,6 +574,11 @@ function CanvasClass ()
                                     false,  //hasTime
                                     null); //timeName
         }
+
+        context.setDefaultClefAlt(context, 
+                                context.drawIncipitElements[0].noteName, 
+                                context.drawIncipitElements[0].qtyAlteration,
+                                context.drawIncipitElements[0].alterationName);
 
         context.drawPentagram(context);
     };
@@ -560,11 +664,16 @@ function CanvasClass ()
         
         if(note != null)
         {
+            var alterationName = "becuadro";
             var eleCoord = context.cursorToElement(context, cursor);
 
             if(note.isRest)
             {
                 eleCoord.y = note.yPosition;
+            }else
+            {
+                //calculate Alterations
+                alterationName = context.defaultClefAlt[eleCoord.y];
             }
 
             context.insertElement(context, //context
@@ -572,8 +681,8 @@ function CanvasClass ()
                                 context.drawIncipitElements.length, //xPosition
                                 eleCoord.y, //yPosition
                                 null, //hasDot
-                                null, //qtyAccidental
-                                null, //accidentalName
+                                null, //qtyAlteration
+                                alterationName, //alterationName
                                 false, //inverted
                                 false,  //isclef
                                 null,  //hasBar
@@ -609,8 +718,8 @@ function CanvasClass ()
                                 context.drawIncipitElements.length, //xPositon
                                 eleCoord.y,                         //yPosition
                                 null,                               //hasDot
-                                null,                               //qtyAccidental
-                                null,                               //accidentalName
+                                null,                               //qtyAlteration
+                                null,                               //alterationName
                                 false,                              //isClef
                                 false,                              //hasBar
                                 null,                               //barName
@@ -646,6 +755,7 @@ function CanvasClass ()
                     && context.drawIncipitElements[i].yPosition + up < 19)
                 {
                     context.drawIncipitElements[i].yPosition = context.drawIncipitElements[i].yPosition + up;
+                    context.setNotesAlterations(context, i, false);
                     context.TransformIncipitToPAEC(context);
                 }
             }
@@ -674,7 +784,7 @@ function CanvasClass ()
         context.clickExistingElement(context, 0);
         if(clef != null)
         {
-            context.changeNoteSelected(context, clef, true, false);
+            context.changeNoteSelected(context, clef, true);
         }
     }
 
@@ -721,8 +831,8 @@ function CanvasClass ()
         }
     }
 
-    //Get the accidental of the table pushed and add the accidental to the note
-    this.accidentalPushed = function(context, accidental)
+    //Get the alteration of the table pushed and add the alteration to the note
+    this.alterationPushed = function(context, alteration)
     {
         if(positionNoteSelected == null)
         {
@@ -731,7 +841,7 @@ function CanvasClass ()
 
         if(positionNoteSelected != null)
         {
-            context.addAccidental(context, accidental);
+            context.addAlteration(context, alteration);
         }
     }
 
@@ -750,12 +860,19 @@ function CanvasClass ()
             {
                 var noteByValue = context.incipit.getNoteByValue(note);
 
+                context.drawIncipitElements[i].noteName = noteByValue.name;
+
                 if(noteByValue.isRest || isClef)
                 {
                     context.drawIncipitElements[i].yPosition = noteByValue.yPosition;
-                }
-
-                context.drawIncipitElements[i].noteName = noteByValue.name;    
+                    if(isClef)
+                    {
+                        context.setDefaultClefAlt(context,
+                                                context.drawIncipitElements[i].noteName,
+                                                context.drawIncipitElements[i].qtyAlteration,
+                                                context.drawIncipitElements[i].alterationName);
+                    }
+                }    
             }
         }
 
@@ -764,10 +881,10 @@ function CanvasClass ()
         context.drawPentagram(context);
     }
 
-    //Add the accidental on the current note
-    this.addAccidental = function(context, currentAccidental)
+    //Add the alteration on the current note
+    this.addAlteration = function(context, currentAlteration)
     {
-        var accidental = context.incipit.getAccidentalByValue(currentAccidental);
+        var alteration = context.incipit.getAlterationByValue(currentAlteration);
         for(var i=0; i < context.drawIncipitElements.length; i++)
         {
             if(i == positionNoteSelected
@@ -775,24 +892,38 @@ function CanvasClass ()
             {
                 if(context.drawIncipitElements[i].isClef) 
                 {
-                    if(accidental.name != "sostenido" && accidental.name != "bemol") return;
+                    context.drawIncipitElements[i].alterationName = "becuadro";
 
-                    if(context.drawIncipitElements[i].qtyAccidental < 7)
+                    if(alteration.name != "sostenido" && alteration.name != "bemol") return;
+
+                    context.drawIncipitElements[i].alterationName = alteration.name;
+
+                    if(context.drawIncipitElements[i].qtyAlteration < 7)
                     {
-                        context.drawIncipitElements[i].qtyAccidental += 1;
+                        context.drawIncipitElements[i].qtyAlteration += 1;
+
+                        context.setDefaultClefAlt(context,
+                                                context.drawIncipitElements[i].noteName,
+                                                context.drawIncipitElements[i].qtyAlteration,
+                                                alteration.name)
                     }
-                }
-                else if(context.drawIncipitElements[i].qtyAccidental == 1
-                    && context.drawIncipitElements[i].accidentalName == accidental.name)
-                {
-                    context.drawIncipitElements[i].qtyAccidental = 0;
                 }
                 else
                 {
-                    context.drawIncipitElements[i].qtyAccidental = 1;
-                }
+                    if(context.drawIncipitElements[i].qtyAlteration == 1
+                    && context.drawIncipitElements[i].alterationName == alteration.name)
+                    {
+                        context.drawIncipitElements[i].qtyAlteration = 0;
+                        context.drawIncipitElements[i].alterationName = "becuadro";
+                    }
+                    else
+                    {
+                        context.drawIncipitElements[i].qtyAlteration = 1;
+                        context.drawIncipitElements[i].alterationName = alteration.name;
+                    }
+                    context.setNotesAlterations(context, i, false);
+                } 
                 
-                context.drawIncipitElements[i].accidentalName = accidental.name;
                 context.TransformIncipitToPAEC(context);
             }
         }
@@ -808,8 +939,17 @@ function CanvasClass ()
         if(positionNoteSelected != null
             && context.drawIncipitElements[positionNoteSelected].isClef)
         {
-            context.drawIncipitElements[positionNoteSelected].hasTime = true;
-            context.drawIncipitElements[positionNoteSelected].timeName = time.name;
+            if(context.drawIncipitElements[positionNoteSelected].hasTime == false
+                || context.drawIncipitElements[positionNoteSelected].timeName != time.name)
+            {
+                context.drawIncipitElements[positionNoteSelected].hasTime = true;
+                context.drawIncipitElements[positionNoteSelected].timeName = time.name;
+            }
+            else if(context.drawIncipitElements[positionNoteSelected].timeName == time.name)
+            {
+                context.drawIncipitElements[positionNoteSelected].hasTime = false;
+            }
+
             context.TransformIncipitToPAEC(context);
         }
 
@@ -829,8 +969,19 @@ function CanvasClass ()
         if(positionNoteSelected != null
             && !context.drawIncipitElements[positionNoteSelected].isClef)
         {
-            context.drawIncipitElements[positionNoteSelected].hasBar = true;
-            context.drawIncipitElements[positionNoteSelected].barName = bar.name;
+            if(context.drawIncipitElements[positionNoteSelected].hasBar == false
+                || context.drawIncipitElements[positionNoteSelected].barName != bar.name)
+            {
+                context.drawIncipitElements[positionNoteSelected].hasBar = true;
+                context.drawIncipitElements[positionNoteSelected].barName = bar.name;
+                context.setNotesAlterations(context, positionNoteSelected + 1, false);
+            }
+            else if(context.drawIncipitElements[positionNoteSelected].barName == bar.name)
+            {
+                context.drawIncipitElements[positionNoteSelected].hasBar = false;
+                context.setNotesAlterations(context, positionNoteSelected + 1, false);
+            }
+
             context.TransformIncipitToPAEC(context);
         }
 
@@ -839,7 +990,7 @@ function CanvasClass ()
     }
 
 
-    //Add the accidental on the current note
+    //Add the alteration on the current note
     this.addDot = function(context)
     {
         for(var i=0; i < context.drawIncipitElements.length; i++)
@@ -860,7 +1011,7 @@ function CanvasClass ()
 
     //Create an Element of the incipit
     this.createElement = function(context, name, xPosition, yPosition, 
-        hasDot, qtyAccidental, accidentalName, invertida, isClef,
+        hasDot, qtyAlteration, alterationName, invertida, isClef,
         hasBar, barName, hasTime, timeName )
     {
 
@@ -868,8 +1019,8 @@ function CanvasClass ()
         if(xPosition == null)          xPosition        = 0;
         if(yPosition == null)          yPosition        = 0;
         if(hasDot == null)             hasDot           = false;
-        if(qtyAccidental == null)      qtyAccidental    = 0;
-        if(accidentalName == null)     accidentalName   = "becuadro";
+        if(qtyAlteration == null)      qtyAlteration    = 0;
+        if(alterationName == null)     alterationName   = null;
         if(invertida == null)          invertida        = false;
         if(isClef == null)             isClef           = false;
         if(hasBar == null)             hasBar           = false;
@@ -883,8 +1034,8 @@ function CanvasClass ()
                 xPosition: xPosition,
                 yPosition: yPosition,
                 hasDot: hasDot,
-                qtyAccidental: qtyAccidental,
-                accidentalName: accidentalName,
+                qtyAlteration: qtyAlteration,
+                alterationName: alterationName,
                 invertida: invertida,
                 isClef: isClef,
                 hasBar: hasBar,
@@ -896,7 +1047,7 @@ function CanvasClass ()
 
     //Insert an Element on the Incipit
     this.insertElement = function(context, name, xPosition, yPosition, 
-        hasDot, qtyAccidental, accidentalName, invertida, isClef,
+        hasDot, qtyAlteration, alterationName, invertida, isClef,
         hasBar, barName, hasTime, timeName)
     {   
         context.drawIncipitElements.push(context.createElement(context, 
@@ -904,8 +1055,8 @@ function CanvasClass ()
                                                         xPosition, 
                                                         yPosition, 
                                                         hasDot, 
-                                                        qtyAccidental, 
-                                                        accidentalName, 
+                                                        qtyAlteration, 
+                                                        alterationName, 
                                                         invertida,
                                                         isClef,
                                                         hasBar,
@@ -927,15 +1078,17 @@ function CanvasClass ()
                                     clef.name, //name
                                     0,     //xposition
                                     clef.yPosition,//yposition
-                                    null,  //hasDot
-                                    null,  //qtyAccidental
-                                    null,  //accidentalName
+                                    false,  //hasDot
+                                    0,  //qtyAlteration
+                                    "becuadro",  //alterationName
                                     null,  //inverted
                                     true,  //isclef
-                                    null,  //hasBar
-                                    null,  //barName
+                                    false,  //hasBar
+                                    false,  //barName
                                     false,  //hasTime
                                     null); //timeName
+
+        context.setDefaultClefAlt(context, clef.name, 0, "becuadro");
 
         positionNoteSelected = null;
 
@@ -960,19 +1113,26 @@ function CanvasClass ()
             {
                 context.drawIncipitElements[i].xPosition = i;
             }
+
+            context.setNotesAlterations(context, i, false);
         }
 
         if(positionNoteSelected == 0)
         {
             context.drawIncipitElements[positionNoteSelected].hasDot           = false;
-            context.drawIncipitElements[positionNoteSelected].qtyAccidental    = 0;
-            context.drawIncipitElements[positionNoteSelected].accidentalName   = "becuadro";
+            context.drawIncipitElements[positionNoteSelected].qtyAlteration    = 0;
+            context.drawIncipitElements[positionNoteSelected].alterationName   = "becuadro";
             context.drawIncipitElements[positionNoteSelected].invertida        = false;
             context.drawIncipitElements[positionNoteSelected].isClef           = true;
             context.drawIncipitElements[positionNoteSelected].hasBar           = false;
             context.drawIncipitElements[positionNoteSelected].barName          = "barra1";
             context.drawIncipitElements[positionNoteSelected].hasTime          = false;
             context.drawIncipitElements[positionNoteSelected].timeName         = "tiempo1";
+
+            context.setDefaultClefAlt(context,
+                                        context.drawIncipitElements[positionNoteSelected].noteName,
+                                        context.drawIncipitElements[positionNoteSelected].qtyAlteration,
+                                        context.drawIncipitElements[positionNoteSelected].alterationName);
         }
 
         positionNoteSelected = null;
@@ -1037,52 +1197,52 @@ function CanvasClass ()
                                                         context.drawIncipitElements[i].xPosition, 
                                                         context.drawIncipitElements[i].yPosition);
 
-            if(context.drawIncipitElements[i].qtyAccidental > 0 && !noteToDraw.isRest)
+            if(context.drawIncipitElements[i].qtyAlteration > 0 && !noteToDraw.isRest)
             {
-                var accidental = context.incipit.getAccidentalByName(context.drawIncipitElements[i].accidentalName);
+                var alteration = context.incipit.getAlterationByName(context.drawIncipitElements[i].alterationName);
 
                 if(context.drawIncipitElements[i].isClef)
                 {
 
-                    for(var j=0; j < context.drawIncipitElements[i].qtyAccidental; j++)
+                    for(var j=0; j < context.drawIncipitElements[i].qtyAlteration; j++)
                     {
-                        var positionAccidental = [x = 0, y = 0];
+                        var positionAlteration = [x = 0, y = 0];
                         var diferentClef = 0;
 
-                        if(accidental.name == "sostenido")
+                        if(alteration.name == "sostenido")
                         {
-                            positionAccidental.x = context.incipit.AccidentalClefPositionSostenido[j].xPosition;
-                            positionAccidental.y = context.incipit.AccidentalClefPositionSostenido[j].yPosition;
+                            positionAlteration.x = context.incipit.AlterationClefPositionSostenido[j].xPosition;
+                            positionAlteration.y = context.incipit.AlterationClefPositionSostenido[j].yPosition;
                         }
 
-                        if(accidental.name == "bemol")
+                        if(alteration.name == "bemol")
                         {
-                            positionAccidental.x = context.incipit.AccidentalClefPositionBemol[j].xPosition;
-                            positionAccidental.y = context.incipit.AccidentalClefPositionBemol[j].yPosition;
+                            positionAlteration.x = context.incipit.AlterationClefPositionBemol[j].xPosition;
+                            positionAlteration.y = context.incipit.AlterationClefPositionBemol[j].yPosition;
                         }
 
-                        for(var k = 0; k < context.incipit.AccidentalClefPositionNote.length; k++)
+                        for(var k = 0; k < context.incipit.AlterationClefPositionNote.length; k++)
                         {
-                            if(context.incipit.AccidentalClefPositionNote[k].name == noteToDraw.name)
+                            if(context.incipit.AlterationClefPositionNote[k].name == noteToDraw.name)
                             {
-                                diferentClef = context.incipit.AccidentalClefPositionNote[k].yPosition;    
+                                diferentClef = context.incipit.AlterationClefPositionNote[k].yPosition;    
                             }
                         }
                         
 
-                        context.gDrawingContext.font = context.getFont(context, accidental.font);
-                        context.gDrawingContext.fillText(accidental.value, 
-                                                        notePosition.x + context.ratioX(context, positionAccidental.x), 
+                        context.gDrawingContext.font = context.getFont(context, alteration.font);
+                        context.gDrawingContext.fillText(alteration.value, 
+                                                        notePosition.x + context.ratioX(context, positionAlteration.x), 
                                                         notePosition.y + context.ratioY(context, diferentClef)
-                                                        + context.ratioY(context, positionAccidental.y));
+                                                        + context.ratioY(context, positionAlteration.y));
                     }
                 }
                 else
                 {
-                    context.gDrawingContext.font = context.getFont(context, accidental.font);
-                    context.gDrawingContext.fillText(accidental.value, 
-                                                    notePosition.x + context.ratioX(context, accidental.xPosition), 
-                                                    notePosition.y + context.ratioY(context, accidental.yPosition));
+                    context.gDrawingContext.font = context.getFont(context, alteration.font);
+                    context.gDrawingContext.fillText(alteration.value, 
+                                                    notePosition.x + context.ratioX(context, alteration.xPosition), 
+                                                    notePosition.y + context.ratioY(context, alteration.yPosition));
                 }
             }
 
@@ -1185,9 +1345,9 @@ function CanvasClass ()
     }
     /*ENDREGION*/
     /*REGION TRANSPOSITION*/
-    this.getTransposition = function(lastOctave, lastNote, lastAccidental, 
-                                currentOctave, currentNote, currentAccidental, 
-                                clefAccQty, clefAcc)
+    this.getTransposition = function(lastOctave, lastNote, lastAlteration, 
+                                currentOctave, currentNote, currentAlteration, 
+                                clefAltQty, clefAlt)
     {
 
         if((lastNote != "A" && lastNote != "B" && lastNote != "C" && lastNote != "D"
@@ -1198,64 +1358,69 @@ function CanvasClass ()
             return "";
         }
 
-        var Notes               = ["C", "D", "E", "F", "G", "A", "B"];
-        var NotesValue        = [ 2, 2, 1, 2, 2, 2, 1];
-        var Octaves             = [",,,", ",,", ",", "'", "''", "'''"];
+        var Notes                  = ["C", "D", "E", "F", "G", "A", "B"];
+        var NotesValue             = [ 2, 2, 1, 2, 2, 2, 1];
+        var Octaves                = [",,,", ",,", ",", "'", "''", "'''"];
+        var AlterationName         = ["n", "x", "xx", "b", "bb"];
+        var sostenidosArrActive    = [false, false, false, false, false, false, false];
+        var bemolArrActive         = [false, false, false, false, false, false, false];
 
-        var lastNoteIndex       = 0;
-        var currentNoteIndex    = 0;
+        var lastNoteIndex          = 0;
+        var LastAlterationValue    = -1;
 
-        var HigherNote          = 0;
+        var currentNoteIndex       = 0;
+        var currentAlterationValue = -1;
 
-        var lastOctaveIndex     = 0;
-        var currentOctaveIndex  = 0;
-        var transposition       = "";
-        var ascDesc             = "";
-                           /* if(j == 0) paecAccidental += "B";
-                            if(j == 1) paecAccidental += "E";
-                            if(j == 2) paecAccidental += "A";
-                            if(j == 3) paecAccidental += "D";
-                            if(j == 4) paecAccidental += "G";
-                            if(j == 5) paecAccidental += "C";
-                            if(j == 6) paecAccidental += "F";
+        var lastOctaveIndex        = 0;
+        var currentOctaveIndex     = 0;
+        var transposition          = "";
+        var ascDesc                = "";
 
-                            if(j == 0) paecAccidental += "F";
-                            if(j == 1) paecAccidental += "C";
-                            if(j == 2) paecAccidental += "G";
-                            if(j == 3) paecAccidental += "D";
-                            if(j == 4) paecAccidental += "A";
-                            if(j == 5) paecAccidental += "E";
-                            if(j == 6) paecAccidental += "B";*/
-
-        if(clefAccQty > 0)
+        for(var i = 0; i < 5; i++)
         {
-            if(clefAcc == "sostenido")
+            if(lastAlteration == AlterationName[i])
             {
-                var accidental = 3; // start F
-                for(var i = 0; i < clefAccQty; i++)
+                LastAlterationValue = i;
+            }
+
+            if(currentAlteration == AlterationName[i])
+            {
+                currentAlterationValue = i;
+            }
+        }
+
+
+        if(clefAltQty > 0)
+        {
+            if(clefAlt == "sostenido")
+            {
+                var alteration = 3; // start F
+                for(var i = 0; i < clefAltQty; i++)
                 {
-                    var tempValue = accidental;
+                    sostenidosArrActive[alteration] = true;
+                    var tempValue = alteration;
                     NotesValue[tempValue] -=  1;
-                    if(accidental - 1 < 0) tempValue = 7;
+                    if(alteration - 1 < 0) tempValue = 7;
 
                     NotesValue[tempValue - 1] += 1;
-                    accidental = (accidental + 4) % 7;
+                    alteration = (alteration + 4) % 7;
                 }
             }
             else
             {
-                var accidental = 6; // start B
-                for(var i = 0; i < clefAccQty; i++)
+                var alteration = 6; // start B
+                for(var i = 0; i < clefAltQty; i++)
                 {
-                    var tempValue = accidental;
+                    bemolArrActive[alteration] = true;
+                    var tempValue = alteration;
                     NotesValue[tempValue] +=  1;
 
-                    if(accidental - 1 < 0) tempValue = 7;
+                    if(alteration - 1 < 0) tempValue = 7;
 
                     NotesValue[tempValue - 1] -= 1;
-                    accidental = accidental - 4;
+                    alteration = alteration - 4;
 
-                    if(accidental < 0) accidental = 7 + accidental;
+                    if(alteration < 0) alteration = 7 + alteration;
                 }
             }
         }
@@ -1298,7 +1463,7 @@ function CanvasClass ()
 
         if(difOctaves <= 0)
         {
-            ascDesc = "A";
+            ascDesc = "A"; //ascendiendo
             difOctaves = difOctaves * (-1);
             difNotes = difNotes + (difOctaves * 12);
 
@@ -1307,14 +1472,14 @@ function CanvasClass ()
                 difNotes = difNotes - 12;
                 if(difOctaves == 0)
                 {
-                    ascDesc = "D";
+                    ascDesc = "D"; //descendiendo
                     difNotes = difNotes * -1;
                 }
             }
         }
         else if(difOctaves > 0)
         {
-            ascDesc = "D";
+            ascDesc = "D"; //descendiendo
             if(lastNoteIndex <= currentNoteIndex)
             {
                 difNotes = (difOctaves * 12) - difNotes;
@@ -1324,8 +1489,99 @@ function CanvasClass ()
             }
         }
 
-        transposition =difNotes.toString() + ascDesc;
 
+
+       /* if(j == 0) paecAlteration += "B";
+if(j == 1) paecAlteration += "E";
+if(j == 2) paecAlteration += "A";
+if(j == 3) paecAlteration += "D";
+if(j == 4) paecAlteration += "G";
+if(j == 5) paecAlteration += "C";
+if(j == 6) paecAlteration += "F";
+
+if(j == 0) paecAlteration += "F";
+if(j == 1) paecAlteration += "C";
+if(j == 2) paecAlteration += "G";
+if(j == 3) paecAlteration += "D";
+if(j == 4) paecAlteration += "A";
+if(j == 5) paecAlteration += "E";
+if(j == 6) paecAlteration += "B";*/
+
+
+        var arrayLastAlteration = [0, 1, 2, -1, -2];
+        var arrayCurrentAlteration  = [0, 1, 2, -1, -2];
+
+        if(clefAlt == "sostenido")
+        {
+            if(sostenidosArrActive[lastNoteIndex])
+            {
+
+            }
+
+            if(sostenidosArrActive[currentNoteIndex])
+            {
+
+            }
+        }
+
+        if(clefAlt == "bemol")
+        {
+            if(sostenidosArrActive[lastNoteIndex])
+            {
+
+            }
+
+            if(sostenidosArrActive[currentNoteIndex])
+            {
+
+            }
+        }
+
+
+        if(ascDesc == "D")
+        {
+            if(LastAlterationValue > 0)
+            {
+                difNotes += arrayLastAlteration[LastAlterationValue];
+            }
+
+            if(currentAlterationValue > 0)
+            {
+                difNotes += arrayCurrentAlteration[currentAlterationValue] * -1;
+            }
+        }
+        else if(ascDesc == "A")
+        {
+            if(LastAlterationValue > 0)
+            {
+                difNotes += arrayLastAlteration[LastAlterationValue] * -1;
+            }
+            else if(LastAlterationValue == 0)
+            {
+
+            }
+
+            if(currentAlterationValue > 0)
+            {
+                difNotes += arrayCurrentAlteration[currentAlterationValue];
+            }
+        }
+
+        if(difNotes <= 0)
+        {
+            difNotes = difNotes * -1;
+
+            if(ascDesc == "D" || difNotes == 0)
+            {
+                ascDesc = "A";
+            }else
+            {
+                ascDesc = "D";
+            }
+        }
+
+        transposition =difNotes.toString() + ascDesc;
+        //console.log("transposition " + transposition);
         return transposition;
         //12 una octava
 
@@ -1401,14 +1657,14 @@ function CanvasClass ()
         return [paecOctave, paecNote];
     }
 
-    this.getAccidentalPAEC = function(context, noteElement, isRest, note, lastAccidentalByNote, accidental, notesArray)
+    this.getAlterationPAEC = function(context, noteElement, isRest, note, lastAlterationByNote, alteration, notesArray)
     {
-        if(isRest || noteElement.qtyAccidental == 0)
+        if(isRest || noteElement.qtyAlteration == 0)
         {
             return "";
         }
 
-        return context.incipit.getPAECByName(accidental.name);  
+        return context.incipit.getPAECByName(alteration.name);  
     }
 
     this.TransformIncipitToPAEC = function(context)
@@ -1422,22 +1678,22 @@ function CanvasClass ()
         var lastPositionY        = 14;
         var lastRythm            = "";
         var clef                 = "treble";
-        var lastAccidentalByNote = ["", "", "", "", "", "", ""];
+        var lastAlterationByNote = ["", "", "", "", "", "", ""];
         var notesArray           = [ "B", "A", "G", "F", "E", "D", "C"];
         var lastOctave           = "";
         var lastOctaveUsed       = "";
         var paecLastNote         = "";
-        var paecLastAcc          = "";
+        var paecLastAlt          = "";
         var transposition        = "";
 
         for(var i = 0; i < context.drawIncipitElements.length; i++)
         {
             var note            = context.incipit.getNoteByName(context.drawIncipitElements[i].noteName);
-            var accidental      = context.incipit.getAccidentalByName(context.drawIncipitElements[i].accidentalName);
+            var alteration      = context.incipit.getAlterationByName(context.drawIncipitElements[i].alterationName);
             var time            = context.incipit.getTimeByName(context.drawIncipitElements[i].timeName);
 
             var paecNote        = "";
-            var paecAccidental  = "";
+            var paecAlteration  = "";
             var paecOctave      = "";
             var paecRythm       = "";
             var paecTime        = "";
@@ -1449,37 +1705,37 @@ function CanvasClass ()
                 clef = note.name;
                 paecNote = context.incipit.getPAECByName(note.name);
 
-                if(context.drawIncipitElements[i].qtyAccidental > 0)
+                if(context.drawIncipitElements[i].qtyAlteration > 0)
                 {
-                    paecAccidental = context.incipit.getPAECByName(accidental.name);
+                    paecAlteration = context.incipit.getPAECByName(alteration.name);
 
-                    for(var j = 0; j < context.drawIncipitElements[i].qtyAccidental; j++)
+                    for(var j = 0; j < context.drawIncipitElements[i].qtyAlteration; j++)
                     {
-                        if(accidental.name == "bemol")
+                        if(alteration.name == "bemol")
                         {
-                            if(j == 0) paecAccidental += "B";
-                            if(j == 1) paecAccidental += "E";
-                            if(j == 2) paecAccidental += "A";
-                            if(j == 3) paecAccidental += "D";
-                            if(j == 4) paecAccidental += "G";
-                            if(j == 5) paecAccidental += "C";
-                            if(j == 6) paecAccidental += "F";
+                            if(j == 0) paecAlteration += "B";
+                            if(j == 1) paecAlteration += "E";
+                            if(j == 2) paecAlteration += "A";
+                            if(j == 3) paecAlteration += "D";
+                            if(j == 4) paecAlteration += "G";
+                            if(j == 5) paecAlteration += "C";
+                            if(j == 6) paecAlteration += "F";
                         }
 
-                        if(accidental.name == "sostenido")
+                        if(alteration.name == "sostenido")
                         {
-                            if(j == 0) paecAccidental += "F";
-                            if(j == 1) paecAccidental += "C";
-                            if(j == 2) paecAccidental += "G";
-                            if(j == 3) paecAccidental += "D";
-                            if(j == 4) paecAccidental += "A";
-                            if(j == 5) paecAccidental += "E";
-                            if(j == 6) paecAccidental += "B";
+                            if(j == 0) paecAlteration += "F";
+                            if(j == 1) paecAlteration += "C";
+                            if(j == 2) paecAlteration += "G";
+                            if(j == 3) paecAlteration += "D";
+                            if(j == 4) paecAlteration += "A";
+                            if(j == 5) paecAlteration += "E";
+                            if(j == 6) paecAlteration += "B";
                         }
                     }
 
-                    var031n = paecAccidental;
-                    paec += "$"+paecAccidental;
+                    var031n = paecAlteration;
+                    paec += "$"+paecAlteration;
                 }
 
 
@@ -1530,29 +1786,34 @@ function CanvasClass ()
                 paecOctave  = octaveRythm[0];
                 paecNote    = octaveRythm[1];
 
-                paecAccidental = context.getAccidentalPAEC(context, 
+                paecAlteration = context.getAlterationPAEC(context, 
                                                         context.drawIncipitElements[i],
                                                         note.isRest,
                                                         octaveRythm[1],
-                                                        lastAccidentalByNote,
-                                                        accidental,
+                                                        lastAlterationByNote,
+                                                        alteration,
                                                         notesArray);       
 
 
-                transposition += context.getTransposition(lastOctaveUsed, paecLastNote, paecLastAcc,
-                                        lastOctave, paecNote, paecAccidental,
-                                        context.drawIncipitElements[0].qtyAccidental,
-                                        context.drawIncipitElements[0].accidentalName);
+                transposition += context.getTransposition(lastOctaveUsed, paecLastNote, paecLastAlt,
+                                        lastOctave, paecNote, paecAlteration,
+                                        context.drawIncipitElements[0].qtyAlteration,
+                                        context.drawIncipitElements[0].alterationName);
 
 
-                var031p += paecOctave+paecAccidental+paecRythm+paecNote+paecBar;
-                paec += paecOctave+paecAccidental+paecRythm+paecNote+paecBar;
+                var031p += paecOctave+paecAlteration+paecRythm+paecNote+paecBar;
+                paec += paecOctave+paecAlteration+paecRythm+paecNote+paecBar;
 
                 paecLastNote = paecNote;
-                paecLastAcc  = paecAccidental;
+                paecLastAlt  = paecAlteration;
                 lastOctaveUsed = lastOctave;
             }
+            console.log("nota");
+            console.log(i);
+            console.log(context.drawIncipitElements[i].alterationName);
         }
+
+        console.log("---------");
 
         $("#incipitPaec").val(paec);
         $("#incipitTransposition").val(transposition);
@@ -1591,8 +1852,8 @@ function CanvasClass ()
             var elem  = null;
 
             var yPosition       = 0;
-            var qtyAccidental   = 0;
-            var accidentalName  = "becuadro";
+            var qtyAlteration   = 0;
+            var alterationName  = "becuadro";
             var invertida       = false;
             var isClef          = false;
             var hasTime         = false;
@@ -1603,12 +1864,12 @@ function CanvasClass ()
             if(paec[index] == "$") //Armadura de clave
             {
                 elem = context.incipit.getNoteByPAEC(paec[index + 1]);
-                accidentalName = elem.name;
+                alterationName = elem.name;
                 index = index + 2;
 
                 while(index < paec.length && (paec[index] != "%" && paec[index] != "@" && paec[index] != " "))
                 {
-                    qtyAccidental = qtyAccidental + 1;
+                    qtyAlteration = qtyAlteration + 1;
                     index++;
                 }
             }
@@ -1663,21 +1924,21 @@ function CanvasClass ()
                 index = index + tempIndex;
             }
 
-            if(paec[index] == "x" || paec[index] == "b" || paec[index] == "n") //ACCIDENTAL de nota
+            if(paec[index] == "x" || paec[index] == "b" || paec[index] == "n") //ALTERATION de nota
             {
-                var paecAccidental = paec[index];
+                var paecAlteration = paec[index];
 
                 index = index + 1;
 
                 if(paec[index] == "x" || paec[index] == "b")
                 {
-                    paecAccidental = paecAccidental + paec[index];
+                    paecAlteration = paecAlteration + paec[index];
                     index = index + 1;
                 }
 
-                elem  = context.incipit.getNoteByPAEC(paecAccidental);
-                accidentalName  = elem.name;
-                qtyAccidental   = 1;
+                elem  = context.incipit.getNoteByPAEC(paecAlteration);
+                alterationName  = elem.name;
+                qtyAlteration   = 1;
             }
 
             if(paec[index] == "0" || paec[index] == "1" || paec[index] == "2" || paec[index] == "3" 
@@ -1757,8 +2018,8 @@ function CanvasClass ()
                                 xPosition,
                                 yPosition,
                                 hasDot,
-                                qtyAccidental,
-                                accidentalName,
+                                qtyAlteration,
+                                alterationName,
                                 invertida,
                                 isClef,  //isclef
                                 hasBar,  //hasBar
@@ -1799,10 +2060,10 @@ function NotePressed(note)
     CanvasIncipit.notePushed(CanvasIncipit, note);
 };
 
-//Recive the accidental to currently add
-function accidentalPressed(accidental)
+//Recive the alteration to currently add
+function alterationPressed(alteration)
 {
-    CanvasIncipit.accidentalPushed(CanvasIncipit, accidental);
+    CanvasIncipit.alterationPushed(CanvasIncipit, alteration);
 };
 
 //Recive the Dot to currently add

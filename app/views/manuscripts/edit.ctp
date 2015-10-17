@@ -1657,11 +1657,11 @@ th {
 					</div>
 					<div class="maestro" style="clear: both;">
 						<!-- From L to P!-->
-						<?php echo $this->Html->link('p', array('action' => 'p'), array('id' => 'Accidentales-p', 'class' => 'btn-primary buton-incipit','onclick' => 'accidentalPressed("p"); return false;')); ?>
-						<?php echo $this->Html->link('l', array('action' => 'l'), array('id' => 'Accidentales-l', 'class' => 'btn-primary buton-incipit','onclick' => 'accidentalPressed("l"); return false;')); ?>
-						<?php echo $this->Html->link('m', array('action' => 'm'), array('id' => 'Accidentales-m', 'class' => 'btn-primary buton-incipit','onclick' => 'accidentalPressed("m"); return false;')); ?>
-						<?php echo $this->Html->link('n', array('action' => 'n'), array('id' => 'Accidentales-n', 'class' => 'btn-primary buton-incipit','onclick' => 'accidentalPressed("n"); return false;')); ?>
-						<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Accidentales-o', 'class' => 'btn-primary buton-incipit','onclick' => 'accidentalPressed("o"); return false;')); ?>
+						<?php echo $this->Html->link('p', array('action' => 'p'), array('id' => 'Alterationes-p', 'class' => 'btn-primary buton-incipit','onclick' => 'alterationPressed("p"); return false;')); ?>
+						<?php echo $this->Html->link('l', array('action' => 'l'), array('id' => 'Alterationes-l', 'class' => 'btn-primary buton-incipit','onclick' => 'alterationPressed("l"); return false;')); ?>
+						<?php echo $this->Html->link('m', array('action' => 'm'), array('id' => 'Alterationes-m', 'class' => 'btn-primary buton-incipit','onclick' => 'alterationPressed("m"); return false;')); ?>
+						<?php echo $this->Html->link('n', array('action' => 'n'), array('id' => 'Alterationes-n', 'class' => 'btn-primary buton-incipit','onclick' => 'alterationPressed("n"); return false;')); ?>
+						<?php echo $this->Html->link('o', array('action' => 'o'), array('id' => 'Alterationes-o', 'class' => 'btn-primary buton-incipit','onclick' => 'alterationPressed("o"); return false;')); ?>
 					</div>
 
 					<div style="clear: both;">
