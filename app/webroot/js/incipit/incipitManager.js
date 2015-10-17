@@ -1345,8 +1345,8 @@ function CanvasClass ()
     }
     /*ENDREGION*/
     /*REGION TRANSPOSITION*/
-    this.getTransposition = function(lastOctave, lastNote, lastAlteration, 
-                                currentOctave, currentNote, currentAlteration, 
+    this.getTransposition = function(lastOctave, lastNote, lastAlteration, lastPositionY,
+                                currentOctave, currentNote, currentAlteration, curentPositionY,
                                 clefAltQty, clefAlt)
     {
 
@@ -1359,11 +1359,11 @@ function CanvasClass ()
         }
 
         var Notes                  = ["C", "D", "E", "F", "G", "A", "B"];
-        var NotesValue             = [ 2, 2, 1, 2, 2, 2, 1];
         var Octaves                = [",,,", ",,", ",", "'", "''", "'''"];
-        var AlterationName         = ["n", "x", "xx", "b", "bb"];
-        var sostenidosArrActive    = [false, false, false, false, false, false, false];
-        var bemolArrActive         = [false, false, false, false, false, false, false];
+        var AlterationName         = ["becuadro", "sostenido", "doblesostenido", "bemol", "doblebemol"];
+
+        var NotesValue             = [ 2, 2, 1, 2, 2, 2, 1];
+        var AlterationValue        = [0, 1, 2, -1, -2];
 
         var lastNoteIndex          = 0;
         var LastAlterationValue    = -1;
@@ -1376,6 +1376,7 @@ function CanvasClass ()
         var transposition          = "";
         var ascDesc                = "";
 
+        //getting alterations values
         for(var i = 0; i < 5; i++)
         {
             if(lastAlteration == AlterationName[i])
@@ -1389,42 +1390,7 @@ function CanvasClass ()
             }
         }
 
-
-        if(clefAltQty > 0)
-        {
-            if(clefAlt == "sostenido")
-            {
-                var alteration = 3; // start F
-                for(var i = 0; i < clefAltQty; i++)
-                {
-                    sostenidosArrActive[alteration] = true;
-                    var tempValue = alteration;
-                    NotesValue[tempValue] -=  1;
-                    if(alteration - 1 < 0) tempValue = 7;
-
-                    NotesValue[tempValue - 1] += 1;
-                    alteration = (alteration + 4) % 7;
-                }
-            }
-            else
-            {
-                var alteration = 6; // start B
-                for(var i = 0; i < clefAltQty; i++)
-                {
-                    bemolArrActive[alteration] = true;
-                    var tempValue = alteration;
-                    NotesValue[tempValue] +=  1;
-
-                    if(alteration - 1 < 0) tempValue = 7;
-
-                    NotesValue[tempValue - 1] -= 1;
-                    alteration = alteration - 4;
-
-                    if(alteration < 0) alteration = 7 + alteration;
-                }
-            }
-        }
-
+        //getting Notes Index
         for(var i = 0;i < 7; i++)
         {
             if(lastNote == Notes[i])
@@ -1438,6 +1404,7 @@ function CanvasClass ()
             }
         }
 
+        //getting octave Index
         for(var i = 0;i < 6; i++)
         {
             if(lastOctave == Octaves[i])
@@ -1461,6 +1428,7 @@ function CanvasClass ()
             difNotes += NotesValue[i];
         }
 
+        //note diferences with octaves
         if(difOctaves <= 0)
         {
             ascDesc = "A"; //ascendiendo
@@ -1490,71 +1458,24 @@ function CanvasClass ()
         }
 
 
-
-       /* if(j == 0) paecAlteration += "B";
-if(j == 1) paecAlteration += "E";
-if(j == 2) paecAlteration += "A";
-if(j == 3) paecAlteration += "D";
-if(j == 4) paecAlteration += "G";
-if(j == 5) paecAlteration += "C";
-if(j == 6) paecAlteration += "F";
-
-if(j == 0) paecAlteration += "F";
-if(j == 1) paecAlteration += "C";
-if(j == 2) paecAlteration += "G";
-if(j == 3) paecAlteration += "D";
-if(j == 4) paecAlteration += "A";
-if(j == 5) paecAlteration += "E";
-if(j == 6) paecAlteration += "B";*/
-
-
-        var arrayLastAlteration = [0, 1, 2, -1, -2];
-        var arrayCurrentAlteration  = [0, 1, 2, -1, -2];
-
-        if(clefAlt == "sostenido")
-        {
-            if(sostenidosArrActive[lastNoteIndex])
-            {
-
-            }
-
-            if(sostenidosArrActive[currentNoteIndex])
-            {
-
-            }
-        }
-
-        if(clefAlt == "bemol")
-        {
-            if(sostenidosArrActive[lastNoteIndex])
-            {
-
-            }
-
-            if(sostenidosArrActive[currentNoteIndex])
-            {
-
-            }
-        }
-
-
+        //including Alteration on diferences
         if(ascDesc == "D")
         {
             if(LastAlterationValue > 0)
             {
-                difNotes += arrayLastAlteration[LastAlterationValue];
+                difNotes += AlterationValue[LastAlterationValue];
             }
 
             if(currentAlterationValue > 0)
             {
-                difNotes += arrayCurrentAlteration[currentAlterationValue] * -1;
+                difNotes += AlterationValue[currentAlterationValue] * -1;
             }
         }
         else if(ascDesc == "A")
         {
             if(LastAlterationValue > 0)
             {
-                difNotes += arrayLastAlteration[LastAlterationValue] * -1;
+                difNotes += AlterationValue[LastAlterationValue] * -1;
             }
             else if(LastAlterationValue == 0)
             {
@@ -1563,10 +1484,11 @@ if(j == 6) paecAlteration += "B";*/
 
             if(currentAlterationValue > 0)
             {
-                difNotes += arrayCurrentAlteration[currentAlterationValue];
+                difNotes += AlterationValue[currentAlterationValue];
             }
         }
 
+        //miss cause by alterations
         if(difNotes <= 0)
         {
             difNotes = difNotes * -1;
@@ -1580,8 +1502,8 @@ if(j == 6) paecAlteration += "B";*/
             }
         }
 
-        transposition =difNotes.toString() + ascDesc;
-        //console.log("transposition " + transposition);
+        transposition = difNotes.toString() + ascDesc;
+
         return transposition;
         //12 una octava
 
@@ -1657,14 +1579,14 @@ if(j == 6) paecAlteration += "B";*/
         return [paecOctave, paecNote];
     }
 
-    this.getAlterationPAEC = function(context, noteElement, isRest, note, lastAlterationByNote, alteration, notesArray)
+    this.getAlterationPAEC = function(context, noteElement, lastArrayAlteration)
     {
-        if(isRest || noteElement.qtyAlteration == 0)
+        if(noteElement.isRest || noteElement.qtyAlteration == 0)
         {
             return "";
         }
 
-        return context.incipit.getPAECByName(alteration.name);  
+        return context.incipit.getPAECByName(noteElement.alterationName);  
     }
 
     this.TransformIncipitToPAEC = function(context)
@@ -1675,16 +1597,23 @@ if(j == 6) paecAlteration += "B";*/
         var var031o              = "nd"; //nd marking no present
         var var031p              = "";
 
-        var lastPositionY        = 14;
+        var lastPositionY        = -1;
         var lastRythm            = "";
         var clef                 = "treble";
-        var lastAlterationByNote = ["", "", "", "", "", "", ""];
         var notesArray           = [ "B", "A", "G", "F", "E", "D", "C"];
         var lastOctave           = "";
         var lastOctaveUsed       = "";
         var paecLastNote         = "";
-        var paecLastAlt          = "";
+        var LastAltName          = "";
         var transposition        = "";
+
+        var lastAlterationArray = new Array(21);
+
+        for(var i = 0; i < 21; i++)
+        {
+            lastAlterationArray[i] = context.defaultClefAlt[i];
+        }
+
 
         for(var i = 0; i < context.drawIncipitElements.length; i++)
         {
@@ -1788,15 +1717,15 @@ if(j == 6) paecAlteration += "B";*/
 
                 paecAlteration = context.getAlterationPAEC(context, 
                                                         context.drawIncipitElements[i],
-                                                        note.isRest,
-                                                        octaveRythm[1],
-                                                        lastAlterationByNote,
-                                                        alteration,
-                                                        notesArray);       
+                                                        lastAlterationArray);       
 
 
-                transposition += context.getTransposition(lastOctaveUsed, paecLastNote, paecLastAlt,
-                                        lastOctave, paecNote, paecAlteration,
+                var currentAltName   = context.drawIncipitElements[i].alterationName;
+                var currentPositionY = context.drawIncipitElements[i].yPosition;
+
+                transposition += context.getTransposition(
+                                        lastOctaveUsed, paecLastNote, LastAltName, lastPositionY,
+                                        lastOctave, paecNote, currentAltName, currentPositionY,
                                         context.drawIncipitElements[0].qtyAlteration,
                                         context.drawIncipitElements[0].alterationName);
 
@@ -1804,16 +1733,12 @@ if(j == 6) paecAlteration += "B";*/
                 var031p += paecOctave+paecAlteration+paecRythm+paecNote+paecBar;
                 paec += paecOctave+paecAlteration+paecRythm+paecNote+paecBar;
 
+                lastPositionY = context.drawIncipitElements[i].yPosition
                 paecLastNote = paecNote;
-                paecLastAlt  = paecAlteration;
+                LastAltName  = context.drawIncipitElements[i].alterationName;
                 lastOctaveUsed = lastOctave;
             }
-            console.log("nota");
-            console.log(i);
-            console.log(context.drawIncipitElements[i].alterationName);
         }
-
-        console.log("---------");
 
         $("#incipitPaec").val(paec);
         $("#incipitTransposition").val(transposition);
@@ -1874,7 +1799,7 @@ if(j == 6) paecAlteration += "B";*/
                 }
             }
 
-            if(paec[index] == "@") //Armadura de clave
+            if(paec[index] == "@") //CIfra Indicadora de compás
             {
                 var paecTime = "";
 
@@ -1909,6 +1834,8 @@ if(j == 6) paecAlteration += "B";*/
                 noteName        = elem.name;
                 currentClef     = elem.name;
                 yPosition       = elem.yPosition;
+
+                if(alterationName == null) alterationName = "becuadro";
             }
 
             if(paec[index] == "'" || paec[index] == ",") //octava
@@ -2026,7 +1953,16 @@ if(j == 6) paecAlteration += "B";*/
                                 barName,  //barName
                                 hasTime,  //hasTime
                                 timeName); //timeName
-            
+
+            if(isClef)
+            {
+                context.setDefaultClefAlt(context, noteName, qtyAlteration, alterationName);
+            }
+            else
+            {
+                context.setNotesAlterations(context, context.drawIncipitElements.length - 1, false);
+            }
+
             xPosition = xPosition + 1;
         }
     }
