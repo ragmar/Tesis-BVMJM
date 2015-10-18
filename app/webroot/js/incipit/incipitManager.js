@@ -345,6 +345,7 @@ function CanvasClass ()
     this.minStepY     = 11;
 
     this.defaultClefAlt      = new Array(21);
+    this.drawXPosition       = new Array();
     this.drawIncipitElements = new Array();
     this.incipit             = new IncipitClass();
 
@@ -731,6 +732,8 @@ function CanvasClass ()
             var notePosition = context.getDrawPosition(context, 
                                                         tempEle.xPosition, 
                                                         tempEle.yPosition);
+
+            context.noteNeedLine(context, tempEle);
 
             context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
             context.gDrawingContext.fillText(noteToDraw.value, 
@@ -1163,6 +1166,35 @@ function CanvasClass ()
 
     }
 
+    this.noteNeedLine = function(context, element)
+    {
+        if(element.isClef) return;
+
+        var notePosition = context.getDrawPosition(context, 
+                                                element.xPosition, 
+                                                element.yPosition);
+        var halfScreenYpx = context.gCanvasElement.height / 2; //Half screen y pixels
+        var pixelsToAdd;
+        var upOrDown = 1;
+
+
+        if(element.yPosition < 4) yPosition = -1;
+
+        if(element.yPosition < 4 || element.yPosition > 14)
+        {
+            pixelsToAdd = context.stepY * 2 * 3 * upOrDown + context.stepY / 2;
+            context.gDrawingContext.moveTo(notePosition.x + context.ratioX(context, - 5), halfScreenYpx + pixelsToAdd);
+            context.gDrawingContext.lineTo(notePosition.x + context.ratioX(context, 18), halfScreenYpx + pixelsToAdd);
+        }
+
+        if(element.yPosition < 2 || element.yPosition > 16)
+        {
+            pixelsToAdd = context.stepY * 2 * 4 * upOrDown + context.stepY / 2;
+            context.gDrawingContext.moveTo(notePosition.x + context.ratioX(context, - 5), halfScreenYpx + pixelsToAdd);
+            context.gDrawingContext.lineTo(notePosition.x + context.ratioX(context, 18), halfScreenYpx + pixelsToAdd);
+        }
+
+    }
     //Main function that draw incipit
     this.drawPentagram = function(context)
     {   
@@ -1173,12 +1205,13 @@ function CanvasClass ()
         context.gDrawingContext.lineWidth="2";
 
         var halfScreenYpx = context.gCanvasElement.height / 2; //Half screen y pixels
+        var pixelsToAdd;
         /* DRAWING PENTAGRAM */
 
         //Drawing the 5 lines of pentragram
         for(var i=-2, qty = 2; i<=2; i++)
         {
-            var pixelsToAdd = context.stepY * qty * i + context.stepY / 2;
+            pixelsToAdd = context.stepY * qty * i + context.stepY / 2;
             context.gDrawingContext.moveTo(0, halfScreenYpx + pixelsToAdd);
             context.gDrawingContext.lineTo(context.gCanvasElement.width, halfScreenYpx + pixelsToAdd);
         }
@@ -1196,6 +1229,8 @@ function CanvasClass ()
             var notePosition = context.getDrawPosition(context, 
                                                         context.drawIncipitElements[i].xPosition, 
                                                         context.drawIncipitElements[i].yPosition);
+
+            context.noteNeedLine(context, context.drawIncipitElements[i]);
 
             if(context.drawIncipitElements[i].qtyAlteration > 0 && !noteToDraw.isRest)
             {
@@ -1241,7 +1276,7 @@ function CanvasClass ()
                 {
                     context.gDrawingContext.font = context.getFont(context, alteration.font);
                     context.gDrawingContext.fillText(alteration.value, 
-                                                    notePosition.x + context.ratioX(context, alteration.xPosition), 
+                                                    context.drawIncipitElements[i] + context.ratioX(context, alteration.xPosition), 
                                                     notePosition.y + context.ratioY(context, alteration.yPosition));
                 }
             }
