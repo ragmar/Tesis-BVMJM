@@ -1895,11 +1895,8 @@ th {
 						<?php echo $this->Html->link('2', array('action' => '2'), array('id' => 'Clave-2', 'class' => 'btn-primary buton-incipit', 'onclick' => 'ClefPressed("2"); return false;')); ?>
 						<?php echo $this->Html->link('3', array('action' => '3'), array('id' => 'Clave-3', 'class' => 'btn-primary buton-incipit', 'onclick' => 'ClefPressed("3"); return false;')); ?>
 					</div>
-		<!-- fin del codigo de alejandro-->
-
 		</td>
 		<td class="col-xs-12">
-			<!-- Codigo de alejandro -->
 			<div style="float: right">
 				<?php echo $this->Html->link('Borrar Nota', array('action' => 'DeleteNote'), array('id' => 'DeleteNote', 'class' => 'btn-primary buton-incipit', 'style' => 'width: 100px;','onclick' => 'deleteNote(false); return false;')); ?>
 				<?php echo $this->Html->link('Borrar Íncipit', array('action' => 'DeleteIncipit'), array('id' => 'DeleteIncipit', 'class' => 'btn-primary buton-incipit', 'style' => 'width: 100px;', 'onclick' => 'deleteNote(true); return false;')); ?>

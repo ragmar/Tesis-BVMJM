@@ -25,7 +25,6 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 }
 ?>
 
-<!--CODIGO DE ALEJANDRO -->
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
 <script type="text/javascript">
 
@@ -63,8 +62,6 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 		font-size: 15pt;
 	} 
 </style>
-
-<!--FIN DEL CODIGO DE ALEJANDRO -->
 
 <?php if(isset($_POST['submit'])){ if(!empty($_POST['Item_id'])) {
 	 // Counting number of checked checkboxes.
@@ -352,7 +349,6 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 					<?php } ?>
 					</dt>
 					<dd style="margin-left: 130px"></dd>
-					<!-- codigo de alejandro -->
 					<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
 					<dt style="width: 120px"><?php __('Incipit:');?></dt>
 					<div class="maestro" style="visibility: hidden; height: 0">Font Load</div>
@@ -377,7 +373,6 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 						?>
 					</dd>
 					<?php } ?>
-					<!-- fin decodigo de alejandro -->
 				</dl>
 			</td>
 		</tr>

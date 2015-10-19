@@ -44,7 +44,6 @@ function marc21_decode($camp = null) {
 
 
 
-<!--CODIGO DE ALEJANDRO -->
 
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
 <script type="text/javascript">
@@ -84,7 +83,6 @@ function marc21_decode($camp = null) {
 	} 
 </style>
 
-<!--FIN DE CODIGO DE ALEJANDRO -->
 <style type="text/css">
 	#magazine{
 		width:800px;
@@ -113,7 +111,7 @@ function marc21_decode($camp = null) {
    margin-left: 10px;
    position: relative;
    opacity: 0.7;
-   height: 90px;
+   height: '90px;
 }
 </style>
 <style>
@@ -859,7 +857,6 @@ function marc21_decode($camp = null) {
 					<?php echo $time->format('d-m-Y', $item['Item']['modified']); ?>
 				</dd>
 				-->
-				<!-- codigo de alejandro -->
 					<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
 					<dt><?php __('Incipit:');?></dt>
 					<div class="maestro" style="visibility: hidden; height: 0">Font Load</div>
@@ -884,7 +881,6 @@ function marc21_decode($camp = null) {
 						?>
 					</dd>
 					<?php } ?>
-					<!-- fin decodigo de alejandro -->
 			</dl>
 		</div>
 	</div>
@@ -934,21 +930,29 @@ function marc21_decode($camp = null) {
 			<p>N o PDF available</p>
 			</object> -->
 			
-			<?php if ($_SERVER['HTTP_HOST'] != "orpheus.human.ucv.ve"){ ?>
-				<object data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path']; ?>" type="application/pdf" width="100%" height="600px">
+			<?php if(isset($this->params['url']['f'])){ ?>
+				<?php 
+                    $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
+                                // Check if pdf file exists
+                    $infile = @file_get_contents($filePath, FILE_BINARY);
+
+                    if(!empty($infile)){?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] . '&search='.$this->Session->read('Search').'&at' ?>" seamless width="100%" height="600px"></iframe>
+				<?php }else { ?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path']. '&search='.$this->Session->read('Search') ?>" seamless width="100%" height="600px"></iframe>
+				<?php } ?>
 			<?php } else { ?>
-				<object data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path']; ?>" type="application/pdf" width="100%" height="600px">
+				<?php 
+                    $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
+                                // Check if pdf file exists
+                    $infile = @file_get_contents($filePath, FILE_BINARY);
+
+                    if(!empty($infile)){?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] . '&at' ?>" seamless width="100%" height="600px"></iframe>
+				<?php }else { ?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] ?>" seamless width="100%" height="600px"></iframe>
+				<?php } ?>
 			<?php } ?>
-			
-			<br /><br />
-			
-			<div style="text-align: center;">
-				Lamentablemente este navegador no posee un plugin para visualizar PDF's.
-			<br />
-				Instale un plugin para visualizar el PDF.
-			<br /><br /><br /><br />
-			</div>
-				</object>
 		<?php } ?>
 	<?php } ?>
 	<?php $tipo = explode('/', $item['Item']['item_content_type']); ?>
