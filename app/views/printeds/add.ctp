@@ -10,8 +10,6 @@ th {
 	border: solid 1px #E8DED4;
 }
 </style>
-
-<!--CODIGO DE ALEJANDRO -->
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
 <?php echo $this->Html->css('incipit/incipit-css'); ?>
 <script type="text/javascript">
@@ -50,8 +48,6 @@ th {
 		font-size: 15pt;
 	} 
 </style>
-
-<!--FIN DEL CODIGO DE ALEJANDRO -->
 
 <?php if (($this->Session->check('Auth.User') && ($this->Session->read('Auth.User.group_id') == '2'))) { ?>
 <ul class="breadcrumb" style="margin: 0">	
@@ -1511,7 +1507,6 @@ especificadas',
 	<tr>
 		<td><b>$p</b></td>
 		<td>Notación musical.
-				<!-- Codigo de alejandro -->
 			<div style="clear: both;">
 						<label>Alteraciones:</label><br />
 					</div>
@@ -1611,7 +1606,6 @@ especificadas',
 					);
 				</script>
 			</canvas>
-		<!-- fin del codigo de alejandro-->
 		<?php echo $this->Form->input('031p', array('id' => '031p', 'label' => false, 'div' => false, 'class' => 'form-control')); ?>
 		
 		</td>
@@ -14331,7 +14325,6 @@ $("#384i1").bind('keyup change', function(event) {
 			$('#245a').focus();
 			return false;
 		}
-		/*CODIGO DE ALEJANDRO */
 		if ($('#031r').val() == "" && $('#031p').val() != ""){
 			alert("EL campo 'Tonalidad o modo' no puede estar vacío si hay un íncipit presente.");
 			$(".tabs").hide();
@@ -14341,7 +14334,6 @@ $("#384i1").bind('keyup change', function(event) {
 			$('#031r').focus();
 			return false;
 		}
-		/*FIN DE CODIGO DE ALEJANDRO */
 
 		/*if ($('#260a').val() == ""){
 			alert("EL campo 'Lugar de publicación, distribución, etc.' no puede estar vacío.");

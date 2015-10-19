@@ -982,11 +982,9 @@ function hue ($letter = null) {
 				$conditions['Item.690 LIKE'] = '%' . $this->data['Printed']['690'] . '%';
 			}
 
-			/*CODIGO DE ALEJANDRO */
-			if (!empty($this->data['ItemsIncipit']['transposition'])) { // Siglo
+			if (!empty($this->data['ItemsIncipit']['transposition'])) { // Incipit
 				$conditions['ItemsIncipit.transposition LIKE'] = '%' . $this->data['ItemsIncipit']['transposition'] . '%';
 			}
-			/*FIN DE CODIGO DE ALEJANDRO*/
 			
 			//debug($conditions); die;
 			
@@ -1507,8 +1505,6 @@ function hue ($letter = null) {
 			
 			$data['Item'] = $data['Printed'];
 			unset($data['Printed']);
-
-			debug($data);
 
 			if($data['ItemsIncipit']['paec'] == "")//this verify if exist a plaine & easie code to safe it on the database
 			{

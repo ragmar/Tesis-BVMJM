@@ -1,10 +1,34 @@
 <script type="text/javascript">
 function validate() {
-var txt = document.getElementById("Printed245");
-if(txt.value== "" || txt.value== null) {
 
+
+var title = document.getElementById("Printed245");
+var autor = document.getElementById("Printed100");
+var lugar = document.getElementById("Printed260");
+var materia = document.getElementById("Printed653");
+var siglo = document.getElementById("Printed648");
+var incipit =document.getElementById("incipitTransposition");
+var paec =document.getElementById("incipitPaec");
+
+if((title.value== "" || title.value== null) &&
+	(autor.value== "" || autor.value== null) &&
+	(lugar.value== "" || lugar.value== null) &&
+	(materia.value== "" || materia.value== null) &&
+	(siglo.value== "" || siglo.value== null) &&
+	(incipit.value== "" || incipit.value== null)) {
+
+	if((paec.value != null && paec.value.length != 0) &&
+		(incipit.value == "" || incipit.value == null || incipit.value.length == 0))
+	{
+		alert("El íncipit tiene que tener al menos dos notas");
+	}else
+	{
+		alert("Por favor, ingrese al menos el título");
+		title.style.border = "2px solid red";
+	}
+return false;
 } else {
-txt.style.border = "";
+title.style.border = "";
 }
 }
 </script>
@@ -15,7 +39,6 @@ input{
 		
 </style>
 
-<!-- Codigo de alejandro -->
 
 <?php echo $this->Html->script('incipit/incipitManager'); ?>
 <?php echo $this->Html->css('incipit/incipit-css'); ?>
@@ -55,8 +78,6 @@ input{
 		font-size: 15pt;
 	} 
 </style>
-<!-- Fin de Codigo de alejandro -->
-
 
 <ul class="breadcrumb" style="margin: 0">
 	<li><font size="1.5" color="gray">Ir a</font></li>
@@ -101,7 +122,6 @@ input{
 			<?php echo $this->Form->input('648', array('div' => false, 'label' => false, 'placeholder' => 'Siglo')); ?>
 		</div>
 	</div>
-	<!-- CODIGO DE ALEJANDRO* !-->
 	<div>
 		<table>
 			<tr>
@@ -212,8 +232,7 @@ input{
 		</table>
 
 	</div>
-	<!-- FIN CODIGO DE ALEJANDRO* !-->
-
+	
 	</fieldset>
 	</br>
 	<?php echo $this->Form->submit(__('Search', true), array('class'=>'btn btn-primary'));?>
@@ -473,8 +492,6 @@ function marc21_decode($camp = null) {
 					?>
 					</dd>
 					<?php } ?>
-
-					<!-- codigo de alejandro -->
 				<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
 				<dt style="width: 120px"><?php __('Incipit:');?></dt>
 
@@ -499,7 +516,6 @@ function marc21_decode($camp = null) {
 					?>
 				</dd>
 				<?php } ?>
-				<!-- fin decodigo de alejandro -->
 			</dl>
 		</td>
 	</tr>
