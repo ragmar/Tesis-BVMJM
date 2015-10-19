@@ -43,7 +43,47 @@ function marc21_decode($camp = null) {
 ?>
 
 
+<!--CODIGO DE ALEJANDRO -->
 
+<?php echo $this->Html->script('incipit/incipitManager'); ?>
+<script type="text/javascript">
+
+	function addLoadEvent(func) {
+	  var oldonload = window.onload;
+	  if (typeof window.onload != 'function') {
+	    window.onload = func;
+	  } else {
+	    window.onload = function() {
+	      if (oldonload) {
+	        oldonload();
+	      }
+	      func();
+	    }
+	  }
+	}
+</script>
+
+<style>
+	@font-face 
+	{
+	  	font-family: Maestro;
+	  	src: url(<?php echo $this->Html->url('/files/incipit/Maestro.ttf'); ?>) format('truetype');
+
+		/*src: url('StreetFighter.eot'); /* IE9 Compat Modes */
+		/*src: url('StreetFighter.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+	    /*url('StreetFighter.woff') format('woff'), /* Modern Browsers */
+	    /*url('StreetFighter.ttf')  format('truetype'), /* Safari, Android, iOS */
+	    /*url('StreetFighter.svg') format('svg'); /* Legacy iOS */
+	}
+
+	.maestro
+	{
+		font-family: Maestro;
+		font-size: 15pt;
+	} 
+</style>
+
+<!--FIN DE CODIGO DE ALEJANDRO -->
 
 <style type="text/css">
 	#magazine{
@@ -794,6 +834,33 @@ vertical-align: top;
 					<?php echo $time->format('d-m-Y', $item['Item']['modified']); ?>
 				</dd>
 				-->
+				<!-- codigo de alejandro -->
+					<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
+					<dt><?php __('Incipit:');?></dt>
+					<div class="maestro" style="visibility: hidden; height: 0">Font Load</div>
+					<dd>
+						<?php 
+							echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\"> class=\"maestro\"";
+						?>
+							<script> 
+								addLoadEvent(
+									function() {
+										var incipitDocument = <?php echo "\"". $item['Item']['id'] . "\"" ;?>;
+										var paec = <?php echo "\"" .$item['ItemsIncipit']['paec'] . "\"" ;?>;
+										incipitDocument = document.getElementById("canvas" + incipitDocument); 
+										var currentCanvas = new CanvasClass();
+										initializeIncipit(incipitDocument.id, "list", paec, currentCanvas); 
+									}
+								);
+							</script>
+
+						<?php 
+							echo "</canvas>";
+						?>
+					</dd>
+					<?php } ?>
+					<!-- fin decodigo de alejandro -->
+
 			</dl>
 		</div>
 	</div>

@@ -15700,6 +15700,7 @@ $("#592b").bind('keyup change', function(event) {
 			return false;
 		}
 
+		/*CODIGO DE ALEJANDRO */
 		if ($('#031r').val() == "" && $('#031p').val() != ""){
 			alert("EL campo 'Tonalidad o modo' no puede estar vacío si hay un íncipit presente.");
 			$(".tabs").hide();
@@ -15709,6 +15710,8 @@ $("#592b").bind('keyup change', function(event) {
 			$('#031r').focus();
 			return false;
 		}
+		/*FIN DE CODIGO DE ALEJANDRO */
+
 
 	/*	if ($('#260a').val() == ""){
 			alert("EL campo 'Lugar de publicación, distribución, etc.' no puede estar vacío.");
