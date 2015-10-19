@@ -951,11 +951,9 @@ function hue ($letter = null) {
 			if (!empty($this->data['Manuscript']['690'])) { // Siglo
 				$conditions['Item.690 LIKE'] = '%' . $this->data['Manuscript']['690'] . '%';
 			}
-			/*CODIGO DE ALEJANDRO */
-			if (!empty($this->data['ItemsIncipit']['transposition'])) { // Siglo
+			if (!empty($this->data['ItemsIncipit']['transposition'])) { // Incipit
 				$conditions['ItemsIncipit.transposition LIKE'] = '%' . $this->data['ItemsIncipit']['transposition'] . '%';
 			}
-			/*FIN DE CODIGO DE ALEJANDRO*/
 			
 			//debug($conditions); die;
 			
