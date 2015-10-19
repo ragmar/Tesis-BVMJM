@@ -853,6 +853,15 @@ function CanvasClass ()
         return null;
     }
 
+    //Get the note of the table currently pressed and change the note
+    this.notePushed = function(context, note) 
+    {
+        if(positionNoteSelected != null)
+        {
+            context.changeNoteSelected(context, note, false);
+        }
+    }
+
     //Get the clef of the table currently pressed and change the clef
     this.clefPushed = function(context, clef) 
     {
@@ -866,7 +875,11 @@ function CanvasClass ()
     //Get the time of the table currently pressed and change the time
     this.timePushed = function(context, time) 
     {
-        context.clickExistingElement(context, 0);
+        if(positionNoteSelected == null)
+        {
+            context.addBar(context, time, true);
+        }
+
         if(time != null)
         {
             context.addTime(context, time);
@@ -876,28 +889,26 @@ function CanvasClass ()
     //Get the time of the table currently pressed and change the time
     this.barPushed = function(context, bar) 
     {
-        if(bar != null)
+
+        if(positionNoteSelected == null)
+        {
+            context.addBar(context, bar, true);
+        }
+
+
+        if(positionNoteSelected != null)
         {
             context.addBar(context, bar);
         }
     }
     
 
-    //Get the note of the table currently pressed and change the note
-    this.notePushed = function(context, note) 
-    {
-        if(positionNoteSelected != null)
-        {
-            context.changeNoteSelected(context, note, false);
-        }
-    }
-
     //Get the button of the table pushed and add the dot to the note
     this.dotPushed = function(context)
     {
         if(positionNoteSelected == null)
         {
-            context.clickExistingElement(context, context.drawIncipitElements.length - 1);
+            context.addDot(context, true);
         }
 
         if(positionNoteSelected != null)
@@ -911,7 +922,7 @@ function CanvasClass ()
     {
         if(positionNoteSelected == null)
         {
-            context.clickExistingElement(context, context.drawIncipitElements.length - 1);
+            context.addAlteration(context, alteration, true);
         }
 
         if(positionNoteSelected != null)
@@ -919,7 +930,6 @@ function CanvasClass ()
             context.addAlteration(context, alteration);
         }
     }
-
 
     //It change the current note selected
     this.changeNoteSelected = function(context, note, isClef)
@@ -957,76 +967,84 @@ function CanvasClass ()
     }
 
     //Add the alteration on the current note
-    this.addAlteration = function(context, currentAlteration)
+    this.addAlteration = function(context, currentAlteration, lastElement)
     {
         var alteration = context.incipit.getAlterationByValue(currentAlteration);
-        for(var i=0; i < context.drawIncipitElements.length; i++)
-        {
-            if(i == positionNoteSelected
-                && !context.incipit.getNoteByName(context.drawIncipitElements[i].noteName).isRest)
+        //for(var i=0; i < context.drawIncipitElements.length; i++)
+        //{
+
+            if(positionNoteSelected != null || lastElement == true)
             {
-                if(context.drawIncipitElements[i].isClef) 
+                var index = context.drawIncipitElements.length - 1;
+                if(positionNoteSelected != null) index = positionNoteSelected;
+
+                if(context.incipit.getNoteByName(context.drawIncipitElements[index].noteName).isRest) return;
+
+                if(context.drawIncipitElements[index].isClef) 
                 {
-                    context.drawIncipitElements[i].alterationName = "becuadro";
+                    context.drawIncipitElements[index].alterationName = "becuadro";
 
                     if(alteration.name != "sostenido" && alteration.name != "bemol") return;
 
-                    context.drawIncipitElements[i].alterationName = alteration.name;
+                    context.drawIncipitElements[index].alterationName = alteration.name;
 
-                    if(context.drawIncipitElements[i].qtyAlteration < 7)
+                    if(context.drawIncipitElements[index].qtyAlteration < 7)
                     {
-                        context.drawIncipitElements[i].qtyAlteration += 1;
+                        context.drawIncipitElements[index].qtyAlteration += 1;
 
                         context.setDefaultClefAlt(context,
-                                                context.drawIncipitElements[i].noteName,
-                                                context.drawIncipitElements[i].qtyAlteration,
+                                                context.drawIncipitElements[index].noteName,
+                                                context.drawIncipitElements[index].qtyAlteration,
                                                 alteration.name)
                     }
                 }
                 else
                 {
-                    if(context.drawIncipitElements[i].qtyAlteration == 1
-                    && context.drawIncipitElements[i].alterationName == alteration.name)
+                    if(context.drawIncipitElements[index].qtyAlteration == 1
+                    && context.drawIncipitElements[index].alterationName == alteration.name)
                     {
-                        context.drawIncipitElements[i].qtyAlteration = 0;
-                        context.drawIncipitElements[i].alterationName = "becuadro";
+                        context.drawIncipitElements[index].qtyAlteration = 0;
+                        context.drawIncipitElements[index].alterationName = "becuadro";
                     }
                     else
                     {
-                        context.drawIncipitElements[i].qtyAlteration = 1;
-                        context.drawIncipitElements[i].alterationName = alteration.name;
+                        context.drawIncipitElements[index].qtyAlteration = 1;
+                        context.drawIncipitElements[index].alterationName = alteration.name;
                     }
-                    context.setNotesAlterations(context, i, false);
+                    context.setNotesAlterations(context, index, false);
                 } 
                 
-                context.updateDrawPosition(context, positionNoteSelected);
+                context.updateDrawPosition(context, index);
                 context.TransformIncipitToPAEC(context);
             }
-        }
+        //}
 
         context.gDrawingContext.clearRect(0, 0, context.gCanvasElement.width, context.gCanvasElement.height);
         context.drawPentagram(context);
     }
 
-    this.addTime = function(context, currentTime)
+    this.addTime = function(context, currentTime, lastElement)
     {
         var time = context.incipit.getTimeByValue(currentTime);
 
-        if(positionNoteSelected != null
-            && context.drawIncipitElements[positionNoteSelected].isClef)
+        if(positionNoteSelected != null || lastElement)
         {
-            if(context.drawIncipitElements[positionNoteSelected].hasTime == false
-                || context.drawIncipitElements[positionNoteSelected].timeName != time.name)
+            var index = context.drawIncipitElements.length - 1;
+            if(positionNoteSelected != null) index = positionNoteSelected;
+            if(!context.drawIncipitElements[index].isClef) return;
+
+            if(context.drawIncipitElements[index].hasTime == false
+                || context.drawIncipitElements[index].timeName != time.name)
             {
-                context.drawIncipitElements[positionNoteSelected].hasTime = true;
-                context.drawIncipitElements[positionNoteSelected].timeName = time.name;
+                context.drawIncipitElements[index].hasTime = true;
+                context.drawIncipitElements[index].timeName = time.name;
             }
-            else if(context.drawIncipitElements[positionNoteSelected].timeName == time.name)
+            else if(context.drawIncipitElements[index].timeName == time.name)
             {
-                context.drawIncipitElements[positionNoteSelected].hasTime = false;
+                context.drawIncipitElements[index].hasTime = false;
             }
 
-            context.updateDrawPosition(context, positionNoteSelected);
+            context.updateDrawPosition(context, index);
             context.TransformIncipitToPAEC(context);
         }
 
@@ -1034,32 +1052,31 @@ function CanvasClass ()
         context.drawPentagram(context);
     }
 
-    this.addBar = function(context, currentBar)
+    this.addBar = function(context, currentBar, lastElement)
     {
         var bar = context.incipit.getBarByValue(currentBar);
 
-        if(positionNoteSelected == null)
+        if(positionNoteSelected != null || lastElement == true)
         {
-            positionNoteSelected = context.drawIncipitElements.length - 1;
-        }
+            var index = context.drawIncipitElements.length - 1;
+            if(positionNoteSelected != null) index = positionNoteSelected;
 
-        if(positionNoteSelected != null
-            && !context.drawIncipitElements[positionNoteSelected].isClef)
-        {
-            if(context.drawIncipitElements[positionNoteSelected].hasBar == false
-                || context.drawIncipitElements[positionNoteSelected].barName != bar.name)
+            if(context.drawIncipitElements[index].isClef) return;
+
+            if(context.drawIncipitElements[index].hasBar == false
+                || context.drawIncipitElements[index].barName != bar.name)
             {
-                context.drawIncipitElements[positionNoteSelected].hasBar = true;
-                context.drawIncipitElements[positionNoteSelected].barName = bar.name;
-                context.setNotesAlterations(context, positionNoteSelected + 1, false);
+                context.drawIncipitElements[index].hasBar = true;
+                context.drawIncipitElements[index].barName = bar.name;
+                context.setNotesAlterations(context, index + 1, false);
             }
-            else if(context.drawIncipitElements[positionNoteSelected].barName == bar.name)
+            else if(context.drawIncipitElements[index].barName == bar.name)
             {
-                context.drawIncipitElements[positionNoteSelected].hasBar = false;
-                context.setNotesAlterations(context, positionNoteSelected + 1, false);
+                context.drawIncipitElements[index].hasBar = false;
+                context.setNotesAlterations(context, index + 1, false);
             }
 
-            context.updateDrawPosition(context, positionNoteSelected);
+            context.updateDrawPosition(context, index);
             context.TransformIncipitToPAEC(context);
         }
 
@@ -1069,20 +1086,19 @@ function CanvasClass ()
 
 
     //Add the alteration on the current note
-    this.addDot = function(context)
+    this.addDot = function(context, lastElement)
     {
-        if(positionNoteSelected == null)
-        {
-            positionNoteSelected = context.drawIncipitElements.length - 1;
-        }
 
-        if(positionNoteSelected != null
-            && !context.drawIncipitElements[positionNoteSelected].isClef
-            && !context.incipit.getNoteByName(context.drawIncipitElements[positionNoteSelected].noteName).isRest)
+        if(positionNoteSelected != null || lastElement == true)
         {
-            context.drawIncipitElements[positionNoteSelected].hasDot = !context.drawIncipitElements[positionNoteSelected].hasDot;
+            var index = context.drawIncipitElements.length - 1;
+            if(positionNoteSelected != null) index = positionNoteSelected;
 
-            context.updateDrawPosition(context, positionNoteSelected);
+            if(context.drawIncipitElements[index].isClef 
+            || context.incipit.getNoteByName(context.drawIncipitElements[index].noteName).isRest) return;
+
+            context.drawIncipitElements[index].hasDot = !context.drawIncipitElements[index].hasDot;
+            context.updateDrawPosition(context, index);
             context.TransformIncipitToPAEC(context);
         }
         
