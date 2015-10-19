@@ -948,6 +948,10 @@ function CanvasClass ()
                                                 context.drawIncipitElements[i].noteName,
                                                 context.drawIncipitElements[i].qtyAlteration,
                                                 context.drawIncipitElements[i].alterationName);
+                    }else
+                    {
+                        context.drawIncipitElements[i].qtyAlteration = 0;
+                        context.drawIncipitElements[i].alterationName = "becuadro";
                     }
                 }    
             }

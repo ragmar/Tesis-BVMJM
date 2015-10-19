@@ -292,11 +292,11 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 					</dt>
 					<dd style="margin-left: 130px"></dd>
 					<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
-					<dt style="width: 120px"><?php __('Incipit:');?></dt>
+					<dt style="width: 120px; margin-top: 30px; margin-bottom: -30px;"><?php __('Incipit:');?></dt>
 					<div class="maestro" style="visibility: hidden; height: 0">Font Load</div>
 					<dd style="margin-left: 130px">
 						<?php 
-							echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\"> class=\"maestro\"";
+							echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\" class=\"maestro\" style=\"margin-top: -40px; margin-bottom: -40px;\">";
 						?>
 							<script> 
 								addLoadEvent(

@@ -833,11 +833,11 @@ vertical-align: top;
 				</dd>
 				-->
 					<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
-					<dt><?php __('Incipit:');?></dt>
+					<dt style="margin-top: 30px; margin-bottom: -30px;"><?php __('Incipit:');?></dt>
 					<div class="maestro" style="visibility: hidden; height: 0">Font Load</div>
 					<dd>
 						<?php 
-							echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\"> class=\"maestro\"";
+							echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\" class=\"maestro\" style=\"margin-top: -40px; margin-bottom: -40px;\">";
 						?>
 							<script> 
 								addLoadEvent(
