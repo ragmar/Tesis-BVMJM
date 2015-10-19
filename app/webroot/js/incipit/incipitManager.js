@@ -22,7 +22,7 @@ function IncipitClass()
             //Alterationes
             {name: "doblesostenido",    value: "l", font: 35, xPosition: -13, yPosition: 4, paec: "xx"},
             {name: "bemol",             value: "m", font: 35, xPosition: -13, yPosition: 5, paec: "b"},
-            {name: "doblebemol",        value: "n", font: 35, xPosition: -20, yPosition: 5, paec: "bb"},
+            {name: "doblebemol",        value: "n", font: 35, xPosition: -13, yPosition: 5, paec: "bb"},
             {name: "becuadro",          value: "o", font: 35, xPosition: -13, yPosition: 12, paec: "n"},
             {name: "sostenido",         value: "p", font: 35, xPosition: -13, yPosition: 11, paec: "x"}
         ];
@@ -521,6 +521,21 @@ function CanvasClass ()
     {
         var cursor = context.getCursorPosition(context, event);
 
+        for(var i = 0; i < context.drawXPosition.length; i ++)
+        {
+            if(i == context.drawXPosition.length - 1)
+            {
+                if(cursor.x >= context.drawXPosition[i] - 10 && cursor.x < context.drawXPosition[i] + 30)
+                {
+                    cursor.x = i;
+                }
+            }
+            else if(cursor.x >= context.drawXPosition[i] - 10 && cursor.x < context.drawXPosition[i + 1] - 10)
+            {
+                cursor.x = i;
+            }
+        }
+
         if(!context.clickExistingElement(context, cursor.x))
         {
             context.addNote(context, cursor);
@@ -531,6 +546,14 @@ function CanvasClass ()
     this.hoverOnCanvas = function(context, event)
     {
         var cursor = context.getCursorPosition(context, event);
+
+        if(cursor.x >= context.setDrawPosition(context, context.drawXPosition.length, true))
+        {
+            cursor.x = context.drawXPosition.length;
+        }else
+        {
+            cursor.x = null;
+        }
 
         context.showNote(context, cursor);
     };
@@ -681,6 +704,8 @@ function CanvasClass ()
                                         context.drawIncipitElements[positionNoteSelected].xPosition, 
                                         8);
 
+                position.x = context.drawXPosition[positionNoteSelected];
+
 
                 up.style.top     = position.y - 25 + "px";
                 down.style.top   = position.y + 195 + "px";
@@ -751,7 +776,7 @@ function CanvasClass ()
 
         var note = context.getCurrentNotePressed(context);
 
-        if(cursor.x > context.drawIncipitElements.length - 1 && note != null)
+        if(cursor.x > context.drawXPosition.length - 1 && note != null)
         {
             var eleCoord = context.cursorToElement(context, cursor);
 
