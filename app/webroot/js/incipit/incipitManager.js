@@ -394,15 +394,15 @@ function CanvasClass ()
 
         for(var i = index; i < context.drawXPosition.length; i++)
         {
-            context.setDrawPosition(context, i);
+            context.setDrawPosition(context, i, false);
         }
     }
 
-    this.setDrawPosition = function (context, index)
+    this.setDrawPosition = function (context, index, showNote)
     {
 
-        if(index > context.drawXPosition.length - 1) context.drawXPosition.push(0);
-        if(context.drawIncipitElements[index].isClef) return;
+        if(!showNote && index > context.drawXPosition.length - 1) context.drawXPosition.push(0);
+        if(!showNote && context.drawIncipitElements[index].isClef) return;
 
         var lastElement = context.drawIncipitElements[index - 1];
         var sumAlt = 0;
@@ -410,6 +410,7 @@ function CanvasClass ()
         var sumBar = 0;
         var sumDot = 0;
         var sumNote = 40;
+        var value = 0;
 
         if(lastElement.isClef)   sumNote = 60;
         if(lastElement.hasDot)   sumDot = 5;
@@ -423,7 +424,10 @@ function CanvasClass ()
                 sumAlt += 10;
             }
         }
-        context.drawXPosition[index] = context.drawXPosition[index - 1] + sumNote + sumDot + sumBar + sumAlt + sumTime;
+        value = context.drawXPosition[index - 1] + sumNote + sumDot + sumBar + sumAlt + sumTime
+        if(showNote) return value;
+
+        context.drawXPosition[index] = value;
     }
 
     this.setDefaultClefAlt = function(context, clef, qtyAlteration, alterationName)
@@ -613,7 +617,7 @@ function CanvasClass ()
                                     false,  //hasTime
                                     null); //timeName
 
-            context.setDrawPosition(context, 0);
+            context.setDrawPosition(context, 0, false);
         }
 
         context.setDefaultClefAlt(context, 
@@ -632,7 +636,7 @@ function CanvasClass ()
         var x = Math.round((event.clientX-rect.left)/(rect.right-rect.left)*context.gCanvasElement.width);
         var y = Math.round((event.clientY-rect.top)/(rect.bottom-rect.top)*context.gCanvasElement.height);
 
-        cursor.x = Math.floor(x/context.stepX);
+        cursor.x = Math.floor(x);
         cursor.y = Math.floor(y/context.stepY);
         
         if(cursor.y > context.maxStepY)
@@ -733,7 +737,7 @@ function CanvasClass ()
 
             var index = context.drawIncipitElements.length - 1
 
-            context.setDrawPosition(context, index);
+            context.setDrawPosition(context, index, false);
             context.TransformIncipitToPAEC(context);
         }
 
@@ -775,6 +779,8 @@ function CanvasClass ()
             var notePosition = context.getDrawPosition(context, 
                                                         tempEle.xPosition, 
                                                         tempEle.yPosition);
+
+            notePosition.x = context.setDrawPosition(context, context.drawIncipitElements.length, true);
 
             context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
             context.gDrawingContext.fillText(noteToDraw.value, 
@@ -1141,7 +1147,7 @@ function CanvasClass ()
                                     false,  //hasTime
                                     null); //timeName
 
-        context.setDrawPosition(context, 0);
+        context.setDrawPosition(context, 0, false);
 
         context.setDefaultClefAlt(context, clef.name, 0, "becuadro");
 
@@ -1164,6 +1170,7 @@ function CanvasClass ()
         if(positionNoteSelected != null && positionNoteSelected > 0)
         {
             context.drawIncipitElements.splice(positionNoteSelected, 1);
+            context.drawXPosition.splice(positionNoteSelected, 1);
             for(var i = positionNoteSelected; i < context.drawIncipitElements.length; i++)
             {
                 context.drawIncipitElements[i].xPosition = i;
@@ -2059,7 +2066,7 @@ function CanvasClass ()
                                 hasTime,  //hasTime
                                 timeName); //timeName
 
-            context.setDrawPosition(context, context.drawIncipitElements.length - 1);
+            context.setDrawPosition(context, context.drawIncipitElements.length - 1, false);
 
             if(isClef)
             {
