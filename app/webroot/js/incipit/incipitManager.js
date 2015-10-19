@@ -1334,8 +1334,7 @@ function CanvasClass ()
                                                         context.drawIncipitElements[i].yPosition);
             notePosition.x = context.ratioX(context,context.drawXPosition[i]);
 
-
-            context.noteNeedLine(context, notePosition.x, context.drawIncipitElements[i].yPosition);
+            if(!context.drawIncipitElements[i].isClef) context.noteNeedLine(context, notePosition.x, context.drawIncipitElements[i].yPosition);
 
             //Alteration
             if(context.drawIncipitElements[i].qtyAlteration > 0 && !noteToDraw.isRest)

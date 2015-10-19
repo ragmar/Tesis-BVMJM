@@ -862,7 +862,7 @@ function marc21_decode($camp = null) {
 				<!-- codigo de alejandro -->
 					<?php if (!empty($item['ItemsIncipit']['paec'])) { ?>
 					<dt><?php __('Incipit:');?></dt>
-
+					<div class="maestro" style="visibility: hidden; height: 0">Font Load</div>
 					<dd>
 						<?php 
 							echo "<canvas id= \"canvas" . $item['Item']['id'] . "\" width=\"400\" height=\"160\"> class=\"maestro\"";
