@@ -721,7 +721,7 @@ function CanvasClass ()
 
         var note = context.getCurrentNotePressed(context);
         
-        if(note != null)
+        if(note != null && context.drawXPosition.length < 16)
         {
             var alterationName = "becuadro";
             var eleCoord = context.cursorToElement(context, cursor);
@@ -765,7 +765,7 @@ function CanvasClass ()
 
         var note = context.getCurrentNotePressed(context);
 
-        if(cursor.x > context.drawXPosition.length - 1 && note != null)
+        if(cursor.x > context.drawXPosition.length - 1 && context.drawXPosition.length < 16 &&  note != null)
         {
             var eleCoord = context.cursorToElement(context, cursor);
 
@@ -796,8 +796,11 @@ function CanvasClass ()
 
             notePosition.x = context.setDrawPosition(context, context.drawIncipitElements.length, true);
 
+            var tempFont = noteToDraw.value;
+            if(tempEle.yPosition < 9 && !tempEle.isClef) tempFont = noteToDraw.value.toUpperCase();
+
             context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
-            context.gDrawingContext.fillText(noteToDraw.value, 
+            context.gDrawingContext.fillText(tempFont, 
                                             notePosition.x, 
                                             notePosition.y);
         }
@@ -1083,8 +1086,7 @@ function CanvasClass ()
             var index = context.drawIncipitElements.length - 1;
             if(positionNoteSelected != null) index = positionNoteSelected;
 
-            if(context.drawIncipitElements[index].isClef 
-            || context.incipit.getNoteByName(context.drawIncipitElements[index].noteName).isRest) return;
+            if(context.drawIncipitElements[index].isClef) return;
 
             context.drawIncipitElements[index].hasDot = !context.drawIncipitElements[index].hasDot;
             context.updateDrawPosition(context, index);
@@ -1393,7 +1395,7 @@ function CanvasClass ()
             }
 
             //Dot
-            if(context.drawIncipitElements[i].hasDot && !noteToDraw.isRest)
+            if(context.drawIncipitElements[i].hasDot)
             {
                 var dot = context.incipit.DotNote[0];
                 noteDot = 5;
@@ -1422,11 +1424,14 @@ function CanvasClass ()
                                                 barPosition.y);
             }
 
-            context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
 
             if(context.drawIncipitElements[i].isClef) noteAlteration = 0;
+            var tempFont = noteToDraw.value;
+            if(context.drawIncipitElements[i].yPosition < 9
+                && !context.drawIncipitElements[i].isClef) tempFont = noteToDraw.value.toUpperCase();
 
-            context.gDrawingContext.fillText(noteToDraw.value, 
+            context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
+            context.gDrawingContext.fillText(tempFont, 
                                             notePosition.x - context.ratioX(context, noteAlteration), 
                                             notePosition.y);
 
@@ -1612,13 +1617,12 @@ function CanvasClass ()
     {
         var paecRythm = context.incipit.getPAECByName(note.name);
 
-        if(!note.isRest)
+        if(note.isRest) paecRythm = paecRythm[0];
+        if(noteElement.hasDot) 
         {
-            if(noteElement.hasDot) 
-            {
-                paecRythm += context.incipit.getPAECByName(context.incipit.DotNote[0].name);
-            }
+            paecRythm += context.incipit.getPAECByName(context.incipit.DotNote[0].name);
         }
+
         return paecRythm;
     }
 
@@ -1795,22 +1799,29 @@ function CanvasClass ()
                     lastRythm = paecRythm;
                 }
 
-                var octaveRythm = context.getOctaveNotePAEC(context, 
+                if(note.isRest)
+                {
+                    paecNote = "-";
+                    paecOctave = "";
+                }else
+                {
+                    var octaveRythm = context.getOctaveNotePAEC(context, 
                                                             context.drawIncipitElements[i], 
                                                             note.isRest, 
                                                             clef);
 
-                if(lastOctave == octaveRythm[0])
-                {
-                    octaveRythm[0] = "";
-                }
-                else
-                {
-                    lastOctave = octaveRythm[0];
-                }
+                    if(lastOctave == octaveRythm[0])
+                    {
+                        octaveRythm[0] = "";
+                    }
+                    else
+                    {
+                        lastOctave = octaveRythm[0];
+                    }
 
-                paecOctave  = octaveRythm[0];
-                paecNote    = octaveRythm[1];
+                    paecOctave  = octaveRythm[0];
+                    paecNote    = octaveRythm[1];
+                }
 
                 paecAlteration = context.getAlterationPAEC(context, 
                                                         context.drawIncipitElements[i],
@@ -1868,6 +1879,7 @@ function CanvasClass ()
         var noteName    = "treble";
         var currentClef = "treble";
         var hasDot      = false;    
+        var paecRythm   = "";
 
         for(var index = 0; index < paec.length; index++)
         {
@@ -1952,7 +1964,7 @@ function CanvasClass ()
                 || paec[index] == "4" || paec[index] == "5" || paec[index] == "6" || paec[index] == "7" 
                 || paec[index] == "8" || paec[index] == "9") //if paec[index] is a number
             {
-                var paecRythm = paec[index];
+                paecRythm = paec[index];
                 hasDot = false;
 
                 index = index +1;
@@ -1962,16 +1974,6 @@ function CanvasClass ()
                     hasDot = true;
                     index = index + 1;
                 }
-
-                if(paec[index] == "-")
-                {
-                    paecRythm = paecRythm + paec[index];
-                    index = index + 1;
-                }
-
-                elem = context.incipit.getNoteByPAEC(paecRythm);
-                noteName = elem.name;
-                yPosition = elem.yPosition;
             }
 
             if(paec[index] == "x" || paec[index] == "b" || paec[index] == "n") //ALTERATION de nota
@@ -1992,7 +1994,8 @@ function CanvasClass ()
             }
 
             if(paec[index] == "A" || paec[index] == "B" || paec[index] == "C" 
-                || paec[index] == "D" || paec[index] == "E" || paec[index] == "F" || paec[index] == "G")
+                || paec[index] == "D" || paec[index] == "E" || paec[index] == "F" || paec[index] == "G"
+                || paec[index] == "-")
             {
                 var notesArray           = [ "B", "A", "G", "F", "E", "D", "C"];
                 var position = 0;
@@ -2003,25 +2006,37 @@ function CanvasClass ()
                 //                 'FEDC,BAGFEDC,,BAFEDC,,,B Bass
                 //'''DC''BAGFEDC'BAGFEDC,BAGFEDC,,BAFEDC,,,B
 
-                while(paec[index] != notesArray[i])
+                if(paec[index] == "-")
                 {
-                    i++
+                    elem = context.incipit.getNoteByPAEC(paecRythm + "-");
+                    position = elem.yPosition;
+                }
+                else
+                {
+                    while(paec[index] != notesArray[i])
+                    {
+                        i++
+                    }
+
+                    if(octave == "'''")        position = - 5;
+                    else if(octave == "''")    position = 2;
+                    else if(octave == "'")     position = 9;
+                    else if(octave == ",")     position = 16;
+                    else if(octave == ",,")    position = 23;
+                    else if(octave == ",,,")   position = 30;
+
+                    position = position + i;
+
+                    if(currentClef == "treble") position-=0;
+                    if(currentClef == "alto")   position-=6;
+                    if(currentClef == "bass")   position-=12;
+
+                    elem = context.incipit.getNoteByPAEC(paecRythm);
                 }
 
-                if(octave == "'''")        position = - 5;
-                else if(octave == "''")    position = 2;
-                else if(octave == "'")     position = 9;
-                else if(octave == ",")     position = 16;
-                else if(octave == ",,")    position = 23;
-                else if(octave == ",,,")   position = 30;
-
-                position = position + i;
-
-                if(currentClef == "treble") position-=0;
-                if(currentClef == "alto")   position-=6;
-                if(currentClef == "bass")   position-=12;
-
                 yPosition = position;
+                noteName = elem.name;
+
             }
 
             if(index+1 < paec.length && (paec[index+1] == "/" || paec[index+1] == ":"))
