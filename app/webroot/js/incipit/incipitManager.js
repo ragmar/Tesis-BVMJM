@@ -1,5 +1,4 @@
 var currenteNotePressed = "f";
-var dibujarMallado = false;
 var positionNoteSelected = null;
 var CanvasIncipit = new CanvasClass(); //Define the object Canvas
 
@@ -557,16 +556,6 @@ function CanvasClass ()
 
         context.showNote(context, cursor);
     };
-
-    this.doKeyDown = function(context, event)
-    {
-        if(event.keyCode == 109)
-        {
-            dibujarMallado = !dibujarMallado;
-        }
-
-        context.drawPentagram(context);
-    };
     /*ENDREGION*/
     /*REGION PRIVATE FUNCTIONS*/
     //Starting canvas
@@ -592,19 +581,19 @@ function CanvasClass ()
         context.setStepY(context);
         context.setStepX(context);
 
-        context.gCanvasElement.addEventListener("click", 
-                function(event) { context.clickOnCanvas(context, event) }, 
-                false);
+
+
         if(operation != "list")
         {
             //set the on click function on the canvas
-            //context.gCanvasElement.addEventListener("click", function(event) { context.clickOnCanvas(context, event) } , false);
             //set the mouse hover function on the canvas
             context.gCanvasElement.addEventListener("mousemove", 
                 function(event) { context.hoverOnCanvas(context, event) }, 
                 false);
 
-            window.addEventListener("keypress", function(e) { context.doKeyDown(context, e) }, false );
+            context.gCanvasElement.addEventListener("click", 
+                function(event) { context.clickOnCanvas(context, event) }, 
+                false);
         }
 
         context.gDrawingContext = context.gCanvasElement.getContext("2d");
@@ -1334,8 +1323,6 @@ function CanvasClass ()
                                                         context.drawIncipitElements[i].yPosition);
             notePosition.x = context.ratioX(context,context.drawXPosition[i]);
 
-            if(!context.drawIncipitElements[i].isClef) context.noteNeedLine(context, notePosition.x, context.drawIncipitElements[i].yPosition);
-
             //Alteration
             if(context.drawIncipitElements[i].qtyAlteration > 0 && !noteToDraw.isRest)
             {
@@ -1442,6 +1429,8 @@ function CanvasClass ()
             context.gDrawingContext.fillText(noteToDraw.value, 
                                             notePosition.x - context.ratioX(context, noteAlteration), 
                                             notePosition.y);
+
+            if(!context.drawIncipitElements[i].isClef) context.noteNeedLine(context, notePosition.x - context.ratioX(context, noteAlteration), context.drawIncipitElements[i].yPosition);
         }
 
         if(context.operation == "list")
@@ -1450,50 +1439,6 @@ function CanvasClass ()
         }
         
         context.gDrawingContext.stroke();
-        /* FINISH DRAWING PENTAGRAM */
-
-        /* MALLADO */
-        if(dibujarMallado)
-        {
-            context.gDrawingContext.beginPath();
-            context.gDrawingContext.lineWidth = "1";
-
-            for(var i=0; i<context.gCanvasElement.width; i++)
-            {
-                if(i % context.stepX == 0)
-                {
-                    if( i % context.stepX == 0)
-                    {
-                        context.gDrawingContext.strokeStyle="#0000FF";
-                    }
-                    else
-                    {
-                        context.gDrawingContext.strokeStyle="#000000";
-                    }
-
-                    context.gDrawingContext.moveTo(i, 0);
-                    context.gDrawingContext.lineTo(i, context.gCanvasElement.height);
-                    context.gDrawingContext.stroke();
-                }
-            }
-
-            for(var j=0; j<context.gCanvasElement.height; j=j+8)
-            {
-                context.gDrawingContext.beginPath();
-                context.gDrawingContext.lineWidth="1";
-                context.gDrawingContext.strokeStyle="#000000";
-
-                if(j/8 == context.maxStepY +1 || j/8 == context.minStepY)
-                {
-                    context.gDrawingContext.strokeStyle="#0000FF";
-                }
-
-                context.gDrawingContext.moveTo(0, j);
-                context.gDrawingContext.lineTo(context.gCanvasElement.width, j);
-                context.gDrawingContext.stroke();
-            }
-        }
-        /*FIN DE MALLADO*/
     }
     /*ENDREGION*/
     /*REGION TRANSPOSITION*/
@@ -1882,8 +1827,8 @@ function CanvasClass ()
                                         context.drawIncipitElements[0].alterationName);
 
 
-                var031p += paecOctave+paecAlteration+paecRythm+paecNote+paecBar;
-                paec += paecOctave+paecAlteration+paecRythm+paecNote+paecBar;
+                var031p += paecOctave+paecRythm+paecAlteration+paecNote+paecBar;
+                paec += paecOctave+paecRythm+paecAlteration+paecNote+paecBar;
 
                 lastPositionY = context.drawIncipitElements[i].yPosition
                 paecLastNote = paecNote;
@@ -2003,23 +1948,6 @@ function CanvasClass ()
                 index = index + tempIndex;
             }
 
-            if(paec[index] == "x" || paec[index] == "b" || paec[index] == "n") //ALTERATION de nota
-            {
-                var paecAlteration = paec[index];
-
-                index = index + 1;
-
-                if(paec[index] == "x" || paec[index] == "b")
-                {
-                    paecAlteration = paecAlteration + paec[index];
-                    index = index + 1;
-                }
-
-                elem  = context.incipit.getNoteByPAEC(paecAlteration);
-                alterationName  = elem.name;
-                qtyAlteration   = 1;
-            }
-
             if(paec[index] == "0" || paec[index] == "1" || paec[index] == "2" || paec[index] == "3" 
                 || paec[index] == "4" || paec[index] == "5" || paec[index] == "6" || paec[index] == "7" 
                 || paec[index] == "8" || paec[index] == "9") //if paec[index] is a number
@@ -2040,8 +1968,27 @@ function CanvasClass ()
                     paecRythm = paecRythm + paec[index];
                     index = index + 1;
                 }
+
                 elem = context.incipit.getNoteByPAEC(paecRythm);
                 noteName = elem.name;
+                yPosition = elem.yPosition;
+            }
+
+            if(paec[index] == "x" || paec[index] == "b" || paec[index] == "n") //ALTERATION de nota
+            {
+                var paecAlteration = paec[index];
+
+                index = index + 1;
+
+                if(paec[index] == "x" || paec[index] == "b")
+                {
+                    paecAlteration = paecAlteration + paec[index];
+                    index = index + 1;
+                }
+
+                elem  = context.incipit.getNoteByPAEC(paecAlteration);
+                alterationName  = elem.name;
+                qtyAlteration   = 1;
             }
 
             if(paec[index] == "A" || paec[index] == "B" || paec[index] == "C" 
