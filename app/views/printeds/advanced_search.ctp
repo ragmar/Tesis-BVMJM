@@ -123,7 +123,7 @@ input{
 			<?php echo $this->Form->input('648', array('div' => false, 'label' => false, 'placeholder' => 'Siglo')); ?>
 		</div>
 	</div>
-	<div>
+	<div style="float: left; width: 100%">
 		<table>
 			<tr>
 				<td style="width: 10%;"></td>

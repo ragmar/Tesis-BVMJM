@@ -2,6 +2,8 @@ var currenteNotePressed = "f";
 var positionNoteSelected = null;
 var CanvasIncipit = new CanvasClass(); //Define the object Canvas
 
+var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+
 
 function IncipitClass()
 {
@@ -360,7 +362,10 @@ function CanvasClass ()
     {
         var ratio = context.baseStepY / 320;   // calc ratio
         var size = context.gCanvasElement.height * ratio;   // get font size based on current width
-        context.stepY = size;
+
+        var firefoxPlug = 0;
+        if(isFirefox) firefoxPlug = 0;
+        context.stepY = size - firefoxPlug;
     }
 
     this.setStepX = function(context)
@@ -1249,15 +1254,21 @@ function CanvasClass ()
     //functions that returns the drawing coords of the element
     this.getDrawPosition = function(context, elementX, elementY)
     {
-
         var positionX = elementX * context.stepX;
+        var firefoxPlug = 0;
+        var contextMultiplier = 6;
+        if(isFirefox)
+        {
+            firefoxPlug = 3;
+            contextMultiplier = 5;
+        } 
 
         /*yPosition is between 0 and 18, we multiply by StepY to draw it on the clicked position, but 
         the StepY cause problems not drawing the Note head on the position, that is why the substract
         step*6 + pixelsToAdd occurs, to set it on the mouse position */
         var pixelsToAdd = 2;
         if(context.operation == "list") pixelsToAdd = 0.5;
-        var positionY = (elementY + context.minStepY) * context.stepY - (context.stepY * 6) + pixelsToAdd;
+        var positionY = (elementY + firefoxPlug + context.minStepY) * context.stepY - (context.stepY * contextMultiplier) + pixelsToAdd;
 
         return {x: positionX, y: positionY};
 
@@ -1293,6 +1304,7 @@ function CanvasClass ()
     //Main function that draw incipit
     this.drawPentagram = function(context)
     {   
+        var firefoxPlug = 0; //solves firefox Drawing problem
         //Incipit.gDrawingContext.clearRect(0, 0, Incipit.gCanvasElement.width, Incipit.gCanvasElement.height);
         //Dibujo rayas pentagrama
         context.gDrawingContext.beginPath();
@@ -1330,6 +1342,8 @@ function CanvasClass ()
             notePosition.x = context.ratioX(context,context.drawXPosition[i]);
 
             //Alteration
+            firefoxPlug = 0;
+            if(isFirefox) firefoxPlug = 2;
             if(context.drawIncipitElements[i].qtyAlteration > 0 && !noteToDraw.isRest)
             {
                 var alteration = context.incipit.getAlterationByName(context.drawIncipitElements[i].alterationName);
@@ -1367,7 +1381,7 @@ function CanvasClass ()
                         context.gDrawingContext.fillText(alteration.value, 
                                                         notePosition.x + context.ratioX(context, noteAlteration), 
                                                         notePosition.y + context.ratioY(context, diferentClef)
-                                                        + context.ratioY(context, positionAlteration.y));
+                                                        + context.ratioY(context, positionAlteration.y - firefoxPlug));
                     }
                 }
                 else
@@ -1377,18 +1391,21 @@ function CanvasClass ()
                     context.gDrawingContext.font = context.getFont(context, alteration.font);
                     context.gDrawingContext.fillText(alteration.value, 
                                                     notePosition.x, 
-                                                    notePosition.y + context.ratioY(context, alteration.yPosition));
+                                                    notePosition.y + context.ratioY(context, alteration.yPosition - firefoxPlug));
                 }
             }
 
             //Time (only clef)
             if(context.drawIncipitElements[i].hasTime && context.drawIncipitElements[i].isClef)
             {
+                firefoxPlug = 0;
+                if(isFirefox) firefoxPlug = 3.5;
+
                 var time = context.incipit.getTimeByName(context.drawIncipitElements[i].timeName);
 
                 var timePosition = context.getDrawPosition(context, 
                                                         context.drawIncipitElements[i].xPosition, 
-                                                        time.yPosition);
+                                                        time.yPosition + firefoxPlug);
 
                 timePosition.x = context.drawIncipitElements[i].qtyAlteration * 10; 
 
@@ -1401,13 +1418,15 @@ function CanvasClass ()
             //Dot
             if(context.drawIncipitElements[i].hasDot)
             {
+                firefoxPlug = 0;
+                if(isFirefox) firefoxPlug = 2;
                 var dot = context.incipit.DotNote[0];
                 noteDot = 5;
 
                 context.gDrawingContext.font = context.getFont(context, dot.font);
                 context.gDrawingContext.fillText(dot.value, 
                                                 notePosition.x + context.ratioX(context, dot.xPosition - noteAlteration), 
-                                                notePosition.y + dot.yPosition);
+                                                notePosition.y + dot.yPosition - firefoxPlug);
             }
 
             //Bar
@@ -1421,15 +1440,31 @@ function CanvasClass ()
                                                         bar.yPosition);
 
                 barPosition.x = notePosition.x;
+                firefoxPlug = 0;
+                if(isFirefox) firefoxPlug = 6;
 
-                context.gDrawingContext.font = context.getFont(context, bar.font);
+                context.gDrawingContext.font = context.getFont(context, bar.font + firefoxPlug);
                 context.gDrawingContext.fillText(bar.value, 
                                                 barPosition.x + context.ratioX(context, bar.xPosition + noteDot - noteAlteration),
                                                 barPosition.y);
             }
 
+            firefoxPlug = 0;
+            if(context.drawIncipitElements[i].isClef)
+            {
+                noteAlteration = 0;
+                if(isFirefox)
+                {
+                    firefoxPlug = 2;
+                    notePosition = context.getDrawPosition(context, 
+                                            context.drawIncipitElements[i].xPosition, 
+                                            context.drawIncipitElements[i].yPosition + firefoxPlug);
+                } 
+            }else
+            {
+                context.noteNeedLine(context, notePosition.x - context.ratioX(context, noteAlteration), context.drawIncipitElements[i].yPosition);
+            }
 
-            if(context.drawIncipitElements[i].isClef) noteAlteration = 0;
             var tempFont = noteToDraw.value;
             if(context.drawIncipitElements[i].yPosition < 9
                 && !context.drawIncipitElements[i].isClef) tempFont = noteToDraw.value.toUpperCase();
@@ -1437,9 +1472,7 @@ function CanvasClass ()
             context.gDrawingContext.font = context.getFont(context, noteToDraw.font);
             context.gDrawingContext.fillText(tempFont, 
                                             notePosition.x - context.ratioX(context, noteAlteration), 
-                                            notePosition.y);
-
-            if(!context.drawIncipitElements[i].isClef) context.noteNeedLine(context, notePosition.x - context.ratioX(context, noteAlteration), context.drawIncipitElements[i].yPosition);
+                                            notePosition.y + firefoxPlug);
         }
 
         if(context.operation == "list")
