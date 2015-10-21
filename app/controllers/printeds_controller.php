@@ -983,7 +983,7 @@ function hue ($letter = null) {
 			}
 
 			if (!empty($this->data['ItemsIncipit']['transposition'])) { // Incipit
-				$conditions['ItemsIncipit.transposition LIKE'] = '%' . $this->data['ItemsIncipit']['transposition'] . '%';
+				$conditions['ItemsIncipit.transposition REGEXP'] = '[AB]*' . $this->data['ItemsIncipit']['transposition'] . '[0-9]*';
 			}
 			
 			//debug($conditions); die;
