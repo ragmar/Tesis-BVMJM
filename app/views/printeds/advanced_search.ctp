@@ -145,7 +145,7 @@ input{
 					</div>
 
 					<div style="clear: both;">
-						<label>Armadura de Compás:</label><br />
+						<label>Cifra Indicadora de Compás:</label><br />
 					</div>
 					<div class="maestro" style="clear: both;">		
 						<?php echo $this->Html->link('t', array('action' => 't'), array('id' => 'Time-t', 'class' => 'btn-primary buton-incipit compas-incipit', 'onclick' => 'TimePressed("t"); return false;')); ?>
