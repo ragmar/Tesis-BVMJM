@@ -145,7 +145,7 @@ input{
 					</div>
 
 					<div style="clear: both;">
-						<label>Armadura de Compás:</label><br />
+						<label>Cifra Indicadora de Compás:</label><br />
 					</div>
 					<div class="maestro" style="clear: both;">		
 						<?php echo $this->Html->link('t', array('action' => 't'), array('id' => 'Time-t', 'class' => 'btn-primary buton-incipit compas-incipit', 'onclick' => 'TimePressed("t"); return false;')); ?>
@@ -227,6 +227,10 @@ input{
 					<?php 
 						echo $this->Form->hidden('ItemsIncipit.paec', array('id' => 'incipitPaec', 'label' => false, 'div' => false, 'class' => 'form-control'));
 						echo $this->Form->hidden('ItemsIncipit.transposition', array('id' => 'incipitTransposition', 'label' => false, 'div' => false, 'class' => 'form-control'));
+						echo $this->Form->hidden('ItemsIncipit.paecNoClef', array('id' => 'paecNoClef', 'label' => false, 'div' => false, 'class' => 'form-control'));
+						echo $this->Form->hidden('ItemsIncipit.paecNoRythm', array('id' => 'paecNoRythm', 'label' => false, 'div' => false, 'class' => 'form-control'));
+						echo $this->Form->hidden('ItemsIncipit.paecNoOctave', array('id' => 'paecNoOctave', 'label' => false, 'div' => false, 'class' => 'form-control'));
+						echo $this->Form->hidden('ItemsIncipit.paecNoAlteration', array('id' => 'paecNoAlteration', 'label' => false, 'div' => false, 'class' => 'form-control'));
 						?>
 				</td>
 			</tr>

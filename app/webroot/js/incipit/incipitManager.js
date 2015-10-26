@@ -1745,6 +1745,12 @@ function CanvasClass ()
         var LastAltName          = "";
         var transposition        = "";
 
+        //search variables
+        var paecNoClef           = "";
+        var paecNoRythm          = "";
+        var paecNoOctave         = "";
+        var paecNoAlteration     = "";
+
         var lastAlterationArray = new Array(21);
 
         for(var i = 0; i < 21; i++)
@@ -1878,18 +1884,36 @@ function CanvasClass ()
                 var031p += paecOctave+paecRythm+paecAlteration+paecNote+paecBar;
                 paec += paecOctave+paecRythm+paecAlteration+paecNote+paecBar;
 
+                paecNoClef += paecOctave+paecRythm+paecAlteration+paecNote+paecBar;
+
                 if(!note.isRest)
                 {
                     lastPositionY = context.drawIncipitElements[i].yPosition
                     paecLastNote = paecNote;
                     LastAltName  = context.drawIncipitElements[i].alterationName;
                     lastOctaveUsed = lastOctave;
+
+                    paecNoOctave    += "[\,\'\\:]*"+paecRythm+paecAlteration+paecNote;
+                    paecNoRythm     += "[0-9-\,\'\\:]*"+paecAlteration+paecNote;
+                    paecNoAlteration+= "[0-9-\,\'\\:bxn]*"+paecNote;
                 }
             }
         }
 
         $("#incipitPaec").val(paec);
         $("#incipitTransposition").val(transposition);
+
+        if(context.operation == 'search')
+        {
+            console.log(paecNoClef);
+            console.log(paecNoRythm);
+            console.log(paecNoOctave);
+            console.log(paecNoAlteration);
+            $("#paecNoClef").val("."+paecNoClef +".");
+            $("#paecNoOctave").val("."+paecNoOctave+".");
+            $("#paecNoRythm").val("."+paecNoRythm+".");
+            $("#paecNoAlteration").val("."+paecNoAlteration+".");
+        }
         
         if(context.operation == 'add' || context.operation == 'edit')
         {

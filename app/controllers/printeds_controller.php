@@ -984,19 +984,36 @@ function hue ($letter = null) {
 
 			if (!empty($this->data['ItemsIncipit']['transposition'])) { // Incipit
 				$conditions['ItemsIncipit.transposition REGEXP'] = '[AB]*' . $this->data['ItemsIncipit']['transposition'] . '[0-9]*';
+
+				/*$this->data['ItemsIncipit']['my_created'] = 	'CASE
+	                WHEN ItemsIncipit.paec = '.$this->data['ItemsIncipit']['paec'].' THEN 1
+	                WHEN ItemsIncipit.paec = '.$this->data['ItemsIncipit']['paecNoClef'] .' THEN 2
+	                WHEN ItemsIncipit.paec = '.$this->data['ItemsIncipit']['paecNoRythm'] .' THEN 3
+	                WHEN ItemsIncipit.paec = '.$this->data['ItemsIncipit']['paecNoOctave'] .' THEN 4
+	                WHEN ItemsIncipit.paec = '.$this->data['ItemsIncipit']['paecNoAlteration'] .' THEN 5
+	                ELSE 6
+		       	END';*/
 			}
 			
 			//debug($conditions); die;
 			
 			//$items = $this->Item->find('all', array('conditions' => $conditions));
-			//debug($items); die;
+			debug($this->data);
 			
 			$this->paginate = array(
 				//'limit' => '20',
 				'conditions' => $conditions,
-				'contain' => 'ItemsIncipit' //this is use to fiulter the items incipit
+				'contain' => 'ItemsIncipit', //this is use to fiulter the items incipit
+				'order' => 'CASE
+	                WHEN ItemsIncipit.paec = "'.$this->data['ItemsIncipit']['paec'].'" THEN 1
+	                WHEN ItemsIncipit.paec = "'.$this->data['ItemsIncipit']['paecNoClef'] .'" THEN 2
+	               	WHEN ItemsIncipit.paec = "'.$this->data['ItemsIncipit']['paecNoOctave'] .'" THEN 3
+	                WHEN ItemsIncipit.paec = "'.$this->data['ItemsIncipit']['paecNoRythm'] .'" THEN 4
+	                WHEN ItemsIncipit.paec = "'.$this->data['ItemsIncipit']['paecNoAlteration'] .'" THEN 5
+	                ELSE 6
+		       	END'
 			);
-			
+
 			$this->set('items', $this->paginate('Item'));
 			
 			// Searches.

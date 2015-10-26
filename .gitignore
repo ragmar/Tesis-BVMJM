@@ -2,3 +2,6 @@
 /app/tmp
 /plugins
 /vendors
+app/webroot/covers/
+app/webroot/attachments/
+*.jpg
