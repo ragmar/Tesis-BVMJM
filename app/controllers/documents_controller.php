@@ -362,7 +362,7 @@ class DocumentsController extends AppController {
 				
 			//debug($conditions); die;
 				
-			//$items = $this->Item->find('all', array('conditions' => $conditions));
+			$items = $this->Item->find('all', array('conditions' => $conditions));
 			//debug($items); die;
 				
 			$this->paginate = array(

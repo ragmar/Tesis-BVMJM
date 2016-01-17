@@ -929,21 +929,29 @@ function marc21_decode($camp = null) {
 			<p>N o PDF available</p>
 			</object> -->
 			
-			<?php if ($_SERVER['HTTP_HOST'] != "orpheus.human.ucv.ve"){ ?>
-				<object data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path']; ?>" type="application/pdf" width="100%" height="600px">
+			<?php if(isset($this->params['url']['f'])){ ?>
+				<?php 
+                    $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
+                                // Check if pdf file exists
+                    $infile = @file_get_contents($filePath, FILE_BINARY);
+
+                    if(!empty($infile)){?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] . '&search='.$this->Session->read('Search').'&at' ?>" seamless width="100%" height="600px"></iframe>
+				<?php }else { ?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path']. '&search='.$this->Session->read('Search') ?>" seamless width="100%" height="600px"></iframe>
+				<?php } ?>
 			<?php } else { ?>
-				<object data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path']; ?>" type="application/pdf" width="100%" height="600px">
+				<?php 
+                    $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
+                                // Check if pdf file exists
+                    $infile = @file_get_contents($filePath, FILE_BINARY);
+
+                    if(!empty($infile)){?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] . '&at' ?>" seamless width="100%" height="600px"></iframe>
+				<?php }else { ?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] ?>" seamless width="100%" height="600px"></iframe>
+				<?php } ?>
 			<?php } ?>
-			
-			<br /><br />
-			
-			<div style="text-align: center;">
-				Lamentablemente este navegador no posee un plugin para visualizar PDF's.
-			<br />
-				Instale un plugin para visualizar el PDF. 
-			<br /><br /><br /><br />
-			</div>
-				</object>
 		<?php } ?>
 	<?php } ?>
 	

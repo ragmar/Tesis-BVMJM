@@ -294,7 +294,7 @@ echo $this->Html->script('fullcalendar/fullcalendar');
             </div>
             <div class="col-md-6">
                 <div class="thumbnail">
-                    <?php echo $this->Html->image('nuevo/7.jpg', array('url' => '/', 'class' => 'img-responsive', 'title' => 'Entrar al Módulo de Documentos.')); ?>
+                    <?php echo $this->Html->image('nuevo/7.jpg', array('url' => '/documents', 'class' => 'img-responsive', 'title' => 'Entrar al Módulo de Documentos.')); ?>
                     <div class="caption">
                         <h3>Documentos</h3>
                         <p>El Módulo Documentos contiene una selección de importantes documentos digitalizados vinculados con la música en Venezuela: partidas de bautismo, 

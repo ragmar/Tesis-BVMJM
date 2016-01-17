@@ -60,7 +60,7 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 		<tr>
 			<td style="background-color: <?php echo $color; ?>; text-align: center; width: 80px;">
 			<?php
-				if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] .$this->base."/app/webroot/covers/" . $item['Item']['cover_path']))){
+				if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] . "/".$this->base."/html/app/webroot/covers/" . $item['Item']['cover_path']))){
 					echo $this->Html->image("/app/webroot/covers/" . $item['Item']['cover_path'], array('title' => 'Haga click para ver los detalles.', 'width' => '70px','height'=>'99px', 'url' => array('controller' => 'documents', 'action' => 'view', $item['Item']['id'])));
 				} else {
 					echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => 'documents', 'action' => 'view', $item['Item']['id'])));
@@ -136,7 +136,7 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 					</dd>
 					<?php } ?>
 					<?php if (!empty($item['Item']['653'])) { ?>
-					<dt style="width: 120px"><?php __('Palabras clave:');?></dt>
+					<dt style="width: 120px"><?php __('Palabras claves:');?></dt>
 					<dd style="margin-left: 130px">
 					<?php
 						$matter = marc21_decode($item['Item']['653']);
@@ -350,7 +350,7 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 		</script>
 
 		<div style="clear: both;">		
-			<label>Palabras Clave:</label><br />
+			<label>Palabras Claves:</label><br />
 			<?php echo $this->Form->hidden('PalabrasClave', array('class' => 'form-control', 'label' => 'Palabras Clave')); ?>
 			<?php echo $this->Html->link('A', array('action' => '/A'), array('id' => 'palabras-clave-A', 'class' => 'btn-primary', 'onclick' => '$("#documentsPalabrasClave").val("A"); $("#documentsIndexForm").submit(); return false;')); ?>
 			<?php echo $this->Html->link('B', array('action' => '/B'), array('id' => 'palabras-clave-B', 'class' => 'btn-primary', 'onclick' => '$("#documentsPalabrasClave").val("B"); $("#documentsIndexForm").submit(); return false;')); ?>

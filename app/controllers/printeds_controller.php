@@ -11,7 +11,6 @@ class PrintedsController extends AppController {
 		$this->Auth->allow(
 				'index',
 				'view',
-				'search',
 				'advanced_search',
 				'century',
 				'year',
@@ -983,7 +982,7 @@ function hue ($letter = null) {
 			}
 
 			if (!empty($this->data['ItemsIncipit']['transposition'])) { // Incipit
-				$conditions['ItemsIncipit.transposition LIKE'] = '%' . $this->data['ItemsIncipit']['transposition'] . '%';
+				$conditions['ItemsIncipit.transposition REGEXP'] = '[AB]*' . $this->data['ItemsIncipit']['transposition'] . '[0-9]*';
 			}
 			
 			//debug($conditions); die;
@@ -1012,7 +1011,6 @@ function hue ($letter = null) {
 	function view($id = null) {
 		//App::import('Vendor', 'pdf2text');
 
-		
 		//$a = new PDF2Text();
 		//$a->setFilename('C:\xampp\htdocs\tesis\webroot\files\printeds\prueba.pdf');
 		//$a->decodePDF();

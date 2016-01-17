@@ -77,7 +77,7 @@ input{
 		
 		<div style="float: left; width: 100%; text-align: center;">
 			&nbsp;
-			<?php echo $this->Form->input('653', array('div' => false, 'label' => false, 'placeholder' => 'Palabras clave')); ?>
+			<?php echo $this->Form->input('653', array('div' => false, 'label' => false, 'placeholder' => 'Palabras claves')); ?>
 		</div>
 	</div>
 	
@@ -249,7 +249,7 @@ function marc21_decode($camp = null) {
 					?>
 				</dd>
 			<?php if (!empty($item['Item']['653'])) { ?>
-				<dt style="width: 120px"><?php __('Palabras clave:');?></dt>
+				<dt style="width: 120px"><?php __('Palabras claves:');?></dt>
 				<dd style="margin-left: 130px">
 				<?php
 					$matter = marc21_decode($item['Item']['653']);

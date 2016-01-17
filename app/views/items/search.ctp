@@ -52,7 +52,7 @@ function marc21_decode($camp = null) {
 
 <div class="col-md-9 column">
 
-	<h2><?php __('Resultados de la Búsqueda'); ?> <font size="3">(<?php echo count($items); ?> Obras Encontradas)</font></h2>
+	<h2><?php __('Resultados de la Búsqueda'); ?> <font size="3">(<?php echo count($items); ?> obras encontradas)</font></h2>
 	<table class="table">
 	<tr>
 		<th><?php __('Portada');?></th>
@@ -126,28 +126,28 @@ function marc21_decode($camp = null) {
 			<?php
 				if ($_SERVER['HTTP_HOST'] != "orpheus.human.ucv.ve"){
 					if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] .$this->base."/app/webroot/attachments/files/med/" . $item['Item']['cover_path']))){
-						echo $this->Html->image("/app/webroot/attachments/files/med/" . $item['Item']['cover_path'], array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['id'])));
+						echo $this->Html->image("/app/webroot/attachments/files/med/" . $item['Item']['cover_path'], array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['found_pdf']?$item['Item']['id']."?f=".$item['Item']['found_pdf'] : $item['Item']['id']	)));
 					} else {
-						echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['id'])));
+						echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['found_pdf']?$item['Item']['id']."?f=".$item['Item']['found_pdf'] : $item['Item']['id'])));
 					}
 				} else {
 					//echo $_SERVER['DOCUMENT_ROOT'] . "/".$this->base."/html/app/webroot/covers/" . $item['Item']['cover_path'];
 					if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] . "/".$this->base."/html/app/webroot/covers/" . $item['Item']['cover_path']))){
 						if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] . "/".$this->base."/html/app/webroot/covers/" . $item['Item']['cover_path']))){
-							echo $this->Html->image("/app/webroot/covers/" . $item['Item']['cover_path'], array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['id'])));
+							echo $this->Html->image("/app/webroot/covers/" . $item['Item']['cover_path'], array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['found_pdf']?$item['Item']['id']."?f=".$item['Item']['found_pdf'] : $item['Item']['id'])));
 						} else {
-							echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['id'])));
+							echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['found_pdf']?$item['Item']['id']."?f=".$item['Item']['found_pdf'] : $item['Item']['id'])));
 						}
 					} else {
 						if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] . "/".$this->base."/html/app/webroot/attachments/files/med/" . $item['Item']['cover_path']))){
-							echo $this->Html->image("/app/webroot/attachments/files/med/" . $item['Item']['cover_path'], array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['id'])));
+							echo $this->Html->image("/app/webroot/attachments/files/med/" . $item['Item']['cover_path'], array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['found_pdf']?$item['Item']['id']."?f=".$item['Item']['found_pdf'] : $item['Item']['id'])));
 						} else {
-							echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['id'])));
+							echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('title' => 'Haga click para ver los detalles.', 'width' => '70px', 'url' => array('controller' => $controller, 'action' => 'view', $item['Item']['found_pdf']?$item['Item']['id']."?f=".$item['Item']['found_pdf'] : $item['Item']['id'])));
 						}
 					}
 				}
 			?>
-			<?php echo $this->Html->link(__('View', true), array('controller' => $controller, 'action' => 'view', $item['Item']['id'])); ?>
+			<?php echo $this->Html->link(__('View', true), array('controller' => $controller, 'action' => 'view', $item['Item']['found_pdf']?$item['Item']['id']."?f=".$item['Item']['found_pdf'] : $item['Item']['id'])); ?>
 		</td>
 		<td>
 			<dl class="dl-horizontal">

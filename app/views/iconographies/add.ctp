@@ -9939,13 +9939,7 @@ $("#6502i1").change(function(event) {
 	});
 });
 
-//var authors = <?php echo $authors; ?>;
-//var titles = <?php echo $titles; ?>;
-//var places = <?php echo $places; ?>;
-//var editors = <?php echo $editors; ?>;
-//var years = <?php echo $years; ?>;
-//var publications = <?php echo $publications; ?>;
-//var matters = <?php echo $matters; ?>;
+
 </script>
 <?php echo $this->Html->script('autocomplete/jquery.autocomplete.min'); ?>
 <?php echo $this->Html->script('autocomplete/currency-autocomplete'); ?>

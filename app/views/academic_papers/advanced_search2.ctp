@@ -136,9 +136,9 @@ function marc21_decode($camp = null) {
 		<td style="background-color: <?php echo $color; ?>; text-align: center; width: 80px;">
 		<?php
 			if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] . "/tesis/webroot/covers/" . $item['Item']['cover_path']))){
-				echo $this->Html->image("/webroot/covers/" . $item['Item']['cover_path'], array('width' => '70px'));
+				echo $this->Html->image("/app/webroot/covers/" . $item['Item']['cover_path'], array('width' => '70px'));
 			} else {
-				echo $this->Html->image("/webroot/img/sin_portada.jpg", array('width' => '70px'));
+				echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('width' => '70px'));
 			}
 		?>
 		</td>

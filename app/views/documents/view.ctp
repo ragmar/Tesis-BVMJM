@@ -219,20 +219,8 @@ function marc21_decode($camp = null) {
 					?>
 				</dd>
 				<?php } ?>
-				<?php if (!empty($item['Item']['653'])) { ?>
-				<dt><?php __('Materia'); ?>:</dt>
-				<dd>
-					<?php
-						if (!empty($item['Item']['653'])) {
-							$matter = marc21_decode($item['Item']['653']);
-							echo $matter['a'];
-						}
-					?>
-				</dd>
-				<?php } ?>
-				
 				<?php if (!empty($item['Item']['650'])) { ?>
-				<dt><?php __('Temas'); ?>:</dt>
+				<dt><?php __('Materia'); ?>:</dt>
 				<dd>
 					<?php
 						if (!empty($item['Item']['650'])) {
@@ -242,7 +230,18 @@ function marc21_decode($camp = null) {
 					?>
 				</dd>
 				<?php } ?>
-			</dl>
+				<?php if (!empty($item['Item']['653'])) { ?>
+				<dt><?php __('Palabras claves'); ?>:</dt>
+				<dd>
+					<?php
+						if (!empty($item['Item']['653'])) {
+							$matter = marc21_decode($item['Item']['653']);
+							echo $matter['a'];
+						}
+					?>
+				</dd>
+				<?php } ?>
+            </dl>
 		</div>
 	</div>
 	<div class="col-md-3 column">
@@ -283,17 +282,29 @@ function marc21_decode($camp = null) {
 			<p>N o PDF available</p>
 			</object> -->
 			
-			<object data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/files/' . $item['Item']['item_file_path']; ?>" type="application/pdf" width="100%" height="600px">
-			<br /><br />
-			<div style="text-align: center;">
-				Lamentablemente este navegador no posee un plugin para visualizar PDF's.
-			
-</div>
-			<br />
-				Instale un plugin para visualizar el PDF o descargue el archivo <a href="http://<?php echo $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/files/' . $item['Item']['item_file_path']; ?>" target="_blank" title="Descargue el documento en su computadora.">aquí</a>. 
-			<br /><br /><br /><br />
-			</div>
-			</object>
+			<?php if(isset($this->params['url']['f'])){ ?>
+				<?php 
+                    $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
+                                // Check if pdf file exists
+                    $infile = @file_get_contents($filePath, FILE_BINARY);
+
+                    if(!empty($infile)){?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] . '&search='.$this->Session->read('Search').'&at' ?>" seamless width="100%" height="600px"></iframe>
+				<?php }else { ?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path']. '&search='.$this->Session->read('Search') ?>" seamless width="100%" height="600px"></iframe>
+				<?php } ?>
+			<?php } else { ?>
+				<?php 
+                    $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
+                                // Check if pdf file exists
+                    $infile = @file_get_contents($filePath, FILE_BINARY);
+
+                    if(!empty($infile)){?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] . '&at' ?>" seamless width="100%" height="600px"></iframe>
+				<?php }else { ?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] ?>" seamless width="100%" height="600px"></iframe>
+				<?php } ?>
+			<?php } ?>
 			
 		<?php } ?>
 	<?php } else {echo "<div style='text-align: center'>El archivo no tiene formato pdf.</div><br />";} ?>

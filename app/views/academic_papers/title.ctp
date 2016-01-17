@@ -79,14 +79,14 @@ if (!empty($this->data)) { // Si viene de una búsqueda.
 	<tr>
 		<td style="background-color: <?php echo $color; ?>; text-align: center; width: 80px;">
 		<?php
-			if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] . "/".$this->base."/webroot/covers/" . $item['Item']['cover_path']))){
-				echo $this->Html->image("/webroot/covers/" . $item['Item']['cover_path'], array('width' => '70px'));
+			if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] . "/".$this->base."/app/webroot/covers/" . $item['Item']['cover_path']))){
+				echo $this->Html->image("/app/webroot/covers/" . $item['Item']['cover_path'], array('width' => '70px'));
 			} else {
-				echo $this->Html->image("/webroot/img/sin_portada.jpg", array('width' => '70px'));
+				echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('width' => '70px'));
 			}
 
 			//if (!empty($item['ItemsPicture'])){
-				//echo $this->Html->image("/webroot/attachments/files/big/" . $item['ItemsPicture'][0]['picture_file_path'], array('width' => '70px', 'class' => 'img-polaroid zoomTarget', 'data-closeclick' => 'true'));
+				//echo $this->Html->image("/app/webroot/attachments/files/big/" . $item['ItemsPicture'][0]['picture_file_path'], array('width' => '70px', 'class' => 'img-polaroid zoomTarget', 'data-closeclick' => 'true'));
 			//}
 		?>
 		</td>

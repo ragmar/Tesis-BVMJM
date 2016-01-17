@@ -1520,7 +1520,7 @@ especificadas',
 					</div>
 
 					<div style="clear: both;">
-						<label>Cifra Indicadora de Compás:</label><br />
+						<label>Armadura de Compás:</label><br />
 					</div>
 					<div class="maestro" style="clear: both;">		
 						<?php echo $this->Html->link('t', array('action' => 't'), array('id' => 'Time-t', 'class' => 'btn-primary buton-incipit compas-incipit', 'onclick' => 'TimePressed("t"); return false;')); ?>
@@ -14415,13 +14415,7 @@ $("#384i1").bind('keyup change', function(event) {
 	});
 });
 
-//var authors = <?php echo $authors; ?>;
-//var titles = <?php echo $titles; ?>;
-//var places = <?php echo $places; ?>;
-//var editors = <?php echo $editors; ?>;
-//var years = <?php echo $years; ?>;
-//var publications = <?php echo $publications; ?>;
-//var matters = <?php echo $matters; ?>;
+
 </script>
 <?php echo $this->Html->script('autocomplete/jquery.autocomplete.min'); ?>
 <?php echo $this->Html->script('autocomplete/currency-autocomplete'); ?>

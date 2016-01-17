@@ -104,16 +104,16 @@ function marc21_decode($camp = null) {
      	html += '<style type="text/css">#bljaIMGte{float:left;position:relative}</style>';
 		html += '<style type="text/css">#bljaIMGte .bljaIMGtex{width:320px;position:absolute;top:540px;left:14px;}</style>';
      //	html += '<style type="text/css">#caja{color: #fff;background-color: #fff;width: 480px;margin-left: 10px;margin-top:550px;position: absolute;opacity: 0.7;height:90px}</style>';
-     	//html += '<link rel="stylesheet" type="text/css" href="/webroot/css/abyayala/abyayala.css" />';
-     	html += '<link rel="stylesheet" type="text/css" href="/webroot/css/nuevo/bootstrap.min.css" /></head><body>';
+     	//html += '<link rel="stylesheet" type="text/css" href="/app/webroot/css/abyayala/abyayala.css" />';
+     	html += '<link rel="stylesheet" type="text/css" href="/app/webroot/css/nuevo/bootstrap.min.css" /></head><body>';
      	html += '<div class="row">';
      	html += '<div class="container">';
      	html += '<h1> <?php echo $title['a'] ?></h1>';
      	html += '<hr>';
      	html += '<div id="bljaIMGte" >';
-        html += '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>' ;
+        html += '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/files/' . $item['Item']['item_file_path']; ?>' ;
         html += '<div id="caja" style= "color: #fff;background-color: #fff;;width: 502px;margin-left: -1px;margin-top:508px;position: absolute;opacity: 0.7;height:132px"><p style="text-align:center;color: #6C3F30;margin-top:-2px" ><b>Universidad Central de Venezuela </br>Biblioteca Virtual Musicológica "Juan Meserón"</b></p>';	
-        html += '<div id="img" style="margin-left: 130px;width:100px; height: 40px;margin-top:-20px;"> <?php echo $this->Html->image('/webroot/img/iconografia/logo5.png', array('display'=>'block','margin-right'=>'auto','margin-left'=>'auto','width'=> '175px', 'height'=>'46px', 'margin-top'=>'-20px'))?>';
+        html += '<div id="img" style="margin-left: 130px;width:100px; height: 40px;margin-top:-20px;"> <?php echo $this->Html->image('/app/webroot/img/iconografia/logo5.png', array('display'=>'block','margin-right'=>'auto','margin-left'=>'auto','width'=> '175px', 'height'=>'46px', 'margin-top'=>'-20px'))?>';
         html += '</div>';
         html += '</div>';
         html += '</div>';
@@ -163,7 +163,7 @@ function marc21_decode($camp = null) {
 						}
 					} else {
 						if (($item['Item']['cover_name']) && (file_exists($_SERVER['DOCUMENT_ROOT'] . "/".$this->base."/html/app/webroot/covers/" . $item['Item']['cover_path']))){
-							echo $this->Html->image("/app/webrootwebroot/covers/" . $item['Item']['cover_path'], array('width' => '90%', 'title' => $item['Item']['cover_name']));
+							echo $this->Html->image("/app/webroot/covers/" . $item['Item']['cover_path'], array('width' => '90%', 'title' => $item['Item']['cover_name']));
 						} else {
 							echo $this->Html->image("/app/webroot/img/sin_portada.jpg", array('width' => '90%'));
 						}
@@ -220,7 +220,7 @@ function marc21_decode($camp = null) {
 				</dd>
 				<?php } ?>
 				<?php if (!empty($item['Item']['653'])) { ?>
-				<dt><?php __('Palabras Clave'); ?>:</dt>
+				<dt><?php __('Palabras claves'); ?>:</dt>
 				<dd>
 					<?php
 						if (!empty($item['Item']['653'])) {
@@ -267,7 +267,7 @@ function marc21_decode($camp = null) {
 				echo $this->Html->link('Ver Formato MARC21', array('action' => 'marc21/'.$item['Item']['id']), array('class' => 'btn-primary', 'title' => 'Formato MARC21'));
 			?>
 			<?php if (!empty($item['Item']['item_file_path']) && ($this->Session->check('Auth.User') && ($this->Session->read('Auth.User.group_id') != NULL))) { ?>
-				<a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" class="btn-primary" target="_blank" title="Descargue el documento en su computadora.">Descargue Trabajo Acad&eacute;mico</a>
+				<a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/files/' . $item['Item']['item_file_path']; ?>" class="btn-primary" target="_blank" title="Descargue el documento en su computadora.">Descargue Trabajo Acad&eacute;mico</a>
 			<?php } ?>
 		</form>
 	</div>
@@ -276,24 +276,37 @@ function marc21_decode($camp = null) {
 	
 	<?php if ($item['Item']['item_content_type'] == "application/pdf") { ?>
 		<?php if ($item['Item']['item_file_path']) { ?>
-			<!-- <iframe src="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" width="99%" height="600px"></iframe> -->
-			<!-- <iframe src="http://docs.google.com/viewer?url=<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" width="99%" height="600px"></iframe> -->
-			<!-- <object width="99%" height="600" type="application/pdf" data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>">
-			<param name="src" value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" />
+			<!-- <iframe src="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/files/' . $item['Item']['item_file_path']; ?>" width="99%" height="600px"></iframe> -->
+			<!-- <iframe src="http://docs.google.com/viewer?url=<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/files/' . $item['Item']['item_file_path']; ?>" width="99%" height="600px"></iframe> -->
+			<!-- <object width="99%" height="600" type="application/pdf" data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/files/' . $item['Item']['item_file_path']; ?>">
+			<param name="src" value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/files/' . $item['Item']['item_file_path']; ?>" />
 			<p>N o PDF available</p>
 			</object> -->
-			
-			<object data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" type="application/pdf" width="100%" height="600px">
-			<br /><br />
-			<div style="text-align: center;">
-				Lamentablemente este navegador no posee un plugin para visualizar PDF's.
-			
-</div>
-			<br />
-				Instale un plugin para visualizar el PDF o descargue el archivo <a href="http://<?php echo $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" target="_blank" title="Descargue el documento en su computadora.">aquí</a>. 
-			<br /><br /><br /><br />
-			</div>
-			</object>
+
+			<?php if(isset($this->params['url']['f'])){ ?>
+				<?php 
+                    $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
+                                // Check if pdf file exists
+                    $infile = @file_get_contents($filePath, FILE_BINARY);
+
+                    if(!empty($infile)){?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] . '&search='.$this->Session->read('Search').'&at' ?>" seamless width="100%" height="600px"></iframe>
+				<?php }else { ?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path']. '&search='.$this->Session->read('Search') ?>" seamless width="100%" height="600px"></iframe>
+				<?php } ?>
+			<?php } else { ?>
+				<?php 
+                    $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
+                                // Check if pdf file exists
+                    $infile = @file_get_contents($filePath, FILE_BINARY);
+
+                    if(!empty($infile)){?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] . '&at' ?>" seamless width="100%" height="600px"></iframe>
+				<?php }else { ?>
+					<iframe src=" <?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base .'/items/viewer?#&file='.$item['Item']['item_file_path'] ?>" seamless width="100%" height="600px"></iframe>
+				<?php } ?>
+			<?php } ?>
+
 			
 		<?php } ?>
 	<?php } else {echo "<div style='text-align: center'>El archivo no tiene formato pdf.</div><br />";} ?>

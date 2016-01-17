@@ -1642,7 +1642,6 @@ function CanvasClass ()
         }
 
         transposition = difNotes.toString() + ascDesc;
-
         return transposition;
         //12 una octava
 
@@ -1878,10 +1877,13 @@ function CanvasClass ()
                 var031p += paecOctave+paecRythm+paecAlteration+paecNote+paecBar;
                 paec += paecOctave+paecRythm+paecAlteration+paecNote+paecBar;
 
-                lastPositionY = context.drawIncipitElements[i].yPosition
-                paecLastNote = paecNote;
-                LastAltName  = context.drawIncipitElements[i].alterationName;
-                lastOctaveUsed = lastOctave;
+                if(!note.isRest)
+                {
+                    lastPositionY = context.drawIncipitElements[i].yPosition
+                    paecLastNote = paecNote;
+                    LastAltName  = context.drawIncipitElements[i].alterationName;
+                    lastOctaveUsed = lastOctave;
+                }
             }
         }
 

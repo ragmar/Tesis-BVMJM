@@ -72,7 +72,7 @@ class LinksController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 	
-	function link() {
+	function links() {
 		// Lista los enlaces a los usuarios finales.
 		$this->Link->recursive = 0;
 		$links = $this->Link->find('all');

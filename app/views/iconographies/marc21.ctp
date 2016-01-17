@@ -102,6 +102,7 @@ function marc21_decode($camp = null) {
 	//unset($item['ItemsPicture']);
 	//unset($item['UserItems']);
 	unset($item['Item']['id']);
+	unset($item['Item']['type']);
 	unset($item['Item']['user_id']);
 	unset($item['Item']['item_file_path']);
 	unset($item['Item']['item_file_name']);
@@ -114,6 +115,8 @@ function marc21_decode($camp = null) {
 	unset($item['Item']['published']);
 	unset($item['Item']['created']);
 	unset($item['Item']['modified']);
+    unset($item['Item']['converted']);
+    unset($item['Item']['found_pdf']);
 	//debug($item['Item']);
 	foreach ($item['Item'] as $i => $j):
 	//debug($i . " - " . $j);

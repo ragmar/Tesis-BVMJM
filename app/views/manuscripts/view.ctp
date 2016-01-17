@@ -907,14 +907,14 @@ function marc21_decode($camp = null) {
 				echo $this->Form->hidden('item_id', array('type' => 'text', 'value' => $item['Item']['id']));
 				echo $this->Html->link('Ver Formato MARC21', array('action' => 'marc21/'.$item['Item']['id']), array('class' => 'btn-primary', 'title' => 'Formato MARC21'));
 			?>
+			
 			<?php if (!empty($item['Item']['item_file_path'])) { ?>
 					<?php if ($_SERVER['HTTP_HOST'] != "orpheus.human.ucv.ve"){ ?>
-						<a href="http://<?php echo $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path']; ?>" class="btn-primary" target="_blank" title="Descargue el documento en su computadora.">Descargar e Imprimir Partitura</a>
+						<a href="http://<?php echo $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path']; ?>" class="btn-primary" target="_blank" title="Descargue el documento en su computadora.">Descargar Documento</a>
 					<?php } else { ?>
-						<a href="http://<?php echo $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path']; ?>" class="btn-primary" target="_blank" title="Descargue el documento en su computadora.">Descargar e Imprimir Partitura</a>
+						<a href="http://<?php echo $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path']; ?>" class="btn-primary" target="_blank" title="Descargue el documento en su computadora.">Descargar Documento</a>
 					<?php } ?>
-				<?php } ?>
-			
+			<?php } ?>
 			
 		</form>
 	</div>
@@ -922,7 +922,7 @@ function marc21_decode($camp = null) {
 	<div style="clear: both;"><br /></div>
 	
 	<?php if ($item['Item']['item_content_type'] == "application/pdf") { ?>
-		<?php if ($item['Item']['item_file_path']) { ?>
+	<?php if ($item['Item']['item_file_path']) { ?>
 			<!-- <iframe src="<?php //echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" width="99%" height="600px"></iframe> -->
 			<!-- <iframe src="http://docs.google.com/viewer?url=<?php //echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" width="99%" height="600px"></iframe> -->
 			<!-- <object width="99%" height="600" type="application/pdf" data="<?php //echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>">
@@ -930,6 +930,7 @@ function marc21_decode($camp = null) {
 			<p>N o PDF available</p>
 			</object> -->
 			
+			<!-- <object data="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/webroot/files/' . $item['Item']['item_file_path']; ?>" type="application/pdf" width="100%" height="600px"> -->
 			<?php if(isset($this->params['url']['f'])){ ?>
 				<?php 
                     $filePath =  'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/' . $item['Item']['item_file_path'];
@@ -954,21 +955,29 @@ function marc21_decode($camp = null) {
 				<?php } ?>
 			<?php } ?>
 		<?php } ?>
-	<?php } ?>
-	<?php $tipo = explode('/', $item['Item']['item_content_type']); ?>
-	<?php if ($tipo[0] == "image") { ?>
-		<?php if ($_SERVER['HTTP_HOST'] != "orpheus.human.ucv.ve"){ ?>
-				<img src="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/big/' . $item['Item']['item_file_path']; ?>" width="100%">
-			<?php } else { ?>
-				<img src="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->base . '/app/webroot/attachments/files/big/' . $item['Item']['item_file_path']; ?>" width="100%">
-			<?php } ?>
-	<?php } ?>
-		
+	<?php } else {echo " ";} ?>
 </div>
 
 <script type="text/javascript">
-$('#biblioteca').click(function (e) {
-	e.preventDefault();
-	$('#UserItemAddForm').submit();
+$(document).ready(function() {
+	$('#biblioteca').click(function (e) {
+		e.preventDefault();
+		$('#UserItemAddForm').submit();
+	});
+
+	var mas = '<?php echo $masdetalles; ?>';
+	if (mas != '0') {
+		$('#mas').show();
+	}
+	
+	$('#mas').click(function (e) {
+		$("#more").toggle();
+		
+		if ($('#mas').html() == "Ver Más Detalles") {
+			$('#mas').html("Ver Menos Detalles");
+		} else {
+			$('#mas').html("Ver Más Detalles");
+		}
+	});
 });
 </script>	
